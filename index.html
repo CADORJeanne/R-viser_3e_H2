@@ -1,0 +1,1054 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Flashcards de révision 3e : régimes totalitaires et Front populaire (H2).">
+<meta name="theme-color" content="#1E3A8A">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Révise H2">
+<meta name="format-detection" content="telephone=no">
+<title>Flashcards H2 Totalitarismes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout : une colonne centrée façon « boîte à fiches bristol ». Les cartes sont des fiches lignées, chaque thème a sa couleur d'onglet. */
+:root{
+  --paper:#E8EBEE; --card:#FFFFFF; --ink:#18202C; --ink-2:#4F5B6B; --line:#CBD3DC;
+  --rule:#C9DAEE; --margin:#E6A3A3; --accent:#1E3A8A; --accent-ink:#FFFFFF; --gold:#A86A0C;
+  --ok:#15803D; --mid:#B45309; --ko:#B91C1C; --shadow:rgba(24,32,44,.12);
+  --c-def:#0F766E; --c-dates:#A15C07; --c-urss:#B42318; --c-nazi:#4B5565; --c-fp:#1D4ED8; --c-approf:#7C3AED; --c-methode:#4D7C0F;
+  --f-display:"Big Shoulders Display","Arial Narrow","Roboto Condensed",Impact,sans-serif;
+  --f-body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#10151C; --card:#19212B; --ink:#E7EBF0; --ink-2:#9DA9B8; --line:#2C3746;
+  --rule:#22334A; --margin:#5C2E2E; --accent:#9DB7FF; --accent-ink:#0E1626; --gold:#E3B252;
+  --ok:#4ADE80; --mid:#FBBF24; --ko:#F87171; --shadow:rgba(0,0,0,.45);
+  --c-def:#2DD4BF; --c-dates:#F0B429; --c-urss:#F87171; --c-nazi:#A9B4C2; --c-fp:#7EA6FF; --c-approf:#B794F6; --c-methode:#A3E635;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#10151C; --card:#19212B; --ink:#E7EBF0; --ink-2:#9DA9B8; --line:#2C3746;
+  --rule:#22334A; --margin:#5C2E2E; --accent:#9DB7FF; --accent-ink:#0E1626; --gold:#E3B252;
+  --ok:#4ADE80; --mid:#FBBF24; --ko:#F87171; --shadow:rgba(0,0,0,.45);
+  --c-def:#2DD4BF; --c-dates:#F0B429; --c-urss:#F87171; --c-nazi:#A9B4C2; --c-fp:#7EA6FF; --c-approf:#B794F6; --c-methode:#A3E635;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{min-height:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:20px 56px}
+h1,h2,h3{text-wrap:balance;margin:0}
+.mono{font-family:var(--f-mono)}
+.muted{color:var(--ink-2)}
+
+/* ---------- Barre du haut ---------- */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.tab-h2{font-family:var(--f-display);font-weight:900;font-size:30px;line-height:1;padding:6px 10px 4px;border:2.5px solid var(--ink);border-radius:4px;letter-spacing:.02em}
+.brand-txt{min-width:0}
+.brand-txt b{display:block;font-family:var(--f-display);font-weight:800;font-size:21px;line-height:1.05;letter-spacing:.01em;text-transform:uppercase}
+.brand-txt span{font-family:var(--f-mono);font-size:12px;color:var(--ink-2);letter-spacing:.06em;text-transform:uppercase}
+.navbtns{display:flex;gap:8px}
+.ghost{background:transparent;border:1.5px solid var(--line);border-radius:999px;padding:7px 14px;font-size:14px;font-weight:700;display:inline-flex;align-items:center;gap:6px}
+.ghost:hover{border-color:var(--ink-2)}
+
+/* ---------- Tableau de bord ---------- */
+.dash{background:var(--card);border-radius:14px;box-shadow:0 1px 0 var(--line),0 10px 30px -18px var(--shadow);padding:20px;display:grid;gap:18px}
+.player{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.lvl{width:66px;height:66px;flex:none;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:var(--accent-ink);font-family:var(--f-display);font-weight:900;font-size:32px;line-height:1;position:relative}
+.lvl small{position:absolute;bottom:-8px;font-family:var(--f-mono);font-size:10px;background:var(--card);color:var(--ink);border:1.5px solid var(--accent);border-radius:999px;padding:1px 7px;letter-spacing:.06em}
+.pinfo{flex:1;min-width:200px}
+.pname{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.pname h2{font-family:var(--f-display);font-weight:800;font-size:26px;line-height:1.1;text-transform:uppercase;letter-spacing:.01em}
+.namefield{display:flex;gap:6px;align-items:center;margin-top:2px}
+.namefield input{font:inherit;font-size:16px;padding:5px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);width:180px;max-width:100%}
+.xpbar{height:12px;border-radius:999px;background:var(--paper);overflow:hidden;margin-top:8px;border:1px solid var(--line)}
+.xpbar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:999px;transition:width .6s ease}
+.xptxt{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:12px;color:var(--ink-2);margin-top:4px;font-variant-numeric:tabular-nums}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.stat{border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;min-width:0}
+.stat b{display:block;font-family:var(--f-display);font-weight:900;font-size:30px;line-height:1;font-variant-numeric:tabular-nums}
+.stat span{font-size:12.5px;color:var(--ink-2);line-height:1.25;display:block;margin-top:3px}
+.stat.ready b{color:var(--ok)}
+.stat.fire b{color:var(--mid)}
+@media (max-width:560px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+.sec-title{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:26px 0 10px;flex-wrap:wrap}
+.sec-title h3{font-family:var(--f-display);font-weight:800;font-size:22px;text-transform:uppercase;letter-spacing:.02em}
+.linkbtn{background:none;border:0;padding:0;color:var(--accent);font-weight:700;font-size:14px;text-decoration:underline;text-underline-offset:3px}
+
+/* Thèmes = onglets de boîte à fiches */
+.themes{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.theme{--c:var(--accent);text-align:left;background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:12px 12px 10px;display:grid;gap:6px;position:relative;transition:border-color .15s,transform .15s}
+.theme:hover{transform:translateY(-1px)}
+.theme[aria-pressed="true"]{border-color:var(--c);box-shadow:inset 0 0 0 1px var(--c);background:var(--card);background:color-mix(in srgb,var(--c) 7%,var(--card))}
+.theme .th-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.theme .th-name{font-weight:700;font-size:15.5px;line-height:1.2;color:var(--ink)}
+.chk{width:20px;height:20px;border-radius:5px;border:2px solid var(--line);flex:none;display:grid;place-items:center}
+.theme[aria-pressed="true"] .chk{background:var(--c);border-color:var(--c)}
+.theme[aria-pressed="true"] .chk::after{content:"";width:10px;height:5px;border-left:2.5px solid var(--card);border-bottom:2.5px solid var(--card);transform:rotate(-45deg) translate(1px,-1px)}
+.th-meta{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:11.5px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.mbar{height:6px;border-radius:999px;background:var(--paper);overflow:hidden}
+.mbar i{display:block;height:100%;background:var(--c);border-radius:999px}
+.theme .dot{width:10px;height:10px;border-radius:50%;background:var(--c);display:inline-block;margin-right:7px;vertical-align:1px}
+
+/* Modes */
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media (max-width:700px){.modes{grid-template-columns:1fr}}
+.mode{background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:10px;align-content:start}
+.mode h4{margin:0;font-family:var(--f-display);font-weight:800;font-size:22px;text-transform:uppercase;letter-spacing:.02em;display:flex;align-items:center;gap:8px}
+.mode p{margin:0;font-size:14px;color:var(--ink-2);line-height:1.4}
+.seg{display:flex;gap:4px;background:var(--paper);border-radius:999px;padding:3px;width:max-content;max-width:100%}
+.seg button{border:0;background:transparent;border-radius:999px;padding:4px 11px;font-size:13px;font-weight:700;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.seg button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 3px var(--shadow)}
+.go{background:var(--accent);color:var(--accent-ink);border:0;border-radius:10px;padding:11px 14px;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .12s,filter .12s}
+.go:hover{filter:brightness(1.08)}
+.go:active{transform:scale(.98)}
+.go.alt{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.go[disabled]{opacity:.45;cursor:not-allowed}
+.review-banner{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:12px;padding:12px 14px;border-radius:10px;border:1.5px dashed var(--ko);background:var(--card);background:color-mix(in srgb,var(--ko) 6%,var(--card))}
+.review-banner p{margin:0;font-size:14.5px;min-width:0}
+.review-banner .go{background:var(--ko);color:var(--card)}
+
+.badge-strip{display:flex;gap:10px;flex-wrap:wrap}
+
+/* ---------- Session ---------- */
+.sess-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.prog{flex:1;height:10px;background:var(--card);border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--accent);transition:width .35s ease}
+.sess-count{font-family:var(--f-mono);font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.combo{font-family:var(--f-display);font-weight:900;font-size:19px;color:var(--mid);min-width:64px;text-align:right;letter-spacing:.02em}
+.combo.pop{animation:pop .35s ease}
+@keyframes pop{50%{transform:scale(1.35)}}
+
+.stage{perspective:1600px}
+.flip{display:grid;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.2,.75,.25,1);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.flip.flipped{transform:rotateY(180deg)}
+.face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--card);border-radius:14px;box-shadow:0 1px 0 var(--line),0 18px 40px -22px var(--shadow);min-height:340px;display:flex;flex-direction:column;overflow:hidden;--c:var(--accent)}
+.face.back{transform:rotateY(180deg)}
+/* fiche bristol : lignes bleues + marge rouge */
+.ruled{flex:1;display:flex;flex-direction:column;padding:22px 22px 18px 44px;position:relative;
+  background-image:linear-gradient(var(--card) 0 0),repeating-linear-gradient(to bottom,transparent 0 27px,var(--rule) 27px 28px);
+  background-size:2px 100%,100% 100%;background-repeat:no-repeat;background-position:30px 0,0 6px}
+.ruled::before{content:"";position:absolute;left:32px;top:0;bottom:0;width:1.5px;background:var(--margin)}
+.fhead{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 16px;border-bottom:3px solid var(--c);background:var(--card);background:color-mix(in srgb,var(--c) 9%,var(--card))}
+.ftag{font-family:var(--f-mono);font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--c)}
+.fbox{font-family:var(--f-mono);font-size:11.5px;color:var(--ink-2);display:flex;gap:3px;align-items:center}
+.fbox i{width:8px;height:8px;border-radius:2px;background:var(--line);display:inline-block}
+.fbox i.on{background:var(--c)}
+.q{font-weight:700;font-size:clamp(21px,3.6vw,28px);line-height:1.3;margin:auto 0;text-wrap:balance;padding-block:18px}
+.hint{font-family:var(--f-mono);font-size:12px;color:var(--ink-2);text-align:center;letter-spacing:.04em;margin-top:auto}
+.ans-label{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--c);font-weight:600}
+.ans{font-weight:700;font-size:clamp(18px,2.8vw,22px);line-height:1.35;margin:4px 0 10px}
+.det{font-size:15.5px;line-height:1.6;margin:0 0 12px;color:var(--ink)}
+.det ul{margin:4px 0;padding-left:20px}
+.plus{margin-top:auto;border-radius:10px;padding:10px 12px;background:var(--card);background:color-mix(in srgb,var(--c-approf) 8%,var(--card));border:1px solid color-mix(in srgb,var(--c-approf) 30%,var(--card));font-size:14.5px;line-height:1.5}
+.plus b.lab{display:block;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-approf);margin-bottom:2px}
+.qback{font-size:13.5px;color:var(--ink-2);margin:0 0 6px;font-style:italic}
+
+.rate{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.rate button{border:2px solid var(--line);background:var(--card);border-radius:12px;padding:12px 8px;font-weight:700;font-size:15px;display:grid;gap:2px;justify-items:center;transition:transform .1s}
+.rate button small{font-family:var(--f-mono);font-size:11px;font-weight:500;color:var(--ink-2)}
+.rate button:active{transform:scale(.97)}
+.rate .r0{border-color:var(--ko);color:var(--ko)}
+.rate .r1{border-color:var(--mid);color:var(--mid)}
+.rate .r2{border-color:var(--ok);color:var(--ok)}
+.rate .r0:hover{background:var(--card);background:color-mix(in srgb,var(--ko) 8%,var(--card))}
+.rate .r1:hover{background:var(--card);background:color-mix(in srgb,var(--mid) 8%,var(--card))}
+.rate .r2:hover{background:var(--card);background:color-mix(in srgb,var(--ok) 8%,var(--card))}
+.reveal{margin-top:14px;width:100%}
+.keys{text-align:center;font-family:var(--f-mono);font-size:11.5px;color:var(--ink-2);margin-top:10px}
+@media (hover:none){.keys{display:none}}
+.xpfloat{position:fixed;left:50%;top:40%;transform:translateX(-50%);font-family:var(--f-display);font-weight:900;font-size:38px;color:var(--gold);pointer-events:none;animation:xpf .9s ease forwards;z-index:30;text-shadow:0 2px 0 var(--card)}
+@keyframes xpf{0%{opacity:0;transform:translate(-50%,10px)}20%{opacity:1}100%{opacity:0;transform:translate(-50%,-60px)}}
+
+/* QCM */
+.qcm-opts{display:grid;gap:10px;margin-top:14px}
+.opt{text-align:left;background:var(--card);border:2px solid var(--line);border-radius:12px;padding:12px 14px;font-size:15.5px;line-height:1.4;display:flex;gap:12px;align-items:flex-start}
+.opt .l{font-family:var(--f-mono);font-weight:600;width:26px;height:26px;flex:none;border-radius:6px;display:grid;place-items:center;background:var(--paper);font-size:13px}
+.opt:hover:not([disabled]){border-color:var(--ink-2)}
+.opt.good{border-color:var(--ok);background:var(--card);background:color-mix(in srgb,var(--ok) 10%,var(--card))}
+.opt.bad{border-color:var(--ko);background:var(--card);background:color-mix(in srgb,var(--ko) 10%,var(--card))}
+.opt[disabled]{cursor:default}
+.feedback{margin-top:12px;border-radius:12px;padding:12px 14px;background:var(--card);border-left:5px solid var(--ok);font-size:15px}
+.feedback.ko{border-left-color:var(--ko)}
+.feedback b.v{display:block;font-family:var(--f-display);font-size:20px;text-transform:uppercase;letter-spacing:.02em}
+.timer{height:4px;background:var(--line);border-radius:999px;overflow:hidden;margin-top:-2px}
+.timer i{display:block;height:100%;background:var(--gold);width:100%}
+
+/* Frise */
+.frise-pool{display:grid;gap:10px;margin-top:14px}
+.ev{text-align:left;background:var(--card);border:2px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;font-size:15.5px;line-height:1.35;--c:var(--accent)}
+.ev .n{width:32px;height:32px;flex:none;border-radius:50%;border:2px dashed var(--line);display:grid;place-items:center;font-family:var(--f-display);font-weight:900;font-size:19px}
+.ev.picked{border-color:var(--accent)}
+.ev.picked .n{border:0;background:var(--accent);color:var(--accent-ink)}
+.ev .tg{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--c);display:block}
+.ev .yr{margin-left:auto;font-family:var(--f-mono);font-weight:600;font-size:13px;white-space:nowrap}
+.ev.right{border-color:var(--ok)}
+.ev.wrong{border-color:var(--ko)}
+.ev.right .n{background:var(--ok);color:var(--card)}
+.ev.wrong .n{background:var(--ko);color:var(--card)}
+.timeline{position:relative;margin-top:16px;padding-left:22px;display:grid;gap:10px}
+.timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:3px;background:var(--line);border-radius:2px}
+.tl{position:relative;font-size:15px}
+.tl::before{content:"";position:absolute;left:-20px;top:6px;width:11px;height:11px;border-radius:50%;background:var(--c,var(--accent));border:2px solid var(--card)}
+.tl b{font-family:var(--f-mono);font-size:13px;margin-right:8px}
+
+/* Fin de session */
+.endcard{background:var(--card);border-radius:14px;padding:22px;box-shadow:0 1px 0 var(--line),0 18px 40px -22px var(--shadow);display:grid;gap:16px}
+.endcard h2{font-family:var(--f-display);font-weight:900;font-size:clamp(30px,6vw,44px);text-transform:uppercase;line-height:1}
+.endstats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media (max-width:560px){.endstats{grid-template-columns:repeat(2,1fr)}}
+.endstats .stat b.k{color:var(--ko)} .endstats .stat b.m{color:var(--mid)} .endstats .stat b.o{color:var(--ok)} .endstats .stat b.x{color:var(--gold)}
+.miss{display:grid;gap:8px}
+.miss details{border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;--c:var(--accent)}
+.miss summary{cursor:pointer;font-weight:700;font-size:15px;list-style-position:outside}
+.miss summary .ftag{margin-right:8px}
+.miss details p{margin:8px 0 0;font-size:15px}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row .go{flex:1;min-width:180px}
+
+/* Badges */
+.medal{width:92px;display:grid;justify-items:center;gap:6px;text-align:center}
+.medal .disc{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,color-mix(in srgb,var(--gold) 55%,var(--card)),var(--gold));color:var(--card);box-shadow:inset 0 -3px 0 rgba(0,0,0,.18),0 0 0 3px var(--card),0 0 0 5px var(--gold)}
+.medal .disc svg{width:30px;height:30px}
+.medal span{font-size:12px;font-weight:700;line-height:1.2}
+.medal.locked .disc{background:var(--paper);color:var(--ink-2);box-shadow:inset 0 0 0 2px var(--line);opacity:.8}
+.medal.locked span{color:var(--ink-2);font-weight:400}
+.badges-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.bitem{display:flex;gap:12px;align-items:center;background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:12px}
+.bitem .medal{width:auto}
+.bitem .medal .disc{width:52px;height:52px}
+.bitem .medal .disc svg{width:24px;height:24px}
+.bitem b{display:block;font-size:15px}
+.bitem p{margin:0;font-size:13px;color:var(--ink-2);line-height:1.35}
+.bitem.locked b{color:var(--ink-2)}
+.bilan{background:var(--card);border-radius:14px;padding:20px;border:2px solid var(--ink);display:grid;gap:12px;position:relative;overflow:hidden}
+.bilan .stamp{position:absolute;right:14px;top:14px;transform:rotate(8deg);border:3px solid var(--ok);color:var(--ok);font-family:var(--f-display);font-weight:900;font-size:18px;text-transform:uppercase;padding:2px 10px;border-radius:6px;letter-spacing:.04em}
+.bilan h2{font-family:var(--f-display);font-weight:900;font-size:28px;text-transform:uppercase;padding-right:120px}
+.tbars{display:grid;gap:7px}
+.tbar{display:grid;grid-template-columns:150px 1fr 44px;gap:10px;align-items:center;font-size:14px;--c:var(--accent)}
+.tbar .mbar{height:9px}
+.tbar b{font-family:var(--f-mono);font-size:13px;text-align:right;font-variant-numeric:tabular-nums}
+@media (max-width:480px){.tbar{grid-template-columns:110px 1fr 40px;font-size:13px}}
+.danger{background:none;border:1.5px solid var(--ko);color:var(--ko);border-radius:8px;padding:7px 12px;font-weight:700;font-size:13.5px}
+.confirm-box{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:14px}
+
+/* Toast */
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(140%);background:var(--ink);color:var(--paper);border-radius:14px;padding:12px 16px 12px 12px;display:flex;align-items:center;gap:12px;z-index:40;transition:transform .45s cubic-bezier(.2,.9,.3,1.2);max-width:calc(100% - 32px);box-shadow:0 12px 30px -10px var(--shadow)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast .medal .disc{width:46px;height:46px;box-shadow:0 0 0 2px var(--ink),0 0 0 4px var(--gold)}
+.toast .medal .disc svg{width:22px;height:22px}
+.toast small{display:block;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.toast b{font-size:16px}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:35}
+.foot{margin-top:34px;font-size:12.5px;color:var(--ink-2);text-align:center;font-family:var(--f-mono)}
+.fade-in{animation:fin .3s ease}
+@keyframes fin{from{opacity:.4;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .flip{transform:none!important}
+  .face.back{transform:none}
+  .flip .face.back{visibility:hidden}
+  .flip.flipped .face.front{visibility:hidden}
+  .flip.flipped .face.back{visibility:visible}
+}
+
+.plan{display:grid;gap:8px;margin-top:2px}
+.plan>div{border-radius:8px;padding:8px 10px;background:var(--card);background:color-mix(in srgb,var(--c-methode) 7%,var(--card));border:1px solid color-mix(in srgb,var(--c-methode) 25%,var(--card));line-height:1.45}
+.plan>div b{display:block;font-size:.95em}
+.plan .pl-i{background:transparent;border-style:dashed}
+.plan .pl-p b{color:var(--c-methode);text-transform:uppercase;letter-spacing:.02em}
+
+.how{margin-top:16px;background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:16px 18px}
+.how h3{font-family:var(--f-display);font-weight:800;font-size:22px;text-transform:uppercase;letter-spacing:.02em;margin:0 0 8px}
+.how ol{margin:0;padding:0;list-style:none;counter-reset:st;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.how li{counter-increment:st;font-size:14.5px;line-height:1.4;display:grid;gap:4px;align-content:start;min-width:0}
+.how li::before{content:counter(st);width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-family:var(--f-display);font-weight:900;font-size:17px}
+.how p{margin:12px 0 0;font-size:14px;color:var(--ink-2)}
+@media (max-width:640px){.how ol{grid-template-columns:1fr 1fr}}
+
+/* Tactile : pas de zoom au double appui, pas de surlignage gris, pas de sélection en touchant la carte */
+button,.flip,.opt,.ev,.theme{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.flip{-webkit-user-select:none;user-select:none}
+/* Les boutons de notation restent visibles en bas de l'écran, même si le corrigé est long */
+#actions{position:sticky;bottom:0;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));background:linear-gradient(to top,var(--paper) 70%,transparent);z-index:3}
+#actions .rate,#actions .reveal{margin-top:10px}
+/* Écrans peu hauts (téléphone à l'horizontale) */
+@media (max-height:520px){
+  .face{min-height:200px}
+  .q{padding-block:8px;font-size:20px}
+  .ruled{padding-top:12px;padding-bottom:10px}
+  .wrap{padding-block:10px 30px}
+  .rate button{padding:8px 6px}
+}
+/* Tablettes : 4 colonnes de thèmes */
+@media (min-width:760px) and (max-width:1100px){.themes{grid-template-columns:repeat(4,1fr)}}
+
+.namefield select{font:inherit;font-size:16px;padding:5px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);max-width:100%}
+.namefield select.need{border-color:var(--mid);box-shadow:0 0 0 2px color-mix(in srgb,var(--mid) 25%,transparent)}
+.namefield{flex-wrap:wrap}
+</style>
+
+</head>
+<body>
+<script>
+/* Adresse du récepteur Google Sheets (statistiques anonymes) */
+window.H2_STATS_URL = "https://script.google.com/macros/s/AKfycbyyIpY59EXu05C_mLzop50w94Vpw6fELQXTQHtWFP5DZQ3N7KXNg0njtVo8RPXj_DIG/exec";
+</script>
+<main class="wrap" id="app" aria-live="polite"></main>
+<noscript><p style="padding:16px">Active JavaScript pour utiliser les flashcards.</p></noscript>
+<script>
+const THEMES = {
+  def:     {label:"Définitions",           short:"Définition",  color:"var(--c-def)"},
+  dates:   {label:"Dates et repères",      short:"Date",        color:"var(--c-dates)"},
+  urss:    {label:"L'URSS de Staline",     short:"URSS",        color:"var(--c-urss)"},
+  nazi:    {label:"L'Allemagne nazie",     short:"Allemagne",   color:"var(--c-nazi)"},
+  fp:      {label:"Le Front populaire",    short:"France",      color:"var(--c-fp)"},
+  approf:  {label:"Comparer et expliquer", short:"Approfondir", color:"var(--c-approf)"},
+  methode: {label:"Sujets possibles",      short:"Sujet possible",     color:"var(--c-methode)"}
+};
+
+/* t = thème, g = groupe QCM, q = question, a = réponse, d = corrigé détaillé,
+   p = pour aller plus loin, s = réponse courte (QCM), k = année (frise), fl = libellé frise */
+const CARDS = [
+/* ================= DÉFINITIONS ================= */
+{id:"d1",t:"def",g:"def",q:"Définis : <b>régime totalitaire</b>",a:"Régime politique où l'État impose une idéologie officielle, utilise la violence et veut tout contrôler (population, économie, politique).",d:"Retiens les 3 éléments : <b>idéologie</b> officielle, <b>violence</b> (terreur), <b>contrôle total</b>.",p:"Exemples du chapitre : l'URSS de Staline et l'Allemagne nazie d'Hitler.",s:"Régime où l'État impose une idéologie, utilise la violence et veut tout contrôler"},
+{id:"d2",t:"def",g:"def",q:"Définis : <b>démocratie</b>",a:"Régime politique dans lequel le pouvoir appartient au peuple.",d:"Le peuple choisit ses représentants par des élections libres. Les libertés (expression, presse, réunion) sont garanties.",p:"Dans les années 1930, la France reste une démocratie, mais elle est <b>fragilisée</b> par la crise.",s:"Régime dans lequel le pouvoir appartient au peuple"},
+{id:"d3",t:"def",g:"def",q:"Définis : <b>communisme</b>",a:"Idéologie qui veut créer une société égalitaire, sans différence de richesse, sans classe sociale, sans propriété privée (tout appartient à l'État).",d:"C'est l'idéologie officielle de l'URSS, imposée par le Parti communiste.",s:"Société égalitaire, sans classe sociale ni propriété privée"},
+{id:"d4",t:"def",g:"def",q:"Définis : <b>collectivisation</b>",a:"Mise en commun par l'État des moyens de production (terres, machines, usines).",d:"En URSS, les terres des paysans sont regroupées dans de grandes fermes collectives : les <b>kolkhozes</b>.",p:"La collectivisation forcée provoque la famine de 1932-1933 (7 millions de morts).",s:"Mise en commun par l'État des moyens de production"},
+{id:"d5",t:"def",g:"def",q:"Définis : <b>goulag</b>",a:"Camps de travail forcé en URSS où sont déportés les opposants au régime.",d:"Environ <b>20 millions</b> de personnes y sont déportées sous Staline ; <b>1,8 million</b> y meurent.",s:"Camps de travail forcé en URSS pour les opposants"},
+{id:"d6",t:"def",g:"def",q:"Définis : <b>Front populaire</b>",a:"Alliance des partis de gauche (SFIO, radicaux, communistes) au pouvoir en France de mai 1936 à juin 1937.",d:"Son chef de gouvernement est <b>Léon Blum</b> (SFIO).",s:"Alliance des partis de gauche au pouvoir en France (1936-1937)"},
+{id:"d7",t:"def",g:"def",q:"Définis : <b>nazisme</b>",a:"Idéologie d'Hitler : les Allemands appartiennent à la race supérieure des Aryens. Ils doivent éliminer les Juifs qui menaceraient la pureté du peuple allemand.",d:"Le nazisme est une idéologie <b>raciste</b>, <b>antisémite</b> et <b>nationaliste</b>.",p:"Hitler expose ces idées dans <i>Mein Kampf</i>, écrit en prison après le putsch raté de 1923.",s:"Idéologie de la race supérieure aryenne qui veut éliminer les Juifs"},
+{id:"d8",t:"def",g:"def",q:"Définis : <b>racisme</b>",a:"Idée fausse selon laquelle une race serait supérieure à une autre.",d:"Le nazisme est fondé sur le racisme : il prétend que les « Aryens » sont supérieurs.",s:"Croyance en la supériorité d'une race sur une autre"},
+{id:"d9",t:"def",g:"def",q:"Définis : <b>antisémitisme</b>",a:"Haine des Juifs.",d:"En Allemagne nazie : boycott des magasins juifs, lois de Nuremberg (1935), Nuit de Cristal (1938).",p:"En France aussi, Léon Blum est la cible d'attaques antisémites.",s:"Haine des Juifs"},
+{id:"d10",t:"def",g:"def",q:"Définis : <b>nationalisme</b>",a:"Idée de la supériorité de sa nation et de sa défense.",d:"Le nationalisme nazi pousse Hitler à annexer l'Autriche, la Tchécoslovaquie puis à attaquer la Pologne.",s:"Supériorité de la nation et sa défense"},
+{id:"d11",t:"def",g:"def",q:"Définis : <b>pangermanisme</b>",a:"Volonté de réunir dans un seul et même État tous les peuples allemands, et d'étendre le territoire pour satisfaire les besoins en nourriture et matières premières (espace vital).",d:"C'est la forme nazie du nationalisme.",s:"Réunir tous les peuples allemands dans un même État"},
+{id:"d13",t:"def",g:"def",q:"Définis : <b>culte de la personnalité</b>",a:"Propagande qui présente le chef comme un être exceptionnel, admiré et aimé du peuple.",d:"Staline est le « petit père des peuples » ; Hitler est le <i>Führer</i> (le guide).",p:"Moyens : affiches, portraits, statues, films, grands rassemblements, radio.",s:"Propagande qui présente le chef comme un être exceptionnel"},
+{id:"d14",t:"def",g:"def",q:"Définis : <b>propagande</b>",a:"Ensemble des moyens utilisés par un régime pour diffuser son idéologie et convaincre la population.",d:"Affiches, radio, cinéma, presse, école, grands rassemblements, Jeux olympiques de Berlin (1936).",s:"Moyens utilisés pour diffuser l'idéologie et convaincre la population"},
+{id:"d16",t:"def",g:"def",q:"Définis : <b>censure</b>",a:"Contrôle et interdiction par l'État de ce qui est publié ou diffusé (presse, livres, films).",d:"En Allemagne, les livres interdits sont brûlés lors d'<b>autodafés</b> (mai 1933).",s:"Contrôle et interdiction de ce qui est publié ou diffusé"},
+{id:"d17",t:"def",g:"def",q:"Définis : <b>parti unique</b>",a:"Seul parti politique autorisé ; tous les autres sont interdits.",d:"URSS : le Parti communiste. Allemagne : le NSDAP (parti nazi).",s:"Seul parti politique autorisé"},
+{id:"d18",t:"def",g:"def",q:"Définis : <b>planification</b>",a:"L'État fixe les objectifs de production de toute l'économie dans des plans de 5 ans (plans quinquennaux).",d:"En URSS, priorité à l'industrie lourde (acier, charbon), aux chemins de fer et à l'armement.",s:"L'État fixe des objectifs de production sur 5 ans"},
+{id:"d19",t:"def",g:"def",q:"Définis : <b>ligues</b> (France, années 1930)",a:"Mouvements d'extrême droite hostiles à la démocratie parlementaire.",d:"Le 6 février 1934, elles manifestent à Paris et font craindre un coup d'État.",p:"Exemples : les Croix-de-Feu, l'Action française. Le Front populaire les dissout en juin 1936.",s:"Mouvements d'extrême droite hostiles à la démocratie"},
+{id:"d20",t:"def",g:"def",q:"Définis : <b>nationalisation</b>",a:"Une entreprise privée devient la propriété de l'État.",d:"En URSS, toutes les entreprises sont nationalisées. En France, le Front populaire nationalise les industries d'armement et crée la SNCF (1937).",s:"Une entreprise privée devient propriété de l'État"},
+{id:"r1",t:"def",g:"mot",q:"Quel mot désigne : « mise en commun par l'État des moyens de production » ?",a:"La collectivisation.",s:"Collectivisation"},
+{id:"r2",t:"def",g:"mot",q:"Quel mot désigne : « réunir dans un même État tous les peuples allemands » ?",a:"Le pangermanisme.",s:"Pangermanisme"},
+{id:"r3",t:"def",g:"mot",q:"Quel mot désigne : « haine des Juifs » ?",a:"L'antisémitisme.",s:"Antisémitisme"},
+{id:"r4",t:"def",g:"mot",q:"Quel mot désigne : « régime où l'État impose une idéologie, utilise la violence et veut tout contrôler » ?",a:"Un régime totalitaire.",s:"Régime totalitaire"},
+{id:"r5",t:"def",g:"mot",q:"Quel mot désigne : « supériorité de la nation et sa défense » ?",a:"Le nationalisme.",s:"Nationalisme"},
+
+/* ================= DATES ================= */
+{id:"t2",t:"dates",g:"date",q:"Quand Staline prend-il le pouvoir après la mort de Lénine ?",a:"1924",d:"Il élimine ensuite ses rivaux, dont Trotski.",s:"1924",k:1924,fl:"Staline succède à Lénine"},
+{id:"t3",t:"dates",g:"date",q:"Quand Staline obtient-il les <b>pleins pouvoirs</b> ?",a:"1928",d:"Il dirige seul l'URSS de 1928 à sa mort en 1953. C'est aussi le début du premier plan quinquennal.",s:"1928",k:1928,fl:"Staline a les pleins pouvoirs"},
+{id:"t4",t:"dates",g:"date",q:"Quand a lieu la grande <b>famine en URSS</b> ?",a:"1932-1933",d:"Conséquence de la collectivisation forcée : environ <b>7 millions de morts</b>.",p:"L'Ukraine est particulièrement touchée : les Ukrainiens appellent cette famine l'Holodomor.",s:"1932-1933",k:1932.5,fl:"Famine en URSS"},
+{id:"t5",t:"dates",g:"date",q:"Quand a lieu la <b>Grande Terreur</b> en URSS ?",a:"1936-1938",d:"Arrestations massives, procès de Moscou contre les opposants, exécutions, déportations au goulag.",s:"1936-1938",k:1936.9,fl:"Grande Terreur (procès de Moscou)"},
+{id:"t7",t:"dates",g:"date",q:"Quand Hitler est-il nommé <b>chancelier</b> ?",a:"Le 30 janvier 1933",d:"Il est nommé légalement par le président Hindenburg, après les victoires électorales du parti nazi en 1932.",s:"30 janvier 1933",k:1933.08,fl:"Hitler nommé chancelier"},
+{id:"t8",t:"dates",g:"date",q:"Quand Hitler obtient-il les <b>pleins pouvoirs</b> ?",a:"Mars 1933",d:"Après l'incendie du Reichstag (février 1933), dont les nazis accusent les communistes, le Parlement lui vote les pleins pouvoirs.",s:"Mars 1933",k:1933.2,fl:"Hitler a les pleins pouvoirs"},
+{id:"t9",t:"dates",g:"date",q:"Quand ouvre le camp de concentration de <b>Dachau</b> ?",a:"1933",d:"C'est le premier camp de concentration nazi, d'abord destiné aux opposants politiques.",s:"1933",k:1933.25,fl:"Ouverture du camp de Dachau"},
+{id:"t11",t:"dates",g:"date",q:"Quand sont adoptées les <b>lois de Nuremberg</b> ?",a:"1935",d:"Les Juifs perdent la citoyenneté allemande ; les mariages entre Juifs et non-Juifs sont interdits.",s:"1935",k:1935.7,fl:"Lois de Nuremberg"},
+{id:"t12",t:"dates",g:"date",q:"Quelle est la date de la <b>Nuit de Cristal</b> ?",a:"Le 9 novembre 1938",d:"Violences contre les Juifs dans toute l'Allemagne : magasins et maisons pillés, synagogues incendiées, <b>30 000 arrestations</b>.",s:"9 novembre 1938",k:1938.85,fl:"Nuit de Cristal"},
+{id:"t13",t:"dates",g:"date",q:"En quelle année l'Allemagne annexe-t-elle l'<b>Autriche</b> ?",a:"1938",d:"C'est l'<i>Anschluss</i> (mars 1938). La même année, Hitler obtient les Sudètes (Tchécoslovaquie).",p:"En septembre 1939, l'attaque de la Pologne déclenche la Seconde Guerre mondiale.",s:"1938",k:1938.2,fl:"Annexion de l'Autriche"},
+{id:"t14",t:"dates",g:"date",q:"Quand les <b>ligues d'extrême droite</b> manifestent-elles à Paris ?",a:"Le 6 février 1934",d:"La manifestation tourne à l'émeute devant la Chambre des députés. On craint un coup d'État contre la République.",s:"6 février 1934",k:1934.1,fl:"Manifestation des ligues à Paris"},
+{id:"t15",t:"dates",g:"date",q:"Quand le <b>Front populaire</b> gagne-t-il les élections ?",a:"Mai 1936",d:"Léon Blum devient chef du gouvernement en juin 1936.",s:"Mai 1936",k:1936.35,fl:"Victoire du Front populaire"},
+{id:"t16",t:"dates",g:"date",q:"Quand sont signés les <b>accords de Matignon</b> ?",a:"Juin 1936",d:"Congés payés, semaine de 40 heures, hausse des salaires, droit syndical.",s:"Juin 1936",k:1936.45,fl:"Accords de Matignon"},
+{id:"t17",t:"dates",g:"date",q:"Quand prend fin le <b>Front populaire</b> ?",a:"Juin 1937",d:"Léon Blum démissionne : chômage, divisions de la gauche, antisémitisme, guerre d'Espagne.",s:"Juin 1937",k:1937.45,fl:"Fin du Front populaire"},
+{id:"t19",t:"dates",g:null,q:"Que se passe-t-il le <b>30 janvier 1933</b> ?",a:"Hitler est nommé chancelier.",d:"Il arrive au pouvoir légalement, puis transforme l'Allemagne en dictature en quelques mois."},
+{id:"t20",t:"dates",g:null,q:"Que se passe-t-il le <b>6 février 1934</b> ?",a:"Les ligues d'extrême droite manifestent à Paris.",d:"Peur d'un coup d'État : cela pousse les partis de gauche à s'unir (Front populaire)."},
+{id:"t21",t:"dates",g:null,q:"Que se passe-t-il le <b>9 novembre 1938</b> ?",a:"La Nuit de Cristal : violences organisées contre les Juifs en Allemagne.",d:"Magasins et synagogues détruits, 30 000 Juifs arrêtés et envoyés en camps de concentration."},
+{id:"t23",t:"dates",g:null,q:"Que se passe-t-il en <b>1935</b> en Allemagne ?",a:"Les lois de Nuremberg sont adoptées : les Juifs sont exclus de la société allemande.",d:"Les Juifs perdent la citoyenneté allemande et les mariages entre Juifs et non-Juifs sont interdits. C'est une étape majeure de l'antisémitisme d'État nazi."},
+{id:"t22",t:"dates",g:null,q:"Que se passe-t-il en <b>juin 1936</b> en France ?",a:"Les accords de Matignon sont signés.",d:"Grandes réformes sociales : congés payés, 40 heures, hausse des salaires, droit syndical."},
+
+/* ================= URSS ================= */
+{id:"u1",t:"urss",g:"qui",q:"Qui dirige l'URSS de 1928 à 1953 ?",a:"Staline.",d:"Chef unique avec les pleins pouvoirs, à la tête du Parti communiste.",s:"Staline"},
+{id:"u2",t:"urss",g:null,q:"Comment Staline conquiert-il le pouvoir ?",a:"Il succède à Lénine en 1924, puis élimine ses opposants (Trotski).",d:"Il prend le pouvoir de l'intérieur du parti, sans élection libre.",p:"À la différence d'Hitler, Staline n'arrive pas au pouvoir par des élections."},
+{id:"u4",t:"urss",g:null,q:"Comment Staline contrôle-t-il la <b>vie politique</b> ? (3 éléments)",a:"Un chef unique (Staline), un parti unique (le Parti communiste), une idéologie (le communisme).",d:"Ce trio « chef unique / parti unique / idéologie » se retrouve dans l'Allemagne nazie."},
+{id:"u5",t:"urss",g:"mot",q:"Comment s'appellent les grandes fermes collectives créées en URSS ?",a:"Les kolkhozes.",d:"Les paysans doivent y mettre en commun leurs terres et leurs outils.",p:"Les paysans qui résistent, appelés « koulaks », sont déportés ou tués.",s:"Kolkhozes"},
+{id:"u6",t:"urss",g:null,q:"Comment l'État contrôle-t-il l'<b>économie</b> en URSS ?",a:"Collectivisation des terres (kolkhozes), nationalisation des entreprises, planification sur 5 ans.",d:"Priorité donnée à l'industrie lourde, aux chemins de fer et à l'armement, au détriment de la population."},
+{id:"u7",t:"urss",g:"chiffre",q:"Quelle est la conséquence de la collectivisation forcée en 1932-1933 ?",a:"Une famine qui fait environ 7 millions de morts.",d:"Les récoltes sont réquisitionnées par l'État, même quand les paysans n'ont plus de quoi manger.",s:"Famine : 7 millions de morts"},
+{id:"u8",t:"urss",g:null,q:"Quel surnom la propagande donne-t-elle à Staline ?",a:"« Le petit père des peuples ».",d:"C'est un exemple du <b>culte de la personnalité</b> : affiches, portraits, statues partout."},
+{id:"u10",t:"urss",g:"qui",q:"Comment s'appelle la police politique de Staline ?",a:"Le NKVD.",d:"Il surveille la population, arrête, torture et exécute les opposants.",s:"Le NKVD"},
+{id:"u11",t:"urss",g:"chiffre",q:"Quel est le bilan du <b>goulag</b> sous Staline ?",a:"Environ 20 millions de déportés et 1,8 million de morts.",d:"Les déportés travaillent dans des conditions terribles (froid, faim, épuisement).",p:"Ils servent de main-d'œuvre gratuite pour de grands chantiers (canaux, mines, voies ferrées).",s:"20 millions de déportés, 1,8 million de morts"},
+{id:"u12",t:"urss",g:null,q:"Qu'est-ce que la <b>Grande Terreur</b> (1936-1938) ?",a:"Une vague de répression massive : procès de Moscou contre les opposants, exécutions, déportations au goulag.",d:"Les accusés, souvent d'anciens dirigeants communistes, avouent sous la torture des crimes imaginaires.",p:"On estime à environ 700 000 le nombre d'exécutions pendant ces deux années."},
+{id:"u13",t:"urss",g:null,q:"Que représente le symbole du Parti communiste ?",a:"La faucille et le marteau sur fond rouge : l'union des paysans et des ouvriers.",d:"Le rouge est la couleur de la révolution."},
+{id:"u14",t:"urss",g:null,q:"Que signifie le sigle <b>URSS</b> ?",a:"Union des Républiques Socialistes Soviétiques.",d:"En russe, le sigle s'écrit CCCP."},
+{id:"u15",t:"urss",g:null,q:"Comment Staline contrôle-t-il la <b>société</b> ?",a:"Culte de la personnalité, embrigadement des jeunes (Komsomols), censure de la presse et du cinéma, propagande.",d:"Le but est que chacun pense comme le régime le veut."},
+
+/* ================= ALLEMAGNE NAZIE ================= */
+{id:"n1",t:"nazi",g:null,q:"Pourquoi Hitler parvient-il au pouvoir ?",a:"Crise économique des années 1930 (6 millions de chômeurs), rejet du traité de Versailles, victoires électorales du parti nazi en 1932.",d:"Il est nommé chancelier le 30 janvier 1933, de façon <b>légale</b>.",p:"Les Allemands ruinés par la crise sont attirés par ses promesses : travail, ordre, revanche."},
+{id:"n3",t:"nazi",g:null,q:"Qu'est-ce que <b>Mein Kampf</b> ?",a:"Le livre écrit par Hitler en prison après le putsch raté de 1923. Il y expose son idéologie.",d:"Race supérieure aryenne, élimination des Juifs, réunion des peuples allemands, espace vital.",p:"Le titre signifie « Mon combat »."},
+{id:"n5",t:"nazi",g:"qui",q:"Comment s'appelle le parti nazi ?",a:"Le NSDAP : Parti national-socialiste des travailleurs allemands.",d:"Il devient parti unique en 1933. Son symbole : la croix gammée.",s:"Le NSDAP"},
+{id:"n7",t:"nazi",g:"qui",q:"Quelle organisation embrigade la jeunesse allemande ?",a:"Les Jeunesses hitlériennes.",d:"Les jeunes y apprennent l'idéologie nazie, l'obéissance et la préparation militaire.",s:"Les Jeunesses hitlériennes"},
+{id:"n8",t:"nazi",g:"mot",q:"Comment appelle-t-on le fait de brûler publiquement des livres interdits ?",a:"Un autodafé.",d:"En mai 1933, les nazis brûlent les livres d'auteurs juifs ou opposés au régime.",s:"Autodafé"},
+{id:"n9",t:"nazi",g:null,q:"Qu'est-ce que la <b>Gestapo</b> et que sont les <b>SS</b> ?",a:"La Gestapo est la police politique secrète ; les SS sont le service d'ordre du parti nazi.",d:"SS = <i>Schutzstaffel</i>, « escadron de protection ». Ils surveillent, arrêtent et dirigent les camps."},
+{id:"n10",t:"nazi",g:null,q:"Qui sont les victimes de la répression nazie ?",a:"Les opposants (communistes, syndicalistes…), les Juifs, les homosexuels et les handicapés.",p:"Les Tsiganes sont aussi persécutés pour des raisons racistes."},
+{id:"n11",t:"nazi",g:null,q:"Que contiennent les <b>lois de Nuremberg</b> (1935) ?",a:"Les Juifs perdent la citoyenneté allemande ; les mariages entre Juifs et non-Juifs sont interdits.",d:"Avant et après : boycott des magasins juifs (1933), interdiction de nombreux métiers (médecins, armée…)."},
+{id:"n12",t:"nazi",g:null,q:"Que se passe-t-il pendant la <b>Nuit de Cristal</b> ?",a:"Des violences organisées contre les Juifs : magasins et maisons pillés, synagogues incendiées, 30 000 arrestations.",d:"Le nom vient des vitrines brisées qui jonchent les rues. Les Juifs arrêtés sont envoyés en camps de concentration."},
+{id:"n14",t:"nazi",g:null,q:"Quels territoires Hitler annexe-t-il ou attaque-t-il ?",a:"L'Autriche (1938), les Sudètes en Tchécoslovaquie (1938), puis la Pologne (1939).",d:"C'est l'application du pangermanisme et de l'espace vital.",p:"L'invasion de la Pologne, le 1er septembre 1939, déclenche la Seconde Guerre mondiale."},
+{id:"n17",t:"nazi",g:null,q:"Quelles sont les 3 caractéristiques de l'idéologie nazie ?",a:"Un régime raciste, antisémite et nationaliste.",d:"Raciste (race aryenne), antisémite (haine des Juifs), nationaliste (pangermanisme, espace vital)."},
+{id:"n18",t:"nazi",g:"qui",q:"Quel est le titre que prend Hitler, chef unique ?",a:"Le <i>Führer</i> (le guide).",s:"Le Führer"},
+
+/* ================= FRONT POPULAIRE ================= */
+{id:"f1",t:"fp",g:null,q:"Pourquoi la démocratie française est-elle <b>fragilisée</b> au début des années 1930 ?",a:"Crise économique et chômage, instabilité politique (11 gouvernements en 4 ans), menace des ligues d'extrême droite.",d:"Beaucoup de Français doutent que la République puisse résoudre la crise."},
+{id:"f3",t:"fp",g:null,q:"Que se passe-t-il le 6 février 1934 et quelles en sont les conséquences ?",a:"Les ligues d'extrême droite manifestent à Paris ; l'émeute fait craindre un coup d'État.",d:"En réaction, les partis de gauche s'unissent pour défendre la République : c'est la naissance du Front populaire.",p:"L'émeute devant la Chambre des députés fait une quinzaine de morts."},
+{id:"f4",t:"fp",g:null,q:"Quels partis forment le <b>Front populaire</b> ?",a:"La SFIO (socialistes), les radicaux et les communistes.",d:"Ils gagnent les élections de mai 1936."},
+{id:"f5",t:"fp",g:"qui",q:"Qui est le chef du gouvernement du Front populaire ?",a:"Léon Blum (SFIO).",d:"Il est la cible d'attaques antisémites de l'extrême droite.",p:"C'est le premier socialiste et le premier Juif à diriger un gouvernement en France.",s:"Léon Blum"},
+{id:"f6",t:"fp",g:null,q:"Que contiennent les <b>accords de Matignon</b> (juin 1936) ?",a:"Congés payés (2 semaines), semaine de 40 heures, hausse des salaires, droit syndical.",d:"Ils sont signés entre le patronat et les syndicats, sous l'arbitrage du gouvernement Blum.",p:"Ils font suite à d'immenses grèves avec occupation des usines en mai-juin 1936."},
+{id:"f7",t:"fp",g:null,q:"Cite d'autres mesures du Front populaire (hors accords de Matignon).",a:"Création de la SNCF (1937), nationalisations, 3 femmes au gouvernement, auberges de jeunesse.",d:"Le Front populaire développe aussi les loisirs et la culture (sport, cinéma, théâtre)."},
+{id:"f9",t:"fp",g:null,q:"Pourquoi le Front populaire prend-il fin en juin 1937 ?",a:"Raisons économiques (le chômage continue) et politiques (divisions de la gauche, antisémitisme contre Blum, guerre d'Espagne).",d:"Léon Blum démissionne en juin 1937."},
+{id:"f12",t:"fp",g:null,q:"Le Front populaire a-t-il permis de défendre la démocratie ?",a:"Oui : la France reste une démocratie, contrairement à l'Allemagne ou à l'Italie, et obtient des réformes sociales durables.",d:"Mais il ne résout pas la crise économique et la France reste divisée."},
+
+/* ================= APPROFONDIR ================= */
+{id:"a1",t:"approf",g:null,q:"Quels sont les <b>points communs</b> entre l'URSS de Staline et l'Allemagne d'Hitler ?",a:"Un chef unique, un parti unique, une idéologie, le contrôle de l'économie et de la société, la violence et la terreur.",d:"Ce sont deux <b>régimes totalitaires</b>. Pense aux 5 lignes du tableau du cours."},
+{id:"a2",t:"approf",g:null,q:"Quelle est la grande <b>différence d'idéologie</b> entre le communisme et le nazisme ?",a:"Le communisme veut une société égalitaire sans classes ; le nazisme affirme l'inégalité des races.",d:"Les « ennemis » sont différents : en URSS, les bourgeois, les koulaks, les opposants ; en Allemagne, d'abord les Juifs et les opposants."},
+{id:"a3",t:"approf",g:null,q:"Quelle différence dans la <b>conquête du pouvoir</b> entre Staline et Hitler ?",a:"Staline prend le pouvoir à l'intérieur du parti, en éliminant ses rivaux ; Hitler arrive au pouvoir légalement grâce aux élections, puis installe une dictature.",p:"Hitler montre qu'une démocratie peut être détruite de l'intérieur."},
+{id:"a4",t:"approf",g:null,q:"Pourquoi parle-t-on de régime « <b>totalitaire</b> » ?",a:"Parce que l'État veut contrôler la totalité de la vie des individus : politique, économie, travail, loisirs, jeunesse, et même les pensées.",d:"L'individu n'a plus de vie privée libre : il doit servir l'État."},
+{id:"a5",t:"approf",g:null,q:"Pourquoi la crise des années 1930 favorise-t-elle les régimes autoritaires ?",a:"Le chômage et la misère créent de la colère ; les démocraties semblent impuissantes et les extrêmes promettent des solutions simples.",d:"En Allemagne, le vote nazi augmente avec le chômage."},
+{id:"a6",t:"approf",g:null,q:"Compare <b>démocratie</b> et <b>régime totalitaire</b>.",a:"Démocratie : pouvoir au peuple, élections libres, plusieurs partis, libertés. Totalitarisme : un chef, un parti unique, censure, propagande, terreur.",d:"La France des années 1930 est une démocratie fragilisée mais qui résiste."},
+{id:"a9",t:"approf",g:null,q:"Pourquoi la France ne bascule-t-elle pas comme l'Allemagne ?",a:"La gauche s'unit pour défendre la République et gagne les élections de 1936 ; la tradition républicaine est forte.",d:"Le 6 février 1934 a fait peur, mais il a provoqué une réaction démocratique."},
+{id:"a12",t:"approf",g:null,q:"Dans un développement, quels exemples précis citer pour prouver que l'Allemagne nazie utilise la terreur ?",a:"Gestapo et SS, camp de Dachau (1933), lois de Nuremberg (1935), Nuit de Cristal (1938, 30 000 arrestations).",d:"Un bon développement contient des <b>dates</b>, des <b>chiffres</b> et du <b>vocabulaire</b> précis."},
+
+/* ================= MÉTHODE ================= */
+{id:"m8",t:"methode",g:null,q:"Sujet : « Montrez les caractéristiques du régime mis en place en Allemagne entre 1933 et 1945 ». Quel plan ?",a:"I. Un pouvoir totalitaire<br>II. Le contrôle de l'économie et de la société<br>III. Un régime de terreur, raciste, antisémite et nationaliste",d:"<div class=\"plan\"><div class=\"pl-i\"><b>Introduction</b>Crise des années 1930 (6 millions de chômeurs) ; Hitler est nommé chancelier le 30 janvier 1933.</div><div class=\"pl-p\"><b>I. Un pouvoir totalitaire</b>Pleins pouvoirs (mars 1933) ; Hitler devient le <i>Führer</i> ; parti unique (NSDAP) ; idéologie nazie.</div><div class=\"pl-p\"><b>II. Le contrôle de l'économie et de la société</b>Grands travaux et réarmement ; culte de la personnalité, Jeunesses hitlériennes, censure (autodafés), propagande.</div><div class=\"pl-p\"><b>III. Un régime de terreur, raciste, antisémite et nationaliste</b>Gestapo et SS, camp de Dachau (1933) ; lois de Nuremberg (1935), Nuit de Cristal (1938) ; annexions (Autriche, Tchécoslovaquie, Pologne).</div><div class=\"pl-i\"><b>Conclusion</b>L'Allemagne nazie est un régime totalitaire qui mène à la guerre.</div></div>"},
+{id:"m3",t:"methode",g:null,q:"Sujet : « Montrez les caractéristiques du régime mis en place en URSS avec Staline ». Quel plan ?",a:"I. Un pouvoir totalitaire<br>II. Le contrôle de l'économie et de la société<br>III. La violence et la terreur",d:"<div class=\"plan\"><div class=\"pl-i\"><b>Introduction</b>Staline succède à Lénine en 1924, élimine Trotski et obtient les pleins pouvoirs en 1928.</div><div class=\"pl-p\"><b>I. Un pouvoir totalitaire</b>Chef unique (1928-1953) ; parti unique (Parti communiste) ; idéologie communiste.</div><div class=\"pl-p\"><b>II. Le contrôle de l'économie et de la société</b>Collectivisation (kolkhozes), nationalisations, plans de 5 ans, famine de 1932-1933 ; culte de la personnalité (« petit père des peuples »), Komsomols, censure, propagande.</div><div class=\"pl-p\"><b>III. La violence et la terreur</b>NKVD ; Grande Terreur et procès de Moscou (1936-1938) ; goulag : 20 millions de déportés, 1,8 million de morts.</div><div class=\"pl-i\"><b>Conclusion</b>L'URSS de Staline est un régime totalitaire.</div></div>"},
+{id:"m4",t:"methode",g:null,q:"Sujet : « Expliquez dans quelles conditions le Front populaire est arrivé au pouvoir en France et quelle politique il a menée ». Quel plan ?",a:"I. Les conditions de l'arrivée au pouvoir du Front populaire<br>II. La politique menée par le Front populaire",d:"<div class=\"plan\"><div class=\"pl-i\"><b>Introduction</b>Dans les années 1930, la France reste une démocratie mais traverse une crise.</div><div class=\"pl-p\"><b>I. Les conditions de l'arrivée au pouvoir du Front populaire</b>Une démocratie fragilisée : crise économique et chômage, 11 gouvernements en 4 ans, manifestation des ligues le 6 février 1934 (peur d'un coup d'État). En réaction, SFIO, radicaux et communistes s'allient et gagnent les élections de mai 1936 ; Léon Blum devient chef du gouvernement.</div><div class=\"pl-p\"><b>II. La politique menée par le Front populaire</b>Accords de Matignon (juin 1936) : congés payés, semaine de 40 heures, hausse des salaires, droit syndical. Autres mesures : création de la SNCF (1937), nationalisations, 3 femmes au gouvernement, auberges de jeunesse.</div><div class=\"pl-i\"><b>Conclusion</b>Le Front populaire prend fin en juin 1937 (chômage, divisions de la gauche, antisémitisme contre Blum, guerre d'Espagne). Il a cependant défendu la démocratie et obtenu des réformes sociales durables.</div></div>"},
+];
+
+const BADGES = [
+  {id:"first",  name:"Premières fiches",    desc:"Réviser 10 cartes.",                         icon:"card"},
+  {id:"hundred",name:"Centurion des fiches",desc:"Réviser 100 cartes.",                        icon:"stack"},
+  {id:"streak5",name:"En série",            desc:"5 bonnes réponses d'affilée.",               icon:"bolt"},
+  {id:"streak15",name:"Inarrêtable",        desc:"15 bonnes réponses d'affilée.",              icon:"bolt2"},
+  {id:"comeback",name:"Persévérant",        desc:"Réussir 10 cartes que tu avais ratées.",     icon:"loop"},
+  {id:"m_def",  name:"Dictionnaire vivant", desc:"Maîtriser 80 % des définitions.",            icon:"book"},
+  {id:"m_dates",name:"Chronologiste",       desc:"Maîtriser 80 % des dates.",                  icon:"clock"},
+  {id:"m_urss", name:"Spécialiste de l'URSS",desc:"Maîtriser 80 % des cartes URSS.",           icon:"star"},
+  {id:"m_nazi", name:"Spécialiste de l'Allemagne",desc:"Maîtriser 80 % des cartes Allemagne nazie.",icon:"shield"},
+  {id:"m_fp",   name:"Congés payés",        desc:"Maîtriser 80 % des cartes Front populaire.", icon:"sun"},
+  {id:"m_approf",name:"Esprit critique",    desc:"Maîtriser 80 % des cartes « Comparer et expliquer ».",icon:"scale"},
+  {id:"m_methode",name:"Paré pour la rédaction",desc:"Maîtriser 80 % des sujets possibles.",         icon:"pen"},
+  {id:"qcm10",  name:"Sans faute",          desc:"Faire 10/10 au défi QCM.",                   icon:"target"},
+  {id:"frise1", name:"Maître du temps",     desc:"Réussir une frise sans erreur.",             icon:"line"},
+  {id:"frise3", name:"Horloger",            desc:"Réussir 3 frises sans erreur.",              icon:"line2"},
+  {id:"days3",  name:"Régulier",            desc:"Réviser 3 jours différents.",                icon:"cal"},
+  {id:"ready",  name:"Prêt pour l'évaluation",desc:"Atteindre 70 % de maîtrise globale.",      icon:"check"},
+  {id:"master", name:"Historien accompli",  desc:"Maîtriser 100 % des cartes.",                icon:"crown"}
+];
+
+/* Niveaux calculés sur la maîtrise globale (le % « prêt pour l'évaluation ») */
+const LEVELS = [
+  [0,"Je découvre le chapitre"],[.15,"Apprenti historien"],[.45,"Presque prêt"],
+  [.70,"Prêt pour l'évaluation"],[.90,"Expert du chapitre"],[.999,"Légende du H2"]
+];
+
+(function(){
+"use strict";
+const KEY = "h2-totalitarismes-3e-v1";
+/* Classes proposées aux élèves (pour les statistiques par classe) */
+const CLASSES = window.H2_CLASSES || ["3e3", "3e5"];
+const $ = s => document.querySelector(s);
+const app = $("#app");
+const byId = Object.fromEntries(CARDS.map(c => [c.id, c]));
+
+/* ---------- Sauvegarde ---------- */
+function fresh(){ return {name:"", xp:0, cards:{}, badges:{}, days:[], reviewed:0, bestStreak:0, comeback:0, frisePerfect:0, sel:Object.keys(THEMES), size:20}; }
+let S = fresh();
+try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(fresh(), JSON.parse(raw)); } catch(e) {}
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e) {} }
+
+/* ---------- Outils ---------- */
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const box = id => (S.cards[id] || {}).b || 0;
+const cardScore = id => { const b = box(id); return b <= 1 ? 0 : b === 2 ? .4 : b === 3 ? .7 : 1; };
+const mastery = list => list.length ? list.reduce((s, c) => s + cardScore(c.id), 0) / list.length : 0;
+const inTheme = t => CARDS.filter(c => c.t === t);
+const pct = x => Math.round(x * 100);
+const today = () => { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
+const esc = s => String(s).replace(/[&<>"]/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+const strip = s => String(s).replace(/<[^>]+>/g, "");
+
+function level(){
+  const xp = mastery(CARDS);
+  let i = 0; for (let k = 0; k < LEVELS.length; k++) if (xp >= LEVELS[k][0]) i = k;
+  // un niveau atteint reste acquis, même si la maîtrise baisse
+  if (i > (S.lvl || 0)) { S.lvl = i; save(); }
+  i = Math.max(i, S.lvl || 0);
+  const cur = LEVELS[i][0], next = LEVELS[i + 1] ? LEVELS[i + 1][0] : null;
+  return {n:i + 1, name:LEVELS[i][1], cur, next, p: next ? Math.max(0, Math.min(1, (xp - cur) / (next - cur))) : 1};
+}
+function dayStreak(){
+  const set = new Set(S.days); let n = 0; const d = new Date();
+  if (!set.has(today())) d.setDate(d.getDate() - 1);
+  while (true) {
+    const k = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+    if (set.has(k)) { n++; d.setDate(d.getDate() - 1); } else break;
+  }
+  return n;
+}
+function markDay(){ const t = today(); if (!S.days.includes(t)) S.days.push(t); }
+const failedIds = () => CARDS.filter(c => { const r = S.cards[c.id]; return r && r.b === 1; }).map(c => c.id);
+
+/* ---------- Icônes ---------- */
+const P = {
+  card:'<rect x="4" y="6" width="16" height="12" rx="2"/><path d="M8 10h8M8 14h5"/>',
+  stack:'<rect x="6" y="8" width="14" height="11" rx="2"/><path d="M4 15V6a2 2 0 0 1 2-2h10"/>',
+  bolt:'<path d="M13 3 5 14h6l-1 7 8-11h-6z"/>',
+  bolt2:'<path d="M11 2 4 12h5l-1 6 6-9H9z"/><path d="M17 9l-3 5h3l-1 4 4-6h-3z"/>',
+  loop:'<path d="M4 12a8 8 0 0 1 14-5l2 2M20 12a8 8 0 0 1-14 5l-2-2"/><path d="M20 4v5h-5M4 20v-5h5"/>',
+  book:'<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M9 7h6"/>',
+  clock:'<circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/>',
+  star:'<path d="m12 3 2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/>',
+  shield:'<path d="M12 3 5 6v6c0 4 3 7 7 9 4-2 7-5 7-9V6z"/><path d="m9 12 2 2 4-4"/>',
+  sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>',
+  scale:'<path d="M12 4v16M6 20h12M5 8h14"/><path d="m5 8-3 6h6zM19 8l-3 6h6z"/>',
+  pen:'<path d="m4 20 4-1 11-11-3-3L5 16z"/><path d="m14 7 3 3"/>',
+  target:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".8"/>',
+  line:'<path d="M3 12h18"/><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/>',
+  line2:'<path d="M3 8h18M3 16h18"/><circle cx="7" cy="8" r="2"/><circle cx="16" cy="8" r="2"/><circle cx="11" cy="16" r="2"/>',
+  cal:'<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/>',
+  check:'<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>',
+  crown:'<path d="m3 8 4 4 5-7 5 7 4-4-2 11H5z"/>',
+  flip:'<path d="M4 7h11a5 5 0 0 1 0 10H9"/><path d="m8 3-4 4 4 4"/>',
+  quiz:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6M12 17h.01"/>',
+  arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+  back:'<path d="M19 12H5M11 6l-6 6 6 6"/>',
+  medal:'<circle cx="12" cy="14" r="6"/><path d="M8 3h8l-2 5h-4z"/>',
+  fire:'<path d="M12 21c-4 0-7-3-7-7 0-3 2-5 3-7 1 2 2 3 3 3 0-3 1-5 3-7 1 3 5 6 5 11 0 4-3 7-7 7z"/>'
+};
+const ico = (n, sz) => `<svg viewBox="0 0 24 24" width="${sz||20}" height="${sz||20}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${P[n]||""}</svg>`;
+const medal = (b, locked) => `<div class="medal${locked ? " locked" : ""}"><div class="disc">${ico(b.icon, 30)}</div></div>`;
+
+/* ---------- Badges ---------- */
+function checkBadges(ctx){
+  ctx = ctx || {};
+  const got = [];
+  const give = id => { if (!S.badges[id]) { S.badges[id] = today(); got.push(BADGES.find(b => b.id === id)); } };
+  if (S.reviewed >= 10) give("first");
+  if (S.reviewed >= 100) give("hundred");
+  if (S.bestStreak >= 5) give("streak5");
+  if (S.bestStreak >= 15) give("streak15");
+  if (S.comeback >= 10) give("comeback");
+  for (const t of Object.keys(THEMES)) if (mastery(inTheme(t)) >= .8) give("m_" + t);
+  if (ctx.qcmPerfect) give("qcm10");
+  if (S.frisePerfect >= 1) give("frise1");
+  if (S.frisePerfect >= 3) give("frise3");
+  if (S.days.length >= 3) give("days3");
+  const g = mastery(CARDS);
+  if (g >= .7) give("ready");
+  if (g >= .999) give("master");
+  if (got.length) { save(); got.forEach((b, i) => setTimeout(() => toast(b), i * 2600)); }
+}
+let toastEl;
+function toast(b){
+  if (!toastEl) { toastEl = document.createElement("div"); toastEl.className = "toast"; toastEl.setAttribute("role", "status"); document.body.appendChild(toastEl); }
+  toastEl.innerHTML = medal(b) + `<div><small>Badge débloqué</small><b>${esc(b.name)}</b></div>`;
+  requestAnimationFrame(() => toastEl.classList.add("show"));
+  confetti();
+  clearTimeout(toastEl._t); toastEl._t = setTimeout(() => toastEl.classList.remove("show"), 2300);
+}
+function confetti(){
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  let c = $("#confetti"); if (!c) { c = document.createElement("canvas"); c.id = "confetti"; document.body.appendChild(c); }
+  const ctx = c.getContext("2d"), W = c.width = innerWidth, H = c.height = innerHeight;
+  const cs = getComputedStyle(document.documentElement);
+  const cols = ["--gold","--accent","--c-urss","--c-fp","--c-def","--c-approf"].map(v => cs.getPropertyValue(v).trim() || "#c90");
+  const ps = Array.from({length:90}, () => ({x:W/2 + (Math.random()-.5)*80, y:H*.75, vx:(Math.random()-.5)*12, vy:-Math.random()*14-6, r:Math.random()*6+3, c:cols[Math.floor(Math.random()*cols.length)], a:Math.random()*6, s:(Math.random()-.5)*.3}));
+  let f = 0;
+  (function tick(){
+    ctx.clearRect(0,0,W,H);
+    ps.forEach(p => { p.x += p.vx; p.y += p.vy; p.vy += .42; p.vx *= .99; p.a += p.s; ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.a); ctx.fillStyle = p.c; ctx.fillRect(-p.r/2,-p.r/4,p.r,p.r/2); ctx.restore(); });
+    if (++f < 110) requestAnimationFrame(tick); else ctx.clearRect(0,0,W,H);
+  })();
+}
+function xpFloat(n){
+  if (n <= 0) return;
+  const el = document.createElement("div"); el.className = "xpfloat"; el.textContent = "+" + n + " XP";
+  document.body.appendChild(el); setTimeout(() => el.remove(), 950);
+}
+function addXP(n){ S.xp += n; xpFloat(n); }
+
+/* Statistiques anonymes (GoatCounter) : uniquement le nombre de sessions terminées, sans donnée personnelle */
+function track(name){ try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({path: "h2-" + name, title: name, event: true}); } catch(e) {} }
+
+/* Statistiques pédagogiques anonymes (Google Sheets) : classe, mode, score et cartes, jamais le prénom */
+const APP_NAME = "H2 Totalitarismes 3e";
+const STATS_URL = window.H2_STATS_URL || "";
+function deviceType(){
+  try {
+    const touch = matchMedia("(pointer: coarse)").matches;
+    if (!touch) return "ordinateur";
+    return Math.min(screen.width, screen.height) < 600 ? "téléphone" : "tablette";
+  } catch(e) { return ""; }
+}
+function reportVisit(){
+  try {
+    if (!STATS_URL) return;
+    try { if (sessionStorage.getItem("h2-visite")) return; sessionStorage.setItem("h2-visite", "1"); } catch(e) {}
+    fetch(STATS_URL, {method: "POST", mode: "no-cors", keepalive: true, headers: {"Content-Type": "text/plain;charset=utf-8"},
+      body: JSON.stringify({type: "visite", app: APP_NAME, page: location.pathname, appareil: deviceType()})}).catch(() => {});
+  } catch(e) {}
+}
+function report(mode, score, total, results, t0){
+  try {
+    const cartes = Object.entries(results).map(([id, r]) => [id, r, strip(byId[id] ? byId[id].q : "").slice(0, 140)]);
+    if (!STATS_URL || !cartes.length) return;
+    const body = JSON.stringify({app: APP_NAME, classe: S.classe || "", mode, appareil: deviceType(), score, total,
+      duree: Math.round((Date.now() - (t0 || Date.now())) / 1000), cartes});
+    fetch(STATS_URL, {method: "POST", mode: "no-cors", keepalive: true, headers: {"Content-Type": "text/plain;charset=utf-8"}, body}).catch(() => {});
+  } catch(e) {}
+}
+
+/* ---------- Mise à jour d'une carte ---------- */
+function grade(id, r){ // r : 0 raté, 1 presque, 2 su
+  const rec = S.cards[id] || (S.cards[id] = {b:0, ok:0, ko:0});
+  const before = rec.b;
+  if (r === 2) {
+    if (rec.f) { S.comeback++; rec.f = false; }
+    rec.b = Math.min(5, Math.max(before, 1) + 1); rec.ok++;
+  } else if (r === 1) {
+    rec.b = before >= 3 ? before - 1 : Math.max(1, before === 0 ? 1 : before);
+    if (before === 0) rec.b = 1;
+  } else {
+    rec.b = 1; rec.ko++; rec.f = true;
+  }
+  rec.last = Date.now();
+  S.reviewed++; markDay();
+}
+
+/* ---------- Sélection des cartes ---------- */
+function pool(){ return CARDS.filter(c => S.sel.includes(c.t)); }
+function pick(list, n){
+  const now = Date.now();
+  return list.map(c => {
+    const r = S.cards[c.id]; const b = r ? r.b : 0;
+    let pr = b === 0 ? 1.3 : b === 1 ? 0 : b; // les cartes ratées passent en premier, puis les nouvelles
+    if (r && r.last && now - r.last < 8 * 60 * 1000) pr += 1.5;
+    return {c, pr: pr + Math.random() * 1.2};
+  }).sort((a, b) => a.pr - b.pr).slice(0, n).map(x => x.c);
+}
+
+/* =========================================================
+   ACCUEIL
+   ========================================================= */
+let confirmReset = false;
+function home(){
+  view = "home"; stopTimer();
+  const lv = level(), g = mastery(CARDS);
+  const acquired = CARDS.filter(c => box(c.id) >= 3).length;
+  const fails = failedIds().length;
+  const nb = Object.keys(S.badges).length;
+  const sizes = [10, 20, 40, "Tout"];
+  const p = pool();
+  app.innerHTML = `
+  <header class="top">
+    <div class="brand"><div class="tab-h2" aria-hidden="true">H2</div>
+      <div class="brand-txt"><b>Régimes totalitaires et démocraties fragilisées</b><span>3e · 1919-1939 · Révisions</span></div></div>
+    <div class="navbtns"><button class="ghost" id="toBadges">${ico("medal",16)} Badges et bilan</button></div>
+  </header>
+
+  <section class="dash fade-in" aria-label="Ta progression">
+    <div class="player">
+      <div class="lvl" title="Niveau ${lv.n} sur ${LEVELS.length}">${lv.n}<small>NIV.</small></div>
+      <div class="pinfo">
+        <div class="pname"><h2>${esc(lv.name)}</h2>${S.name ? `<span class="muted">· ${esc(S.name)}</span>` : ""}</div>
+        ${S.name ? "" : `<form class="namefield" id="nameForm"><label for="nameIn" class="muted" style="font-size:14px">Prénom</label><input id="nameIn" maxlength="24" autocomplete="off" placeholder="pour ton bilan" style="width:140px"><button class="ghost" type="submit">OK</button></form>`}
+        ${CLASSES.length ? `<div class="namefield"><label for="classIn" class="muted" style="font-size:14px">Ma classe</label><select id="classIn" class="${S.classe ? "" : "need"}"><option value="">Choisir…</option>${CLASSES.map(c => `<option${S.classe === c ? " selected" : ""}>${esc(c)}</option>`).join("")}</select></div>` : ""}
+        <div class="xpbar"><i style="width:${pct(lv.p)}%"></i></div>
+        <div class="xptxt"><span>${S.xp} XP</span><span>${lv.next ? "niveau suivant : " + pct(lv.next) + " %" : "niveau maximum"}</span></div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat ready"><b>${pct(g)} %</b><span>prêt pour l'évaluation</span></div>
+      <div class="stat"><b>${acquired}<small class="muted" style="font-size:16px">/${CARDS.length}</small></b><span>cartes acquises</span></div>
+      <div class="stat fire"><b>${dayStreak()}</b><span>jour${dayStreak() > 1 ? "s" : ""} de révision d'affilée</span></div>
+      <div class="stat"><b>${nb}<small class="muted" style="font-size:16px">/${BADGES.length}</small></b><span>badges gagnés</span></div>
+    </div>
+  </section>
+
+  ${fails ? `<div class="review-banner"><p><b>${fails} carte${fails > 1 ? "s" : ""} à retravailler.</b> Ce sont celles que tu as ratées : elles reviennent en priorité.</p><button class="go" id="goFails">${ico("loop",18)} Revoir mes erreurs</button></div>` : ""}
+
+  <section class="how" aria-label="Comment ça marche">
+    <h3>Comment ça marche ?</h3>
+    <ol>
+      <li><span><b>Choisis</b> tes thèmes et un mode de jeu.</span></li>
+      <li><span><b>Lis la question</b>, cherche la réponse dans ta tête, puis retourne la carte.</span></li>
+      <li><span><b>Sois honnête</b> : « Je savais », « Presque » ou « Raté ».</span></li>
+      <li><span><b>Les cartes ratées reviennent</b> plus souvent, jusqu'à ce que tu les saches.</span></li>
+    </ol>
+    <p>Chaque bonne réponse rapporte des points (XP). Enchaîne les bonnes réponses pour gagner plus et débloquer des badges.</p>
+  </section>
+
+  <div class="sec-title"><h3>Choisis tes thèmes</h3><button class="linkbtn" id="allThemes">${S.sel.length === 7 ? "Tout désélectionner" : "Tout sélectionner"}</button></div>
+  <div class="themes">
+    ${Object.entries(THEMES).map(([k, t]) => { const l = inTheme(k), m = mastery(l); return `
+      <button class="theme" style="--c:${t.color}" aria-pressed="${S.sel.includes(k)}" data-t="${k}">
+        <div class="th-top"><span class="th-name"><span class="dot"></span>${esc(t.label)}</span><span class="chk"></span></div>
+        <div class="mbar"><i style="width:${pct(m)}%"></i></div>
+        <div class="th-meta"><span>${l.length} cartes</span><span>${pct(m)} % maîtrisé</span></div>
+      </button>`; }).join("")}
+  </div>
+
+  <div class="sec-title"><h3>Choisis ton mode</h3><span class="muted" style="font-size:14px">${p.length} cartes sélectionnées</span></div>
+  <div class="modes">
+    <div class="mode">
+      <h4>${ico("flip",22)} Flip cards</h4>
+      <p>Lis la question, cherche la réponse dans ta tête, retourne la carte et note-toi honnêtement. Les cartes ratées reviennent plus souvent.</p>
+      <div class="seg" role="group" aria-label="Nombre de cartes">${sizes.map(s => `<button data-size="${s}" aria-pressed="${String(S.size) === String(s)}">${s}</button>`).join("")}</div>
+      <button class="go" id="goFlip" ${p.length ? "" : "disabled"}>Commencer ${ico("arrow",18)}</button>
+    </div>
+    <div class="mode">
+      <h4>${ico("quiz",22)} Défi QCM</h4>
+      <p>10 questions à choix multiples, corrigées tout de suite. Réponds vite pour gagner un bonus. Visé : 10/10.</p>
+      <button class="go alt" id="goQcm" ${qcmPool().length >= 4 ? "" : "disabled"}>Lancer le défi ${ico("arrow",18)}</button>
+      ${qcmPool().length >= 4 ? "" : `<p style="font-size:12.5px">Sélectionne Définitions, Dates, URSS, Allemagne ou Front populaire.</p>`}
+    </div>
+    <div class="mode">
+      <h4>${ico("line",22)} Frise</h4>
+      <p>5 événements mélangés : touche-les dans l'ordre chronologique, du plus ancien au plus récent.</p>
+      <button class="go alt" id="goFrise">Remettre dans l'ordre ${ico("arrow",18)}</button>
+    </div>
+  </div>
+
+  <div class="sec-title"><h3>Tes badges</h3><button class="linkbtn" id="toBadges2">Voir tous les badges</button></div>
+  <div class="badge-strip">
+    ${BADGES.slice().sort((a, b) => (S.badges[b.id] ? 1 : 0) - (S.badges[a.id] ? 1 : 0)).slice(0, 8).map(b => `<div class="medal${S.badges[b.id] ? "" : " locked"}" title="${esc(b.desc)}"><div class="disc">${ico(b.icon,30)}</div><span>${esc(b.name)}</span></div>`).join("")}
+  </div>
+  <p class="foot">Ta progression est enregistrée dans ce navigateur, sur cet appareil.</p>`;
+
+  const ci = $("#classIn"); if (ci) ci.onchange = () => { S.classe = ci.value; save(); home(); };
+  const nf = $("#nameForm");
+  if (nf) nf.addEventListener("submit", e => { e.preventDefault(); const v = $("#nameIn").value.trim(); if (v) { S.name = v; save(); home(); } });
+  app.querySelectorAll(".theme").forEach(b => b.onclick = () => {
+    const t = b.dataset.t; S.sel = S.sel.includes(t) ? S.sel.filter(x => x !== t) : S.sel.concat(t); save(); home();
+  });
+  $("#allThemes").onclick = () => { S.sel = S.sel.length === 7 ? [] : Object.keys(THEMES); save(); home(); };
+  app.querySelectorAll("[data-size]").forEach(b => b.onclick = () => { S.size = b.dataset.size === "Tout" ? "Tout" : +b.dataset.size; save(); home(); });
+  $("#goFlip").onclick = () => { const n = S.size === "Tout" ? p.length : S.size; startFlip(pick(p, n).map(c => c.id)); };
+  $("#goQcm").onclick = startQcm;
+  $("#goFrise").onclick = startFrise;
+  $("#toBadges").onclick = $("#toBadges2").onclick = badgesView;
+  const gf = $("#goFails"); if (gf) gf.onclick = () => startFlip(shuffle(failedIds()));
+  window.scrollTo(0, 0);
+}
+
+/* =========================================================
+   FLIP CARDS
+   ========================================================= */
+let view = "home", F = null;
+function startFlip(ids){
+  if (!ids.length) return;
+  F = {queue: ids.slice(), total: ids.length, done: 0, i: 0, flipped: false, combo: 0, xp0: S.xp, res: {}, requeue: {}, t0: Date.now()};
+  view = "flip"; renderFlip();
+}
+function boxDots(id, color){
+  const b = box(id); let h = "";
+  for (let i = 1; i <= 5; i++) h += `<i class="${i <= b ? "on" : ""}"></i>`;
+  return `<span class="fbox" title="Niveau de la carte : ${b}/5">${h}</span>`;
+}
+function renderFlip(){
+  if (F.i >= F.queue.length) return endFlip();
+  const c = byId[F.queue[F.i]], th = THEMES[c.t];
+  F.flipped = false;
+  app.innerHTML = `
+  <div class="sess-head">
+    <button class="ghost" id="quit" aria-label="Retour à l'accueil">${ico("back",16)}</button>
+    <div class="prog" aria-hidden="true"><i style="width:${pct(F.done / F.total)}%"></i></div>
+    <span class="sess-count">${F.done}/${F.total}</span>
+    <span class="combo" id="combo">${F.combo >= 2 ? "×" + F.combo : ""}</span>
+  </div>
+  <div class="stage fade-in">
+    <div class="flip" id="flip" tabindex="0" role="button" aria-label="Retourner la carte">
+      <div class="face front" style="--c:${th.color}">
+        <div class="fhead"><span class="ftag">${esc(th.short)}</span>${boxDots(c.id)}</div>
+        <div class="ruled"><div class="q">${c.q}</div><div class="hint">Touche la carte pour voir le corrigé</div></div>
+      </div>
+      <div class="face back" style="--c:${th.color}">
+        <div class="fhead"><span class="ftag">Corrigé · ${esc(th.short)}</span>${boxDots(c.id)}</div>
+        <div class="ruled">
+          <p class="qback">${strip(c.q)}</p>
+          <div class="ans-label">Réponse</div>
+          <div class="ans">${c.a}</div>
+          ${c.d ? `<div class="det">${c.d}</div>` : ""}
+          ${c.p ? `<div class="plus"><b class="lab">Pour aller plus loin</b>${c.p}</div>` : ""}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="actions"><button class="go reveal" id="reveal">Voir la réponse</button></div>
+  <p class="keys">Espace : retourner · 1 : raté · 2 : presque · 3 : je savais</p>`;
+  $("#quit").onclick = () => { save(); home(); };
+  $("#flip").onclick = doFlip;
+  $("#reveal").onclick = doFlip;
+}
+function doFlip(){
+  if (view !== "flip") return;
+  F.flipped = !F.flipped;
+  $("#flip").classList.toggle("flipped", F.flipped);
+  if (F.flipped && !$("#rate")) {
+    $("#actions").innerHTML = `<div class="rate" id="rate">
+      <button class="r0" data-r="0">Raté<small>reviendra vite</small></button>
+      <button class="r1" data-r="1">Presque<small>reviendra</small></button>
+      <button class="r2" data-r="2">Je savais<small>+10 XP</small></button></div>`;
+    app.querySelectorAll("[data-r]").forEach(b => b.onclick = e => { e.stopPropagation(); rateFlip(+b.dataset.r); });
+  }
+}
+function rateFlip(r){
+  const id = F.queue[F.i];
+  grade(id, r);
+  if (!(id in F.res)) F.res[id] = r;
+  let gain;
+  if (r === 2) { F.combo++; S.bestStreak = Math.max(S.bestStreak, F.combo); gain = 10 + Math.min(F.combo - 1, 5) * 2; }
+  else { F.combo = 0; gain = r === 1 ? 4 : 1; }
+  addXP(gain);
+  // les cartes ratées reviennent dans la même session
+  const n = F.requeue[id] || 0;
+  if (r === 0 && n < 3) { F.queue.splice(Math.min(F.queue.length, F.i + 4), 0, id); F.requeue[id] = n + 1; }
+  else if (r === 1 && n < 1) { F.queue.splice(Math.min(F.queue.length, F.i + 7), 0, id); F.requeue[id] = n + 1; }
+  if (!F.queue.slice(F.i + 1).includes(id)) F.done++;
+  F.i++;
+  save(); checkBadges();
+  renderFlip();
+  if (F.combo >= 2) { const el = $("#combo"); if (el) el.classList.add("pop"); }
+}
+function endFlip(){
+  view = "end"; track("session-flipcards");
+  const ids = Object.keys(F.res);
+  report("Flip cards", ids.filter(i => F.res[i] === 2).length, ids.length, F.res, F.t0);
+  const k = ids.filter(i => F.res[i] === 0), m = ids.filter(i => F.res[i] === 1), o = ids.filter(i => F.res[i] === 2);
+  const toReview = k.concat(m);
+  const msg = o.length === ids.length ? "Parfait !" : o.length / ids.length >= .7 ? "Très bien !" : o.length / ids.length >= .4 ? "Bon travail" : "Continue !";
+  app.innerHTML = `
+  <div class="endcard fade-in">
+    <div><span class="ftag" style="--c:var(--accent);color:var(--accent)">Session terminée</span><h2>${msg}</h2></div>
+    <div class="endstats">
+      <div class="stat"><b class="o">${o.length}</b><span>du premier coup</span></div>
+      <div class="stat"><b class="m">${m.length}</b><span>presque</span></div>
+      <div class="stat"><b class="k">${k.length}</b><span>ratées au départ</span></div>
+      <div class="stat"><b class="x">+${S.xp - F.xp0}</b><span>XP gagnés</span></div>
+    </div>
+    ${toReview.length ? `<div><h3 style="font-family:var(--f-display);text-transform:uppercase;font-size:20px;margin-bottom:8px">À retenir</h3>
+      <div class="miss">${toReview.map(i => { const c = byId[i], th = THEMES[c.t]; return `<details style="--c:${th.color}"><summary><span class="ftag">${esc(th.short)}</span>${strip(c.q)}</summary><p><b>${c.a}</b></p>${c.d ? `<div style="margin-top:8px">${c.d}</div>` : ""}</details>`; }).join("")}</div></div>` : ""}
+    <div class="row">
+      ${toReview.length ? `<button class="go" id="again">${ico("loop",18)} Rejouer ces ${toReview.length} cartes</button>` : ""}
+      <button class="go alt" id="more">Nouvelle session</button>
+      <button class="go alt" id="back">Accueil</button>
+    </div>
+  </div>`;
+  if (toReview.length) $("#again").onclick = () => startFlip(shuffle(toReview));
+  $("#more").onclick = () => { const p = pool(); startFlip(pick(p, S.size === "Tout" ? p.length : S.size).map(c => c.id)); };
+  $("#back").onclick = home;
+  if (o.length === ids.length && ids.length >= 5) confetti();
+  window.scrollTo(0, 0);
+}
+
+/* =========================================================
+   QCM
+   ========================================================= */
+let Q = null, timerRAF = 0;
+function qcmPool(){ return pool().filter(c => c.g && c.s && new Set(CARDS.filter(x => x.g === c.g && x.s).map(x => x.s)).size >= 4); }
+function stopTimer(){ cancelAnimationFrame(timerRAF); }
+function startQcm(){
+  const list = pick(qcmPool(), 10);
+  Q = {list, i: 0, score: 0, xp0: S.xp, wrong: [], res: {}, t0: Date.now()};
+  view = "qcm"; renderQcm();
+}
+function optionsFor(c){
+  const same = CARDS.filter(x => x.g === c.g && x.s && x.s !== c.s && x.id !== c.id);
+  const uniq = []; shuffle(same).forEach(x => { if (!uniq.some(u => u.s === x.s)) uniq.push(x); });
+  return shuffle([c].concat(uniq.slice(0, 3)));
+}
+function qcmQuestion(c){
+  if (c.g === "def") return "Quelle est la bonne définition de " + c.q.replace(/^Définis\s*:\s*/, "") + " ?";
+  return c.q;
+}
+function renderQcm(){
+  if (Q.i >= Q.list.length) return endQcm();
+  const c = Q.list[Q.i], th = THEMES[c.t], opts = optionsFor(c);
+  app.innerHTML = `
+  <div class="sess-head">
+    <button class="ghost" id="quit" aria-label="Retour à l'accueil">${ico("back",16)}</button>
+    <div class="prog" aria-hidden="true"><i style="width:${pct(Q.i / Q.list.length)}%"></i></div>
+    <span class="sess-count">${Q.i + 1}/${Q.list.length}</span>
+    <span class="combo">${Q.score} pt${Q.score > 1 ? "s" : ""}</span>
+  </div>
+  <div class="face fade-in" style="--c:${th.color};min-height:0">
+    <div class="fhead"><span class="ftag">Défi · ${esc(th.short)}</span><span class="fbox">bonus vitesse</span></div>
+    <div class="timer"><i id="tbar"></i></div>
+    <div class="ruled" style="padding-block:14px"><div class="q" style="padding-block:6px;font-size:clamp(19px,3vw,24px)">${qcmQuestion(c)}</div></div>
+  </div>
+  <div class="qcm-opts">${opts.map((o, i) => `<button class="opt" data-id="${o.id}"><span class="l">${"ABCD"[i]}</span><span>${esc(o.s)}</span></button>`).join("")}</div>
+  <div id="fb"></div>`;
+  $("#quit").onclick = () => { stopTimer(); save(); home(); };
+  const t0 = performance.now(), LIM = 10000;
+  stopTimer();
+  (function tk(){ const e = performance.now() - t0, bar = $("#tbar"); if (!bar) return; bar.style.width = Math.max(0, 100 - e / LIM * 100) + "%"; if (e < LIM) timerRAF = requestAnimationFrame(tk); })();
+  app.querySelectorAll(".opt").forEach(b => b.onclick = () => {
+    stopTimer();
+    const fast = performance.now() - t0 < LIM;
+    const ok = b.dataset.id === c.id;
+    app.querySelectorAll(".opt").forEach(x => { x.disabled = true; if (x.dataset.id === c.id) x.classList.add("good"); });
+    if (!ok) b.classList.add("bad");
+    grade(c.id, ok ? 2 : 0); Q.res[c.id] = ok ? 2 : 0;
+    let gain = 0;
+    if (ok) { Q.score++; gain = 12 + (fast ? 5 : 0); } else Q.wrong.push(c.id);
+    if (gain) addXP(gain);
+    save();
+    $("#fb").innerHTML = `<div class="feedback ${ok ? "" : "ko"} fade-in"><b class="v" style="color:${ok ? "var(--ok)" : "var(--ko)"}">${ok ? (fast ? "Bonne réponse, et rapide !" : "Bonne réponse") : "Pas tout à fait"}</b>
+      <div><b>${c.a}</b></div>${c.d ? `<div style="margin-top:4px">${c.d}</div>` : ""}</div>
+      <button class="go" id="next" style="width:100%;margin-top:12px">${Q.i + 1 < Q.list.length ? "Question suivante" : "Voir mon score"} ${ico("arrow",18)}</button>`;
+    $("#next").onclick = () => { Q.i++; renderQcm(); };
+    $("#next").focus({preventScroll:true});
+    checkBadges();
+  });
+}
+function endQcm(){
+  view = "end"; track("session-qcm"); report("QCM", Q.score, Q.list.length, Q.res, Q.t0);
+  const perfect = Q.score === Q.list.length && Q.list.length >= 10;
+  if (perfect) addXP(30);
+  save(); checkBadges({qcmPerfect: perfect});
+  app.innerHTML = `
+  <div class="endcard fade-in">
+    <div><span class="ftag" style="color:var(--accent)">Défi QCM terminé</span><h2>${Q.score}/${Q.list.length}${perfect ? " · Sans faute !" : ""}</h2></div>
+    <div class="endstats">
+      <div class="stat"><b class="o">${Q.score}</b><span>bonnes réponses</span></div>
+      <div class="stat"><b class="k">${Q.wrong.length}</b><span>erreurs</span></div>
+      <div class="stat"><b class="x">+${S.xp - Q.xp0}</b><span>XP gagnés</span></div>
+      <div class="stat"><b>${pct(mastery(CARDS))} %</b><span>maîtrise globale</span></div>
+    </div>
+    ${Q.wrong.length ? `<div class="miss">${Q.wrong.map(i => { const c = byId[i], th = THEMES[c.t]; return `<details style="--c:${th.color}"><summary><span class="ftag">${esc(th.short)}</span>${strip(qcmQuestion(c))}</summary><p><b>${c.a}</b></p></details>`; }).join("")}</div>` : ""}
+    <div class="row">
+      ${Q.wrong.length ? `<button class="go" id="again">${ico("flip",18)} Retravailler mes erreurs en flip cards</button>` : ""}
+      <button class="go alt" id="more">Nouveau défi</button>
+      <button class="go alt" id="back">Accueil</button>
+    </div>
+  </div>`;
+  if (Q.wrong.length) $("#again").onclick = () => startFlip(shuffle(Q.wrong));
+  $("#more").onclick = startQcm;
+  $("#back").onclick = home;
+  if (perfect) confetti();
+  window.scrollTo(0, 0);
+}
+
+/* =========================================================
+   FRISE
+   ========================================================= */
+let FR = null;
+function themeOfDate(c){
+  const id = c.id;
+  if (["t2","t3","t4","t5"].includes(id)) return "urss";
+  if (["t14","t15","t16","t17","t18"].includes(id)) return "fp";
+  if (id === "t1") return "dates";
+  return "nazi";
+}
+function startFrise(){
+  const dated = shuffle(CARDS.filter(c => c.k));
+  const chosen = [];
+  for (const c of dated) { if (chosen.length >= 5) break; if (!chosen.some(x => Math.floor(x.k) === Math.floor(c.k))) chosen.push(c); }
+  FR = {items: shuffle(chosen), order: [], checked: false, xp0: S.xp, t0: Date.now()};
+  view = "frise"; renderFrise();
+}
+function renderFrise(){
+  const done = FR.order.length === FR.items.length;
+  const sorted = FR.items.slice().sort((a, b) => a.k - b.k);
+  app.innerHTML = `
+  <div class="sess-head">
+    <button class="ghost" id="quit" aria-label="Retour à l'accueil">${ico("back",16)}</button>
+    <div class="prog" aria-hidden="true"><i style="width:${pct(FR.order.length / FR.items.length)}%"></i></div>
+    <span class="sess-count">${FR.order.length}/${FR.items.length}</span><span class="combo"></span>
+  </div>
+  <div class="face" style="--c:var(--c-dates);min-height:0"><div class="fhead"><span class="ftag">Frise chronologique</span><span class="fbox">1919 → 1939</span></div>
+    <div class="ruled" style="padding-block:14px"><div class="q" style="padding-block:4px;font-size:clamp(18px,2.8vw,22px)">${FR.checked ? "Voici le bon ordre." : "Touche les événements du plus ancien au plus récent. Touche à nouveau pour annuler."}</div></div></div>
+  <div class="frise-pool">
+    ${FR.items.map(c => {
+      const pos = FR.order.indexOf(c.id); const tt = themeOfDate(c);
+      let cls = pos >= 0 ? " picked" : "";
+      if (FR.checked) cls += sorted[pos] && sorted[pos].id === c.id ? " right" : " wrong";
+      return `<button class="ev${cls}" data-id="${c.id}" style="--c:${THEMES[tt].color}" ${FR.checked ? "disabled" : ""}><span class="n">${pos >= 0 ? pos + 1 : ""}</span><span><span class="tg">${esc(THEMES[tt].short)}</span>${esc(c.fl)}</span>${FR.checked ? `<span class="yr">${esc(c.s)}</span>` : ""}</button>`;
+    }).join("")}
+  </div>
+  ${FR.checked ? `<div class="timeline">${sorted.map(c => `<div class="tl" style="--c:${THEMES[themeOfDate(c)].color}"><b>${esc(c.s)}</b>${esc(c.fl)}</div>`).join("")}</div>` : ""}
+  <div class="row" style="margin-top:14px">
+    ${FR.checked ? `<button class="go" id="again">Nouvelle frise ${ico("arrow",18)}</button><button class="go alt" id="back">Accueil</button>`
+      : `<button class="go" id="check" ${done ? "" : "disabled"}>Vérifier</button>`}
+  </div>
+  <div id="fb"></div>`;
+  $("#quit").onclick = () => { save(); home(); };
+  if (!FR.checked) app.querySelectorAll(".ev").forEach(b => b.onclick = () => {
+    const id = b.dataset.id; const p = FR.order.indexOf(id);
+    if (p >= 0) FR.order.splice(p, 1); else FR.order.push(id);
+    renderFrise();
+  });
+  if (!FR.checked) $("#check").onclick = () => {
+    FR.checked = true; track("session-frise");
+    let good = 0; FR.order.forEach((id, i) => { if (sorted[i].id === id) good++; });
+    const fres = {}; FR.items.forEach(c => { const r = sorted[FR.order.indexOf(c.id)].id === c.id ? 2 : 0; fres[c.id] = r; grade(c.id, r); });
+    report("Frise", good, FR.items.length, fres, FR.t0);
+    let gain = good * 6;
+    if (good === FR.items.length) { gain += 20; S.frisePerfect++; confetti(); }
+    addXP(gain); save(); checkBadges();
+    renderFrise();
+    $("#fb").innerHTML = `<div class="feedback ${good === FR.items.length ? "" : "ko"}"><b class="v" style="color:${good === FR.items.length ? "var(--ok)" : "var(--ko)"}">${good}/${FR.items.length} bien placés</b>${good === FR.items.length ? "Frise parfaite : +20 XP de bonus." : "Les événements mal placés sont encadrés en rouge. Relis la frise ci-dessus."}</div>`;
+  };
+  else { $("#again").onclick = startFrise; $("#back").onclick = home; }
+}
+
+/* =========================================================
+   BADGES ET BILAN
+   ========================================================= */
+function badgesView(){
+  view = "badges"; confirmReset = false; renderBadges();
+}
+function renderBadges(){
+  const lv = level(), g = mastery(CARDS);
+  app.innerHTML = `
+  <div class="sess-head"><button class="ghost" id="quit">${ico("back",16)} Accueil</button></div>
+  <section class="bilan fade-in">
+    ${g >= .7 ? `<span class="stamp">Prêt !</span>` : ""}
+    <span class="ftag" style="color:var(--accent)">Bilan de révision · H2</span>
+    <h2>${S.name ? esc(S.name) : "Mon bilan"}</h2>
+    <div class="muted" style="font-size:14.5px">Niveau ${lv.n}/${LEVELS.length} · ${esc(lv.name)} · ${S.xp} XP · ${S.reviewed} cartes révisées · ${Object.keys(S.badges).length}/${BADGES.length} badges</div>
+    <div class="tbars">
+      ${Object.entries(THEMES).map(([k, t]) => { const m = mastery(inTheme(k)); return `<div class="tbar" style="--c:${t.color}"><span>${esc(t.label)}</span><div class="mbar"><i style="width:${pct(m)}%"></i></div><b>${pct(m)}%</b></div>`; }).join("")}
+      <div class="tbar" style="--c:var(--ok);font-weight:700"><span>Total</span><div class="mbar"><i style="width:${pct(g)}%"></i></div><b>${pct(g)}%</b></div>
+    </div>
+  </section>
+  <div class="sec-title"><h3>Badges</h3><span class="muted" style="font-size:14px">${Object.keys(S.badges).length} sur ${BADGES.length}</span></div>
+  <div class="badges-grid">
+    ${BADGES.map(b => { const has = !!S.badges[b.id]; return `<div class="bitem${has ? "" : " locked"}">${medal(b, !has)}<div><b>${esc(b.name)}</b><p>${esc(b.desc)}</p></div></div>`; }).join("")}
+  </div>
+  <div class="sec-title"><h3>Recommencer à zéro</h3></div>
+  <div class="confirm-box" id="resetZone">
+    ${confirmReset ? `<span>Tout effacer (XP, badges, progression) ?</span><button class="danger" id="yes">Oui, tout effacer</button><button class="ghost" id="no">Annuler</button>`
+      : `<button class="danger" id="reset">Effacer ma progression</button>`}
+  </div>`;
+  $("#quit").onclick = home;
+  if (confirmReset) { $("#yes").onclick = () => { const keepName = S.name; S = fresh(); S.name = keepName; save(); home(); }; $("#no").onclick = () => { confirmReset = false; renderBadges(); }; }
+  else $("#reset").onclick = () => { confirmReset = true; renderBadges(); };
+  window.scrollTo(0, 0);
+}
+
+/* ---------- Clavier ---------- */
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "INPUT") return;
+  if (view === "flip") {
+    if (e.key === " " || e.key === "Enter") { e.preventDefault(); if (!F.flipped || !$("#rate")) doFlip(); else doFlip(); }
+    if (F && F.flipped && ["1","2","3"].includes(e.key)) rateFlip(+e.key - 1);
+  }
+});
+
+home();
+reportVisit();
+})();
+
+</script>
+<!-- Compteur de visites anonyme (GoatCounter, sans cookies) -->
+<script data-goatcounter="https://jeannehg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>
