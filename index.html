@@ -577,7 +577,7 @@ function addXP(n){ S.xp += n; xpFloat(n); }
 /* Statistiques anonymes (GoatCounter) : uniquement le nombre de sessions terminées, sans donnée personnelle */
 function track(name){ try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({path: "h2-" + name, title: name, event: true}); } catch(e) {} }
 
-/* Statistiques pédagogiques anonymes (Google Sheets) : classe, mode, score et cartes, jamais le prénom */
+/* Statistiques anonymes (Google Sheets) : appli, classe et mode de jeu, jamais le prénom */
 const APP_NAME = "H2 Totalitarismes 3e";
 const STATS_URL = window.H2_STATS_URL || "";
 function deviceType(){
@@ -595,12 +595,10 @@ function reportVisit(){
       body: JSON.stringify({type: "visite", app: APP_NAME, page: location.pathname, appareil: deviceType()})}).catch(() => {});
   } catch(e) {}
 }
-function report(mode, score, total, results, t0){
+function report(mode, score, total, results){
   try {
-    const cartes = Object.entries(results).map(([id, r]) => [id, r, strip(byId[id] ? byId[id].q : "").slice(0, 140)]);
-    if (!STATS_URL || !cartes.length) return;
-    const body = JSON.stringify({app: APP_NAME, classe: S.classe || "", mode, appareil: deviceType(), score, total,
-      duree: Math.round((Date.now() - (t0 || Date.now())) / 1000), cartes});
+    if (!STATS_URL || !Object.keys(results).length) return;
+    const body = JSON.stringify({app: APP_NAME, classe: S.classe || "", mode});
     fetch(STATS_URL, {method: "POST", mode: "no-cors", keepalive: true, headers: {"Content-Type": "text/plain;charset=utf-8"}, body}).catch(() => {});
   } catch(e) {}
 }
