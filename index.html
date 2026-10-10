@@ -296,6 +296,10 @@ button,.flip,.opt,.ev,.theme{touch-action:manipulation;-webkit-tap-highlight-col
 .namefield select{font:inherit;font-size:16px;padding:5px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);max-width:100%}
 .namefield select.need{border-color:var(--mid);box-shadow:0 0 0 2px color-mix(in srgb,var(--mid) 25%,transparent)}
 .namefield{flex-wrap:wrap}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{display:inline-flex;align-items:center;gap:5px;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis;font-family:var(--f-mono);font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);background:var(--card);border:1.5px solid var(--line);border-radius:999px;padding:3px 10px 3px 8px}
+.chip svg{color:var(--accent);flex:none}
 </style>
 
 </head>
@@ -451,8 +455,7 @@ const LEVELS = [
 (function(){
 "use strict";
 const KEY = "h2-totalitarismes-3e-v1";
-/* Classes proposées aux élèves (pour les statistiques par classe) */
-const CLASSES = window.H2_CLASSES || ["3e3", "3e5"];
+
 const $ = s => document.querySelector(s);
 const app = $("#app");
 const byId = Object.fromEntries(CARDS.map(c => [c.id, c]));
@@ -520,6 +523,8 @@ const P = {
   arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',
   back:'<path d="M19 12H5M11 6l-6 6 6 6"/>',
   medal:'<circle cx="12" cy="14" r="6"/><path d="M8 3h8l-2 5h-4z"/>',
+  pin:'<path d="M12 21s-6-5.6-6-11a6 6 0 0 1 12 0c0 5.4-6 11-6 11z"/><circle cx="12" cy="10" r="2.2"/>',
+  user:'<circle cx="12" cy="8" r="3.5"/><path d="M5 20c1-3.6 3.8-5.5 7-5.5s6 1.9 7 5.5"/>',
   fire:'<path d="M12 21c-4 0-7-3-7-7 0-3 2-5 3-7 1 2 2 3 3 3 0-3 1-5 3-7 1 3 5 6 5 11 0 4-3 7-7 7z"/>'
 };
 const ico = (n, sz) => `<svg viewBox="0 0 24 24" width="${sz||20}" height="${sz||20}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${P[n]||""}</svg>`;
@@ -577,7 +582,7 @@ function addXP(n){ S.xp += n; xpFloat(n); }
 /* Statistiques anonymes (GoatCounter) : uniquement le nombre de sessions terminées, sans donnée personnelle */
 function track(name){ try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({path: "h2-" + name, title: name, event: true}); } catch(e) {} }
 
-/* Statistiques anonymes (Google Sheets) : appli, classe et mode de jeu, jamais le prénom */
+/* Statistiques anonymes (Google Sheets) : appli et mode de jeu uniquement */
 const APP_NAME = "H2 Totalitarismes 3e";
 const STATS_URL = window.H2_STATS_URL || "";
 function deviceType(){
@@ -589,16 +594,21 @@ function deviceType(){
 }
 function reportVisit(){
   try {
-    if (!STATS_URL) return;
-    try { if (sessionStorage.getItem("h2-visite")) return; sessionStorage.setItem("h2-visite", "1"); } catch(e) {}
-    fetch(STATS_URL, {method: "POST", mode: "no-cors", keepalive: true, headers: {"Content-Type": "text/plain;charset=utf-8"},
-      body: JSON.stringify({type: "visite", app: APP_NAME, page: location.pathname, appareil: deviceType()})}).catch(() => {});
+    if (!STATS_URL || navigator.webdriver) return; // pas de comptage pour les navigateurs pilotés par des robots
+    const send = () => {
+      ["pointerdown", "keydown", "touchstart"].forEach(ev => removeEventListener(ev, send, true));
+      try { if (sessionStorage.getItem("h2-visite")) return; sessionStorage.setItem("h2-visite", "1"); } catch(e) {}
+      fetch(STATS_URL, {method: "POST", mode: "no-cors", keepalive: true, headers: {"Content-Type": "text/plain;charset=utf-8"},
+        body: JSON.stringify({type: "visite", app: APP_NAME, appareil: deviceType()})}).catch(() => {});
+    };
+    // La visite n'est comptée qu'au premier vrai geste (clic, toucher ou touche du clavier)
+    ["pointerdown", "keydown", "touchstart"].forEach(ev => addEventListener(ev, send, {capture: true, passive: true}));
   } catch(e) {}
 }
 function report(mode, score, total, results){
   try {
-    if (!STATS_URL || !Object.keys(results).length) return;
-    const body = JSON.stringify({app: APP_NAME, classe: S.classe || "", mode});
+    if (!STATS_URL || navigator.webdriver || !Object.keys(results).length) return;
+    const body = JSON.stringify({app: APP_NAME, mode});
     fetch(STATS_URL, {method: "POST", mode: "no-cors", keepalive: true, headers: {"Content-Type": "text/plain;charset=utf-8"}, body}).catch(() => {});
   } catch(e) {}
 }
@@ -647,7 +657,8 @@ function home(){
   app.innerHTML = `
   <header class="top">
     <div class="brand"><div class="tab-h2" aria-hidden="true">H2</div>
-      <div class="brand-txt"><b>Régimes totalitaires et démocraties fragilisées</b><span>3e · 1919-1939 · Révisions</span></div></div>
+      <div class="brand-txt"><b>Régimes totalitaires et démocraties fragilisées</b><span>3e · 1919-1939 · Révisions</span>
+        <div class="chips"><span class="chip">${ico("pin",13)} Collège Plan Menu · Coublevie · 3e</span><span class="chip">${ico("user",13)} Jeanne Cador · Enseignante</span></div></div></div>
     <div class="navbtns"><button class="ghost" id="toBadges">${ico("medal",16)} Badges et bilan</button></div>
   </header>
 
@@ -655,9 +666,7 @@ function home(){
     <div class="player">
       <div class="lvl" title="Niveau ${lv.n} sur ${LEVELS.length}">${lv.n}<small>NIV.</small></div>
       <div class="pinfo">
-        <div class="pname"><h2>${esc(lv.name)}</h2>${S.name ? `<span class="muted">· ${esc(S.name)}</span>` : ""}</div>
-        ${S.name ? "" : `<form class="namefield" id="nameForm"><label for="nameIn" class="muted" style="font-size:14px">Prénom</label><input id="nameIn" maxlength="24" autocomplete="off" placeholder="pour ton bilan" style="width:140px"><button class="ghost" type="submit">OK</button></form>`}
-        ${CLASSES.length ? `<div class="namefield"><label for="classIn" class="muted" style="font-size:14px">Ma classe</label><select id="classIn" class="${S.classe ? "" : "need"}"><option value="">Choisir…</option>${CLASSES.map(c => `<option${S.classe === c ? " selected" : ""}>${esc(c)}</option>`).join("")}</select></div>` : ""}
+        <div class="pname"><h2>${esc(lv.name)}</h2></div>
         <div class="xpbar"><i style="width:${pct(lv.p)}%"></i></div>
         <div class="xptxt"><span>${S.xp} XP</span><span>${lv.next ? "niveau suivant : " + pct(lv.next) + " %" : "niveau maximum"}</span></div>
       </div>
@@ -720,9 +729,6 @@ function home(){
   </div>
   <p class="foot">Ta progression est enregistrée dans ce navigateur, sur cet appareil.</p>`;
 
-  const ci = $("#classIn"); if (ci) ci.onchange = () => { S.classe = ci.value; save(); home(); };
-  const nf = $("#nameForm");
-  if (nf) nf.addEventListener("submit", e => { e.preventDefault(); const v = $("#nameIn").value.trim(); if (v) { S.name = v; save(); home(); } });
   app.querySelectorAll(".theme").forEach(b => b.onclick = () => {
     const t = b.dataset.t; S.sel = S.sel.includes(t) ? S.sel.filter(x => x !== t) : S.sel.concat(t); save(); home();
   });
@@ -1010,7 +1016,7 @@ function renderBadges(){
   <section class="bilan fade-in">
     ${g >= .7 ? `<span class="stamp">Prêt !</span>` : ""}
     <span class="ftag" style="color:var(--accent)">Bilan de révision · H2</span>
-    <h2>${S.name ? esc(S.name) : "Mon bilan"}</h2>
+    <h2>Mon bilan</h2>
     <div class="muted" style="font-size:14.5px">Niveau ${lv.n}/${LEVELS.length} · ${esc(lv.name)} · ${S.xp} XP · ${S.reviewed} cartes révisées · ${Object.keys(S.badges).length}/${BADGES.length} badges</div>
     <div class="tbars">
       ${Object.entries(THEMES).map(([k, t]) => { const m = mastery(inTheme(k)); return `<div class="tbar" style="--c:${t.color}"><span>${esc(t.label)}</span><div class="mbar"><i style="width:${pct(m)}%"></i></div><b>${pct(m)}%</b></div>`; }).join("")}
@@ -1027,7 +1033,7 @@ function renderBadges(){
       : `<button class="danger" id="reset">Effacer ma progression</button>`}
   </div>`;
   $("#quit").onclick = home;
-  if (confirmReset) { $("#yes").onclick = () => { const keepName = S.name; S = fresh(); S.name = keepName; save(); home(); }; $("#no").onclick = () => { confirmReset = false; renderBadges(); }; }
+  if (confirmReset) { $("#yes").onclick = () => { S = fresh(); save(); home(); }; $("#no").onclick = () => { confirmReset = false; renderBadges(); }; }
   else $("#reset").onclick = () => { confirmReset = true; renderBadges(); };
   window.scrollTo(0, 0);
 }
