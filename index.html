@@ -100,7 +100,7 @@ h1,h2,h3{text-wrap:balance;margin:0}
 .theme .dot{width:10px;height:10px;border-radius:50%;background:var(--c);display:inline-block;margin-right:7px;vertical-align:1px}
 
 /* Modes */
-.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.modes{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 @media (max-width:700px){.modes{grid-template-columns:1fr}}
 .mode{background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:10px;align-content:start}
 .mode h4{margin:0;font-family:var(--f-display);font-weight:800;font-size:22px;text-transform:uppercase;letter-spacing:.02em;display:flex;align-items:center;gap:8px}
@@ -300,6 +300,15 @@ button,.flip,.opt,.ev,.theme{touch-action:manipulation;-webkit-tap-highlight-col
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .chip{display:inline-flex;align-items:center;gap:5px;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis;font-family:var(--f-mono);font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);background:var(--card);border:1.5px solid var(--line);border-radius:999px;padding:3px 10px 3px 8px}
 .chip svg{color:var(--accent);flex:none}
+
+.mode.exam{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.veille{justify-self:start;font-family:var(--f-mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);border:1.5px solid var(--mid);border-radius:999px;padding:2px 10px}
+.opt.chosen{border-color:var(--accent);background:var(--card);background:color-mix(in srgb,var(--accent) 10%,var(--card))}
+.opt.chosen .l{background:var(--accent);color:var(--accent-ink)}
+.note20{font-size:clamp(56px,12vw,84px)!important;color:var(--accent)}
+.note20 small{font-size:.4em;color:var(--ink-2);margin-left:4px}
+.review-banner.today{margin-top:0;margin-bottom:14px;border-style:solid;border-color:var(--mid);background:var(--card);background:color-mix(in srgb,var(--mid) 8%,var(--card))}
+.review-banner.today .go{background:var(--mid);color:var(--card)}
 </style>
 
 </head>
@@ -452,6 +461,49 @@ const LEVELS = [
   [.70,"Prêt pour l'évaluation"],[.90,"Expert du chapitre"],[.999,"Légende du H2"]
 ];
 
+/* ===== ÉVALUATION BLANCHE : questions essentielles (d'après la fiche de révision) =====
+   ok = bonne réponse, x = 3 mauvaises réponses, c = carte liée (revient dans « à revoir » si ratée) */
+const ESSENTIELS = {
+  urss: [
+    {t:"urss", c:"u4", q:"Quels sont les 3 éléments du contrôle politique de Staline ?", ok:"Un chef unique, un parti unique (Parti communiste), une idéologie (le communisme)", x:["Un roi, une Église officielle et une armée puissante","Des élections libres, plusieurs partis et une Constitution","Un chef unique, plusieurs partis et la liberté de la presse"]},
+    {t:"urss", c:"u6", q:"Comment Staline contrôle-t-il l'économie ?", ok:"Collectivisation des terres, nationalisation des entreprises, plans de 5 ans", x:["Libre concurrence et entreprises privées","Congés payés et semaine de 40 heures","Grands travaux financés par des banques privées"]},
+    {t:"urss", c:"u7", q:"Quelle est la conséquence de la collectivisation forcée en 1932-1933 ?", ok:"Une famine qui fait environ 7 millions de morts", x:["Une forte hausse des récoltes","Une révolte qui renverse Staline","La fin du parti unique"]},
+    {t:"urss", c:"u11", q:"Quel est le bilan du goulag sous Staline ?", ok:"Environ 20 millions de déportés et 1,8 million de morts", x:["Environ 30 000 arrestations","Environ 6 millions de chômeurs","Environ 11 gouvernements en 4 ans"]},
+    {t:"urss", c:"u8", q:"Quel surnom la propagande donne-t-elle à Staline ?", ok:"« Le petit père des peuples »", x:["« Le Führer »","« Le guide de la nation française »","« Le chancelier de fer »"]},
+    {t:"urss", c:"u12", q:"Qu'est-ce que la Grande Terreur (1936-1938) ?", ok:"Une répression massive : procès de Moscou, exécutions, déportations au goulag", x:["Une famine due à la collectivisation","Des violences contre les Juifs en Allemagne","Une manifestation des ligues à Paris"]},
+    {card:"u5"}, {card:"u10"}, {card:"u1"}
+  ],
+  nazi: [
+    {t:"nazi", c:"n1", q:"Pourquoi Hitler arrive-t-il au pouvoir ?", ok:"Crise économique (6 millions de chômeurs), rejet du traité de Versailles, victoires électorales du parti nazi", x:["Il gagne une guerre civile","Son putsch de 1923 réussit","Il succède à Lénine"]},
+    {t:"nazi", c:"n11", q:"Que contiennent les lois de Nuremberg (1935) ?", ok:"Les Juifs perdent la citoyenneté allemande et les mariages mixtes sont interdits", x:["Elles créent la semaine de 40 heures","Elles organisent la collectivisation des terres","Elles donnent le droit de vote aux femmes"]},
+    {t:"nazi", c:"n12", q:"Que se passe-t-il pendant la Nuit de Cristal ?", ok:"Des violences contre les Juifs : magasins pillés, synagogues incendiées, 30 000 arrestations", x:["L'incendie du Parlement allemand","Les procès de Moscou contre les opposants","Une grande grève ouvrière dans les usines"]},
+    {t:"nazi", c:null, q:"Comment le chômage baisse-t-il en Allemagne nazie ?", ok:"Grands travaux et réarmement massif", x:["Collectivisation des terres","Congés payés et semaine de 40 heures","Plans de 5 ans et kolkhozes"]},
+    {t:"nazi", c:"n14", q:"Quels territoires Hitler annexe-t-il ou attaque-t-il ?", ok:"L'Autriche, les Sudètes (Tchécoslovaquie), puis la Pologne", x:["La France, la Belgique et l'Espagne","L'Ukraine et la Russie","L'Italie et la Suisse"]},
+    {t:"nazi", c:"n9", q:"Qui surveille et arrête les opposants en Allemagne nazie ?", ok:"La Gestapo et les SS", x:["Le NKVD","Les Komsomols","Les ligues d'extrême droite"]},
+    {t:"nazi", c:"n17", q:"Quelles sont les 3 caractéristiques de l'idéologie nazie ?", ok:"Raciste, antisémite et nationaliste", x:["Communiste, égalitaire et pacifiste","Démocratique, libérale et pacifiste","Royaliste, catholique et pacifiste"]},
+    {card:"n5"}, {card:"n7"}, {card:"n8"}
+  ],
+  fp: [
+    {t:"fp", c:"f1", q:"Pourquoi la démocratie française est-elle fragilisée au début des années 1930 ?", ok:"Crise économique, chômage, 11 gouvernements en 4 ans et menace des ligues", x:["Une guerre civile éclate","Un coup d'État militaire réussit","Les nazis gagnent les élections en France"]},
+    {t:"fp", c:"f3", q:"Que se passe-t-il le 6 février 1934 ?", ok:"Les ligues d'extrême droite manifestent à Paris : on craint un coup d'État", x:["Le Front populaire gagne les élections","Les accords de Matignon sont signés","Léon Blum démissionne"]},
+    {t:"fp", c:"f4", q:"Quels partis forment le Front populaire ?", ok:"La SFIO, les radicaux et les communistes", x:["Le NSDAP, la SFIO et les radicaux","Les ligues et les communistes","Le Parti communiste seul"]},
+    {t:"fp", c:"f6", q:"Que contiennent les accords de Matignon (juin 1936) ?", ok:"Congés payés, semaine de 40 heures, hausse des salaires, droit syndical", x:["Interdiction des syndicats et baisse des salaires","Collectivisation des usines","Exclusion des Juifs de la fonction publique"]},
+    {t:"fp", c:"f7", q:"Quelle autre mesure est prise par le Front populaire ?", ok:"La création de la SNCF (1937)", x:["La création du goulag","Les lois de Nuremberg","Les plans de 5 ans"]},
+    {t:"fp", c:"f9", q:"Pourquoi le Front populaire prend-il fin en juin 1937 ?", ok:"Chômage, divisions de la gauche, antisémitisme contre Blum, guerre d'Espagne", x:["Hitler envahit la France","Un coup d'État des ligues renverse la République","Les femmes obtiennent le droit de vote"]},
+    {card:"f5"}
+  ],
+  approf: [
+    {t:"approf", c:"a1", q:"Quel est le point commun entre l'URSS de Staline et l'Allemagne d'Hitler ?", ok:"Chef unique, parti unique, idéologie, contrôle de la société et terreur", x:["Des élections libres avec plusieurs partis","La liberté de la presse","Exactement la même idéologie"]},
+    {t:"approf", c:"a2", q:"Quelle est la grande différence entre le communisme et le nazisme ?", ok:"Le communisme veut une société sans classes ; le nazisme affirme l'inégalité des races", x:["Le communisme est raciste ; le nazisme veut l'égalité","Le communisme est une démocratie ; le nazisme une monarchie","Il n'y a aucune différence"]},
+    {t:"approf", c:"a3", q:"Quelle différence entre Staline et Hitler dans la conquête du pouvoir ?", ok:"Staline l'obtient à l'intérieur du parti ; Hitler arrive au pouvoir légalement par les élections", x:["Les deux arrivent au pouvoir par une guerre civile","Staline gagne des élections libres ; Hitler fait un coup d'État réussi","Les deux sont nommés par un roi"]}
+  ],
+  // Définitions et dates de la fiche (cartes de l'appli)
+  def: ["d1","d2","d3","d4","d5","d6","d7","d8","d9","d10","d11"],
+  dates: ["t2","t3","t4","t5","t7","t8","t11","t12","t14","t15","t16"]
+};
+// Composition d'une évaluation blanche (15 questions)
+const EXAM_PLAN = {def:4, dates:4, urss:2, nazi:2, fp:2, approf:1};
+
 (function(){
 "use strict";
 const KEY = "h2-totalitarismes-3e-v1";
@@ -496,7 +548,10 @@ function dayStreak(){
   return n;
 }
 function markDay(){ const t = today(); if (!S.days.includes(t)) S.days.push(t); }
-const failedIds = () => CARDS.filter(c => { const r = S.cards[c.id]; return r && r.b === 1; }).map(c => c.id);
+const tomorrow = () => { const d = new Date(); d.setDate(d.getDate() + 1); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
+// Cartes à revoir aujourd'hui : ratées (ou « presque ») lors d'un jour précédent et pas encore réussies depuis
+const dueIds = () => CARDS.filter(c => { const r = S.cards[c.id]; if (!r) return false; return r.due ? r.due <= today() : r.b === 1; }).map(c => c.id);
+const failedIds = dueIds;
 
 /* ---------- Icônes ---------- */
 const P = {
@@ -583,7 +638,7 @@ function addXP(n){ S.xp += n; xpFloat(n); }
 function track(name){ try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({path: "h2-" + name, title: name, event: true}); } catch(e) {} }
 
 /* Statistiques anonymes (Google Sheets) : appli et mode de jeu uniquement */
-const APP_NAME = "H2 Totalitarismes 3e";
+const APP_NAME = "Réviser 3e H2";
 const STATS_URL = window.H2_STATS_URL || "";
 function deviceType(){
   try {
@@ -619,12 +674,14 @@ function grade(id, r){ // r : 0 raté, 1 presque, 2 su
   const before = rec.b;
   if (r === 2) {
     if (rec.f) { S.comeback++; rec.f = false; }
+    delete rec.due;
     rec.b = Math.min(5, Math.max(before, 1) + 1); rec.ok++;
   } else if (r === 1) {
     rec.b = before >= 3 ? before - 1 : Math.max(1, before === 0 ? 1 : before);
     if (before === 0) rec.b = 1;
+    rec.due = tomorrow();
   } else {
-    rec.b = 1; rec.ko++; rec.f = true;
+    rec.b = 1; rec.ko++; rec.f = true; rec.due = tomorrow();
   }
   rec.last = Date.now();
   S.reviewed++; markDay();
@@ -647,7 +704,7 @@ function pick(list, n){
    ========================================================= */
 let confirmReset = false;
 function home(){
-  view = "home"; stopTimer();
+  view = "home"; stopTimer(); clearInterval(examTick);
   const lv = level(), g = mastery(CARDS);
   const acquired = CARDS.filter(c => box(c.id) >= 3).length;
   const fails = failedIds().length;
@@ -661,6 +718,8 @@ function home(){
         <div class="chips"><span class="chip">${ico("pin",13)} Collège Plan Menu · Coublevie · 3e</span><span class="chip">${ico("user",13)} Jeanne Cador · Enseignante</span></div></div></div>
     <div class="navbtns"><button class="ghost" id="toBadges">${ico("medal",16)} Badges et bilan</button></div>
   </header>
+
+  ${fails ? `<div class="review-banner today"><p><b>${fails} carte${fails > 1 ? "s" : ""} à revoir aujourd'hui.</b> Ce sont celles que tu avais ratées : revois-les pour les fixer.</p><button class="go" id="goFails">${ico("loop",18)} Les revoir</button></div>` : ""}
 
   <section class="dash fade-in" aria-label="Ta progression">
     <div class="player">
@@ -679,7 +738,6 @@ function home(){
     </div>
   </section>
 
-  ${fails ? `<div class="review-banner"><p><b>${fails} carte${fails > 1 ? "s" : ""} à retravailler.</b> Ce sont celles que tu as ratées : elles reviennent en priorité.</p><button class="go" id="goFails">${ico("loop",18)} Revoir mes erreurs</button></div>` : ""}
 
   <section class="how" aria-label="Comment ça marche">
     <h3>Comment ça marche ?</h3>
@@ -687,7 +745,7 @@ function home(){
       <li><span><b>Choisis</b> tes thèmes et un mode de jeu.</span></li>
       <li><span><b>Lis la question</b>, cherche la réponse dans ta tête, puis retourne la carte.</span></li>
       <li><span><b>Sois honnête</b> : « Je savais », « Presque » ou « Raté ».</span></li>
-      <li><span><b>Les cartes ratées reviennent</b> plus souvent, jusqu'à ce que tu les saches.</span></li>
+      <li><span><b>Les cartes ratées reviennent</b> le lendemain, jusqu'à ce que tu les saches.</span></li>
     </ol>
     <p>Chaque bonne réponse rapporte des points (XP). Enchaîne les bonnes réponses pour gagner plus et débloquer des badges.</p>
   </section>
@@ -721,6 +779,12 @@ function home(){
       <p>5 événements mélangés : touche-les dans l'ordre chronologique, du plus ancien au plus récent.</p>
       <button class="go alt" id="goFrise">Remettre dans l'ordre ${ico("arrow",18)}</button>
     </div>
+    <div class="mode exam">
+      <h4>${ico("clock",22)} Évaluation blanche</h4>
+      <span class="veille">À faire la veille de l'évaluation</span>
+      <p>${EXAM_N} questions essentielles pour le contrôle : définitions, dates et connaissances de la fiche de révision. Avec chrono, sans correction pendant l'épreuve. À la fin : ta note sur 20 et ton bilan par notion.</p>
+      <button class="go" id="goExam">Commencer l'évaluation ${ico("arrow",18)}</button>
+    </div>
   </div>
 
   <div class="sec-title"><h3>Tes badges</h3><button class="linkbtn" id="toBadges2">Voir tous les badges</button></div>
@@ -737,6 +801,7 @@ function home(){
   $("#goFlip").onclick = () => { const n = S.size === "Tout" ? p.length : S.size; startFlip(pick(p, n).map(c => c.id)); };
   $("#goQcm").onclick = startQcm;
   $("#goFrise").onclick = startFrise;
+  $("#goExam").onclick = startExam;
   $("#toBadges").onclick = $("#toBadges2").onclick = badgesView;
   const gf = $("#goFails"); if (gf) gf.onclick = () => startFlip(shuffle(failedIds()));
   window.scrollTo(0, 0);
@@ -951,6 +1016,101 @@ function themeOfDate(c){
   if (id === "t1") return "dates";
   return "nazi";
 }
+/* =========================================================
+   ÉVALUATION BLANCHE
+   ========================================================= */
+const EXAM_N = Object.values(EXAM_PLAN).reduce((x, y) => x + y, 0);
+let E = null, examTick = 0;
+// Transforme une carte de l'appli ou une question essentielle en question d'évaluation
+function examItem(src){
+  if (typeof src === "string" || src.card) {
+    const c = byId[typeof src === "string" ? src : src.card];
+    return {t: c.t, cid: c.id, q: qcmQuestion(c), ok: c.s, opts: optionsFor(c).map(o => o.s), expl: c.a + (c.d ? "<br>" + c.d : "")};
+  }
+  const c = src.c && byId[src.c];
+  return {t: src.t, cid: c ? c.id : null, q: src.q, ok: src.ok, opts: shuffle([src.ok].concat(src.x)), expl: c ? c.a + (c.d ? "<br>" + c.d : "") : ""};
+}
+function startExam(){
+  const list = [];
+  Object.entries(EXAM_PLAN).forEach(([k, n]) => {
+    shuffle(ESSENTIELS[k].filter(x => typeof x !== "string" || byId[x]).filter(x => !(x && x.card) || byId[x.card])).slice(0, n).forEach(x => list.push(examItem(x)));
+  });
+  E = {list: shuffle(list), i: 0, answers: {}, t0: Date.now(), xp0: S.xp};
+  view = "exam"; renderExam();
+  clearInterval(examTick);
+  examTick = setInterval(() => { const el = $("#chrono"); if (el) el.textContent = mmss(Date.now() - E.t0); else clearInterval(examTick); }, 1000);
+}
+const mmss = ms => { const s = Math.floor(ms / 1000); return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); };
+function renderExam(){
+  const c = E.list[E.i], th = THEMES[c.t], opts = c.opts, chosen = E.answers[E.i];
+  app.innerHTML = `
+  <div class="sess-head">
+    <button class="ghost" id="quit" aria-label="Abandonner l'évaluation">${ico("back",16)}</button>
+    <div class="prog" aria-hidden="true"><i style="width:${pct(E.i / E.list.length)}%"></i></div>
+    <span class="sess-count">${E.i + 1}/${E.list.length}</span>
+    <span class="combo mono" id="chrono" title="Temps écoulé">${mmss(Date.now() - E.t0)}</span>
+  </div>
+  <div class="face fade-in" style="--c:${th.color};min-height:0">
+    <div class="fhead"><span class="ftag">Évaluation blanche · ${esc(th.short)}</span><span class="fbox">sans correction immédiate</span></div>
+    <div class="ruled" style="padding-block:14px"><div class="q" style="padding-block:6px;font-size:clamp(19px,3vw,24px)">${c.q}</div></div>
+  </div>
+  <div class="qcm-opts">${opts.map((o, i) => `<button class="opt${chosen === i ? " chosen" : ""}" data-i="${i}" aria-pressed="${chosen === i}"><span class="l">${"ABCD"[i]}</span><span>${esc(o)}</span></button>`).join("")}</div>
+  <div class="row" style="margin-top:14px">
+    ${E.i > 0 ? `<button class="go alt" id="prev">${ico("back",18)} Précédente</button>` : ""}
+    <button class="go" id="next" ${chosen !== undefined ? "" : "disabled"}>${E.i + 1 < E.list.length ? "Question suivante" : "Terminer et voir ma note"} ${ico("arrow",18)}</button>
+  </div>
+  <div id="quitBox"></div>`;
+  app.querySelectorAll(".opt").forEach(b => b.onclick = () => { E.answers[E.i] = +b.dataset.i; renderExam(); });
+  $("#next").onclick = () => { if (E.i + 1 < E.list.length) { E.i++; renderExam(); } else endExam(); };
+  const pv = $("#prev"); if (pv) pv.onclick = () => { E.i--; renderExam(); };
+  $("#quit").onclick = () => {
+    $("#quitBox").innerHTML = `<div class="confirm-box" style="margin-top:14px"><span>Abandonner l'évaluation ? Tes réponses ne seront pas comptées.</span><button class="danger" id="qYes">Abandonner</button><button class="ghost" id="qNo">Continuer</button></div>`;
+    $("#qYes").onclick = () => { clearInterval(examTick); home(); };
+    $("#qNo").onclick = () => { $("#quitBox").innerHTML = ""; };
+  };
+  window.scrollTo(0, 0);
+}
+function endExam(){
+  clearInterval(examTick);
+  view = "end";
+  const dur = Date.now() - E.t0;
+  const res = {}; let ok = 0;
+  const notions = {};
+  E.list.forEach((c, i) => {
+    c.mine = c.opts[E.answers[i]];
+    const good = c.mine === c.ok; c.good = good; if (good) ok++;
+    if (c.cid) { res[c.cid] = good ? 2 : 0; grade(c.cid, good ? 2 : 0); }
+    const n = notions[c.t] || (notions[c.t] = {ok: 0, tot: 0}); n.tot++; if (good) n.ok++;
+  });
+  const note = Math.round(ok / E.list.length * 40) / 2;
+  addXP(ok * 8 + (note >= 16 ? 30 : 0));
+  report("Évaluation blanche", ok, E.list.length, res);
+  S.examBest = Math.max(S.examBest || 0, note); save(); checkBadges();
+  const wrong = E.list.filter(c => !c.good);
+  const msg = note >= 16 ? "Excellent, tu es prêt !" : note >= 12 ? "Bien, encore un petit effort" : note >= 8 ? "Des bases, mais il faut réviser" : "À retravailler avant l'évaluation";
+  app.innerHTML = `
+  <div class="endcard fade-in">
+    <div><span class="ftag" style="color:var(--accent)">Évaluation blanche · ${mmss(dur)}</span>
+      <h2 class="note20">${String(note).replace(".", ",")}<small>/20</small></h2><p class="muted" style="margin:6px 0 0;font-size:15px">${msg} · ${ok} bonne${ok > 1 ? "s" : ""} réponse${ok > 1 ? "s" : ""} sur ${E.list.length}</p></div>
+    <div><h3 style="font-family:var(--f-display);text-transform:uppercase;font-size:20px;margin-bottom:8px">Bilan par notion</h3>
+      <div class="tbars">${Object.entries(notions).map(([t, n]) => `<div class="tbar" style="--c:${THEMES[t].color}"><span>${esc(THEMES[t].label)}</span><div class="mbar"><i style="width:${pct(n.ok / n.tot)}%"></i></div><b>${n.ok}/${n.tot}</b></div>`).join("")}</div></div>
+    ${wrong.length ? `<div><h3 style="font-family:var(--f-display);text-transform:uppercase;font-size:20px;margin-bottom:8px">Corrigé de tes erreurs</h3>
+      <div class="miss">${wrong.map(c => { const th = THEMES[c.t]; return `<details style="--c:${th.color}" open><summary><span class="ftag">${esc(th.short)}</span>${strip(c.q)}</summary><p class="muted">Ta réponse : ${esc(c.mine || "—")}</p><p><b>Bonne réponse : ${esc(c.ok)}</b></p>${c.expl ? `<div style="margin-top:4px">${c.expl}</div>` : ""}</details>`; }).join("")}</div>
+      <p class="muted" style="font-size:14px;margin:10px 0 0">Ces cartes reviendront demain dans « Cartes à revoir aujourd'hui ».</p></div>` : ""}
+    <div class="row">
+      ${wrong.length ? `<button class="go" id="again">${ico("flip",18)} Retravailler mes erreurs maintenant</button>` : ""}
+      <button class="go alt" id="more">Nouvelle évaluation blanche</button>
+      <button class="go alt" id="back">Accueil</button>
+    </div>
+  </div>`;
+  const wrongIds = [...new Set(wrong.map(c => c.cid).filter(Boolean))];
+  if (wrong.length) { const ag = $("#again"); if (wrongIds.length) ag.onclick = () => startFlip(shuffle(wrongIds)); else ag.remove(); }
+  $("#more").onclick = startExam;
+  $("#back").onclick = home;
+  if (note >= 16) confetti();
+  window.scrollTo(0, 0);
+}
+
 function startFrise(){
   const dated = shuffle(CARDS.filter(c => c.k));
   const chosen = [];
