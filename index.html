@@ -309,6 +309,21 @@ button,.flip,.opt,.ev,.theme{touch-action:manipulation;-webkit-tap-highlight-col
 .note20 small{font-size:.4em;color:var(--ink-2);margin-left:4px}
 .review-banner.today{margin-top:0;margin-bottom:14px;border-style:solid;border-color:var(--mid);background:var(--card);background:color-mix(in srgb,var(--mid) 8%,var(--card))}
 .review-banner.today .go{background:var(--mid);color:var(--card)}
+/* Construire un plan */
+.subj{display:grid;gap:10px;margin-top:14px}
+.skel{display:grid;gap:3px;margin-top:6px}
+.skel div{font-weight:700;font-size:15px}
+.skel b{font-family:var(--f-mono);color:var(--c-methode);margin-right:8px}
+.idea{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px 12px;display:flex;gap:12px;align-items:center;margin-top:8px}
+.idea p{margin:0;flex:1;font-size:15px;line-height:1.4}
+.idea .why{display:block;font-size:13px;font-weight:700;color:var(--ko);margin-top:3px}
+.idea.right{border-color:var(--ok)}
+.idea.wrong{border-color:var(--ko)}
+.idea .seg button{min-width:40px;padding:6px 10px;font-size:14px}
+.idea .seg button[disabled]{cursor:default}
+.plan ul{margin:2px 0 0;padding-left:18px}
+@media (max-width:560px){.idea{flex-direction:column;align-items:stretch}.idea .seg{align-self:flex-end}}
+.mode.exam{grid-column:1/-1}
 </style>
 
 </head>
@@ -326,32 +341,31 @@ const THEMES = {
   urss:    {label:"L'URSS de Staline",     short:"URSS",        color:"var(--c-urss)"},
   nazi:    {label:"L'Allemagne nazie",     short:"Allemagne",   color:"var(--c-nazi)"},
   fp:      {label:"Le Front populaire",    short:"France",      color:"var(--c-fp)"},
-  approf:  {label:"Comparer et expliquer", short:"Approfondir", color:"var(--c-approf)"},
-  methode: {label:"Sujets possibles",      short:"Sujet possible",     color:"var(--c-methode)"}
+  approf:  {label:"Comparer et expliquer", short:"Approfondir", color:"var(--c-approf)"}
 };
 
 /* t = thème, g = groupe QCM, q = question, a = réponse, d = corrigé détaillé,
    p = pour aller plus loin, s = réponse courte (QCM), k = année (frise), fl = libellé frise */
 const CARDS = [
 /* ================= DÉFINITIONS ================= */
-{id:"d1",t:"def",g:"def",q:"Définis : <b>régime totalitaire</b>",a:"Régime politique où l'État impose une idéologie officielle, utilise la violence et veut tout contrôler (population, économie, politique).",d:"Retiens les 3 éléments : <b>idéologie</b> officielle, <b>violence</b> (terreur), <b>contrôle total</b>.",p:"Exemples du chapitre : l'URSS de Staline et l'Allemagne nazie d'Hitler.",s:"Régime où l'État impose une idéologie, utilise la violence et veut tout contrôler"},
-{id:"d2",t:"def",g:"def",q:"Définis : <b>démocratie</b>",a:"Régime politique dans lequel le pouvoir appartient au peuple.",d:"Le peuple choisit ses représentants par des élections libres. Les libertés (expression, presse, réunion) sont garanties.",p:"Dans les années 1930, la France reste une démocratie, mais elle est <b>fragilisée</b> par la crise.",s:"Régime dans lequel le pouvoir appartient au peuple"},
-{id:"d3",t:"def",g:"def",q:"Définis : <b>communisme</b>",a:"Idéologie qui veut créer une société égalitaire, sans différence de richesse, sans classe sociale, sans propriété privée (tout appartient à l'État).",d:"C'est l'idéologie officielle de l'URSS, imposée par le Parti communiste.",s:"Société égalitaire, sans classe sociale ni propriété privée"},
-{id:"d4",t:"def",g:"def",q:"Définis : <b>collectivisation</b>",a:"Mise en commun par l'État des moyens de production (terres, machines, usines).",d:"En URSS, les terres des paysans sont regroupées dans de grandes fermes collectives : les <b>kolkhozes</b>.",p:"La collectivisation forcée provoque la famine de 1932-1933 (7 millions de morts).",s:"Mise en commun par l'État des moyens de production"},
-{id:"d5",t:"def",g:"def",q:"Définis : <b>goulag</b>",a:"Camps de travail forcé en URSS où sont déportés les opposants au régime.",d:"Environ <b>20 millions</b> de personnes y sont déportées sous Staline ; <b>1,8 million</b> y meurent.",s:"Camps de travail forcé en URSS pour les opposants"},
-{id:"d6",t:"def",g:"def",q:"Définis : <b>Front populaire</b>",a:"Alliance des partis de gauche (SFIO, radicaux, communistes) au pouvoir en France de mai 1936 à juin 1937.",d:"Son chef de gouvernement est <b>Léon Blum</b> (SFIO).",s:"Alliance des partis de gauche au pouvoir en France (1936-1937)"},
-{id:"d7",t:"def",g:"def",q:"Définis : <b>nazisme</b>",a:"Idéologie d'Hitler : les Allemands appartiennent à la race supérieure des Aryens. Ils doivent éliminer les Juifs qui menaceraient la pureté du peuple allemand.",d:"Le nazisme est une idéologie <b>raciste</b>, <b>antisémite</b> et <b>nationaliste</b>.",p:"Hitler expose ces idées dans <i>Mein Kampf</i>, écrit en prison après le putsch raté de 1923.",s:"Idéologie de la race supérieure aryenne qui veut éliminer les Juifs"},
-{id:"d8",t:"def",g:"def",q:"Définis : <b>racisme</b>",a:"Idée fausse selon laquelle une race serait supérieure à une autre.",d:"Le nazisme est fondé sur le racisme : il prétend que les « Aryens » sont supérieurs.",s:"Croyance en la supériorité d'une race sur une autre"},
-{id:"d9",t:"def",g:"def",q:"Définis : <b>antisémitisme</b>",a:"Haine des Juifs.",d:"En Allemagne nazie : boycott des magasins juifs, lois de Nuremberg (1935), Nuit de Cristal (1938).",p:"En France aussi, Léon Blum est la cible d'attaques antisémites.",s:"Haine des Juifs"},
-{id:"d10",t:"def",g:"def",q:"Définis : <b>nationalisme</b>",a:"Idée de la supériorité de sa nation et de sa défense.",d:"Le nationalisme nazi pousse Hitler à annexer l'Autriche, la Tchécoslovaquie puis à attaquer la Pologne.",s:"Supériorité de la nation et sa défense"},
-{id:"d11",t:"def",g:"def",q:"Définis : <b>pangermanisme</b>",a:"Volonté de réunir dans un seul et même État tous les peuples allemands, et d'étendre le territoire pour satisfaire les besoins en nourriture et matières premières (espace vital).",d:"C'est la forme nazie du nationalisme.",s:"Réunir tous les peuples allemands dans un même État"},
-{id:"d13",t:"def",g:"def",q:"Définis : <b>culte de la personnalité</b>",a:"Propagande qui présente le chef comme un être exceptionnel, admiré et aimé du peuple.",d:"Staline est le « petit père des peuples » ; Hitler est le <i>Führer</i> (le guide).",p:"Moyens : affiches, portraits, statues, films, grands rassemblements, radio.",s:"Propagande qui présente le chef comme un être exceptionnel"},
-{id:"d14",t:"def",g:"def",q:"Définis : <b>propagande</b>",a:"Ensemble des moyens utilisés par un régime pour diffuser son idéologie et convaincre la population.",d:"Affiches, radio, cinéma, presse, école, grands rassemblements, Jeux olympiques de Berlin (1936).",s:"Moyens utilisés pour diffuser l'idéologie et convaincre la population"},
-{id:"d16",t:"def",g:"def",q:"Définis : <b>censure</b>",a:"Contrôle et interdiction par l'État de ce qui est publié ou diffusé (presse, livres, films).",d:"En Allemagne, les livres interdits sont brûlés lors d'<b>autodafés</b> (mai 1933).",s:"Contrôle et interdiction de ce qui est publié ou diffusé"},
-{id:"d17",t:"def",g:"def",q:"Définis : <b>parti unique</b>",a:"Seul parti politique autorisé ; tous les autres sont interdits.",d:"URSS : le Parti communiste. Allemagne : le NSDAP (parti nazi).",s:"Seul parti politique autorisé"},
-{id:"d18",t:"def",g:"def",q:"Définis : <b>planification</b>",a:"L'État fixe les objectifs de production de toute l'économie dans des plans de 5 ans (plans quinquennaux).",d:"En URSS, priorité à l'industrie lourde (acier, charbon), aux chemins de fer et à l'armement.",s:"L'État fixe des objectifs de production sur 5 ans"},
-{id:"d19",t:"def",g:"def",q:"Définis : <b>ligues</b> (France, années 1930)",a:"Mouvements d'extrême droite hostiles à la démocratie parlementaire.",d:"Le 6 février 1934, elles manifestent à Paris et font craindre un coup d'État.",p:"Exemples : les Croix-de-Feu, l'Action française. Le Front populaire les dissout en juin 1936.",s:"Mouvements d'extrême droite hostiles à la démocratie"},
-{id:"d20",t:"def",g:"def",q:"Définis : <b>nationalisation</b>",a:"Une entreprise privée devient la propriété de l'État.",d:"En URSS, toutes les entreprises sont nationalisées. En France, le Front populaire nationalise les industries d'armement et crée la SNCF (1937).",s:"Une entreprise privée devient propriété de l'État"},
+{id:"d1",t:"def",g:"def",q:"Définissez : <b>régime totalitaire</b>",a:"Régime politique où l'État impose une idéologie officielle, utilise la violence et veut tout contrôler (population, économie, politique).",d:"Retiens les 3 éléments : <b>idéologie</b> officielle, <b>violence</b> (terreur), <b>contrôle total</b>.",p:"Exemples du chapitre : l'URSS de Staline et l'Allemagne nazie d'Hitler.",s:"Régime où l'État impose une idéologie, utilise la violence et veut tout contrôler"},
+{id:"d2",t:"def",g:"def",q:"Définissez : <b>démocratie</b>",a:"Régime politique dans lequel le pouvoir appartient au peuple.",d:"Le peuple choisit ses représentants par des élections libres. Les libertés (expression, presse, réunion) sont garanties.",p:"Dans les années 1930, la France reste une démocratie, mais elle est <b>fragilisée</b> par la crise.",s:"Régime dans lequel le pouvoir appartient au peuple"},
+{id:"d3",t:"def",g:"def",q:"Définissez : <b>communisme</b>",a:"Idéologie qui veut créer une société égalitaire, sans différence de richesse, sans classe sociale, sans propriété privée (tout appartient à l'État).",d:"C'est l'idéologie officielle de l'URSS, imposée par le Parti communiste.",s:"Société égalitaire, sans classe sociale ni propriété privée"},
+{id:"d4",t:"def",g:"def",q:"Définissez : <b>collectivisation</b>",a:"Mise en commun par l'État des moyens de production (terres, machines, usines).",d:"En URSS, les terres des paysans sont regroupées dans de grandes fermes collectives : les <b>kolkhozes</b>.",p:"La collectivisation forcée provoque la famine de 1932-1933 (7 millions de morts).",s:"Mise en commun par l'État des moyens de production"},
+{id:"d5",t:"def",g:"def",q:"Définissez : <b>goulag</b>",a:"Camps de travail forcé en URSS où sont déportés les opposants au régime.",d:"Environ <b>20 millions</b> de personnes y sont déportées sous Staline ; <b>1,8 million</b> y meurent.",s:"Camps de travail forcé en URSS pour les opposants"},
+{id:"d6",t:"def",g:"def",q:"Définissez : <b>Front populaire</b>",a:"Alliance des partis de gauche (SFIO, radicaux, communistes) au pouvoir en France de mai 1936 à juin 1937.",d:"Son chef de gouvernement est <b>Léon Blum</b> (SFIO).",s:"Alliance des partis de gauche au pouvoir en France (1936-1937)"},
+{id:"d7",t:"def",g:"def",q:"Définissez : <b>nazisme</b>",a:"Idéologie d'Hitler : les Allemands appartiennent à la race supérieure des Aryens. Ils doivent éliminer les Juifs qui menaceraient la pureté du peuple allemand.",d:"Le nazisme est une idéologie <b>raciste</b>, <b>antisémite</b> et <b>nationaliste</b>.",p:"Hitler expose ces idées dans <i>Mein Kampf</i>, écrit en prison après le putsch raté de 1923.",s:"Idéologie de la race supérieure aryenne qui veut éliminer les Juifs"},
+{id:"d8",t:"def",g:"def",q:"Définissez : <b>racisme</b>",a:"Idée fausse selon laquelle une race serait supérieure à une autre.",d:"Le nazisme est fondé sur le racisme : il prétend que les « Aryens » sont supérieurs.",s:"Croyance en la supériorité d'une race sur une autre"},
+{id:"d9",t:"def",g:"def",q:"Définissez : <b>antisémitisme</b>",a:"Haine des Juifs.",d:"En Allemagne nazie : boycott des magasins juifs, lois de Nuremberg (1935), Nuit de Cristal (1938).",p:"En France aussi, Léon Blum est la cible d'attaques antisémites.",s:"Haine des Juifs"},
+{id:"d10",t:"def",g:"def",q:"Définissez : <b>nationalisme</b>",a:"Idée de la supériorité de sa nation et de sa défense.",d:"Le nationalisme nazi pousse Hitler à annexer l'Autriche, la Tchécoslovaquie puis à attaquer la Pologne.",s:"Supériorité de la nation et sa défense"},
+{id:"d11",t:"def",g:"def",q:"Définissez : <b>pangermanisme</b>",a:"Volonté de réunir dans un seul et même État tous les peuples allemands, et d'étendre le territoire pour satisfaire les besoins en nourriture et matières premières (espace vital).",d:"C'est la forme nazie du nationalisme.",s:"Réunir tous les peuples allemands dans un même État"},
+{id:"d13",t:"def",g:"def",q:"Définissez : <b>culte de la personnalité</b>",a:"Propagande qui présente le chef comme un être exceptionnel, admiré et aimé du peuple.",d:"Staline est le « petit père des peuples » ; Hitler est le <i>Führer</i> (le guide).",p:"Moyens : affiches, portraits, statues, films, grands rassemblements, radio.",s:"Propagande qui présente le chef comme un être exceptionnel"},
+{id:"d14",t:"def",g:"def",q:"Définissez : <b>propagande</b>",a:"Ensemble des moyens utilisés par un régime pour diffuser son idéologie et convaincre la population.",d:"Affiches, radio, cinéma, presse, école, grands rassemblements, Jeux olympiques de Berlin (1936).",s:"Moyens utilisés pour diffuser l'idéologie et convaincre la population"},
+{id:"d16",t:"def",g:"def",q:"Définissez : <b>censure</b>",a:"Contrôle et interdiction par l'État de ce qui est publié ou diffusé (presse, livres, films).",d:"En Allemagne, les livres interdits sont brûlés lors d'<b>autodafés</b> (mai 1933).",s:"Contrôle et interdiction de ce qui est publié ou diffusé"},
+{id:"d17",t:"def",g:"def",q:"Définissez : <b>parti unique</b>",a:"Seul parti politique autorisé ; tous les autres sont interdits.",d:"URSS : le Parti communiste. Allemagne : le NSDAP (parti nazi).",s:"Seul parti politique autorisé"},
+{id:"d18",t:"def",g:"def",q:"Définissez : <b>planification</b>",a:"L'État fixe les objectifs de production de toute l'économie dans des plans de 5 ans (plans quinquennaux).",d:"En URSS, priorité à l'industrie lourde (acier, charbon), aux chemins de fer et à l'armement.",s:"L'État fixe des objectifs de production sur 5 ans"},
+{id:"d19",t:"def",g:"def",q:"Définissez : <b>ligues</b> (France, années 1930)",a:"Mouvements d'extrême droite hostiles à la démocratie parlementaire.",d:"Le 6 février 1934, elles manifestent à Paris et font craindre un coup d'État.",p:"Exemples : les Croix-de-Feu, l'Action française. Le Front populaire les dissout en juin 1936.",s:"Mouvements d'extrême droite hostiles à la démocratie"},
+{id:"d20",t:"def",g:"def",q:"Définissez : <b>nationalisation</b>",a:"Une entreprise privée devient la propriété de l'État.",d:"En URSS, toutes les entreprises sont nationalisées. En France, le Front populaire nationalise les industries d'armement et crée la SNCF (1937).",s:"Une entreprise privée devient propriété de l'État"},
 {id:"r1",t:"def",g:"mot",q:"Quel mot désigne : « mise en commun par l'État des moyens de production » ?",a:"La collectivisation.",s:"Collectivisation"},
 {id:"r2",t:"def",g:"mot",q:"Quel mot désigne : « réunir dans un même État tous les peuples allemands » ?",a:"Le pangermanisme.",s:"Pangermanisme"},
 {id:"r3",t:"def",g:"mot",q:"Quel mot désigne : « haine des Juifs » ?",a:"L'antisémitisme.",s:"Antisémitisme"},
@@ -414,24 +428,21 @@ const CARDS = [
 {id:"f4",t:"fp",g:null,q:"Quels partis forment le <b>Front populaire</b> ?",a:"La SFIO (socialistes), les radicaux et les communistes.",d:"Ils gagnent les élections de mai 1936."},
 {id:"f5",t:"fp",g:"qui",q:"Qui est le chef du gouvernement du Front populaire ?",a:"Léon Blum (SFIO).",d:"Il est la cible d'attaques antisémites de l'extrême droite.",p:"C'est le premier socialiste et le premier Juif à diriger un gouvernement en France.",s:"Léon Blum"},
 {id:"f6",t:"fp",g:null,q:"Que contiennent les <b>accords de Matignon</b> (juin 1936) ?",a:"Congés payés (2 semaines), semaine de 40 heures, hausse des salaires, droit syndical.",d:"Ils sont signés entre le patronat et les syndicats, sous l'arbitrage du gouvernement Blum.",p:"Ils font suite à d'immenses grèves avec occupation des usines en mai-juin 1936."},
-{id:"f7",t:"fp",g:null,q:"Cite d'autres mesures du Front populaire (hors accords de Matignon).",a:"Création de la SNCF (1937), nationalisations, 3 femmes au gouvernement, auberges de jeunesse.",d:"Le Front populaire développe aussi les loisirs et la culture (sport, cinéma, théâtre)."},
+{id:"f7",t:"fp",g:null,q:"Citez d'autres mesures du Front populaire (hors accords de Matignon).",a:"Création de la SNCF (1937), nationalisations, 3 femmes au gouvernement, auberges de jeunesse.",d:"Le Front populaire développe aussi les loisirs et la culture (sport, cinéma, théâtre)."},
 {id:"f9",t:"fp",g:null,q:"Pourquoi le Front populaire prend-il fin en juin 1937 ?",a:"Raisons économiques (le chômage continue) et politiques (divisions de la gauche, antisémitisme contre Blum, guerre d'Espagne).",d:"Léon Blum démissionne en juin 1937."},
 {id:"f12",t:"fp",g:null,q:"Le Front populaire a-t-il permis de défendre la démocratie ?",a:"Oui : la France reste une démocratie, contrairement à l'Allemagne ou à l'Italie, et obtient des réformes sociales durables.",d:"Mais il ne résout pas la crise économique et la France reste divisée."},
 
 /* ================= APPROFONDIR ================= */
-{id:"a1",t:"approf",g:null,q:"Quels sont les <b>points communs</b> entre l'URSS de Staline et l'Allemagne d'Hitler ?",a:"Un chef unique, un parti unique, une idéologie, le contrôle de l'économie et de la société, la violence et la terreur.",d:"Ce sont deux <b>régimes totalitaires</b>. Pense aux 5 lignes du tableau du cours."},
+{id:"a1",t:"approf",g:null,q:"Quels sont les <b>points communs</b> entre l'URSS de Staline et l'Allemagne d'Hitler ?",a:"Un chef unique, un parti unique, une idéologie, le contrôle de l'économie et de la société, la violence et la terreur.",d:"Ce sont deux <b>régimes totalitaires</b>. Pensez aux 5 lignes du tableau du cours."},
 {id:"a2",t:"approf",g:null,q:"Quelle est la grande <b>différence d'idéologie</b> entre le communisme et le nazisme ?",a:"Le communisme veut une société égalitaire sans classes ; le nazisme affirme l'inégalité des races.",d:"Les « ennemis » sont différents : en URSS, les bourgeois, les koulaks, les opposants ; en Allemagne, d'abord les Juifs et les opposants."},
 {id:"a3",t:"approf",g:null,q:"Quelle différence dans la <b>conquête du pouvoir</b> entre Staline et Hitler ?",a:"Staline prend le pouvoir à l'intérieur du parti, en éliminant ses rivaux ; Hitler arrive au pouvoir légalement grâce aux élections, puis installe une dictature.",p:"Hitler montre qu'une démocratie peut être détruite de l'intérieur."},
 {id:"a4",t:"approf",g:null,q:"Pourquoi parle-t-on de régime « <b>totalitaire</b> » ?",a:"Parce que l'État veut contrôler la totalité de la vie des individus : politique, économie, travail, loisirs, jeunesse, et même les pensées.",d:"L'individu n'a plus de vie privée libre : il doit servir l'État."},
 {id:"a5",t:"approf",g:null,q:"Pourquoi la crise des années 1930 favorise-t-elle les régimes autoritaires ?",a:"Le chômage et la misère créent de la colère ; les démocraties semblent impuissantes et les extrêmes promettent des solutions simples.",d:"En Allemagne, le vote nazi augmente avec le chômage."},
-{id:"a6",t:"approf",g:null,q:"Compare <b>démocratie</b> et <b>régime totalitaire</b>.",a:"Démocratie : pouvoir au peuple, élections libres, plusieurs partis, libertés. Totalitarisme : un chef, un parti unique, censure, propagande, terreur.",d:"La France des années 1930 est une démocratie fragilisée mais qui résiste."},
+{id:"a6",t:"approf",g:null,q:"Comparez <b>démocratie</b> et <b>régime totalitaire</b>.",a:"Démocratie : pouvoir au peuple, élections libres, plusieurs partis, libertés. Totalitarisme : un chef, un parti unique, censure, propagande, terreur.",d:"La France des années 1930 est une démocratie fragilisée mais qui résiste."},
 {id:"a9",t:"approf",g:null,q:"Pourquoi la France ne bascule-t-elle pas comme l'Allemagne ?",a:"La gauche s'unit pour défendre la République et gagne les élections de 1936 ; la tradition républicaine est forte.",d:"Le 6 février 1934 a fait peur, mais il a provoqué une réaction démocratique."},
 {id:"a12",t:"approf",g:null,q:"Dans un développement, quels exemples précis citer pour prouver que l'Allemagne nazie utilise la terreur ?",a:"Gestapo et SS, camp de Dachau (1933), lois de Nuremberg (1935), Nuit de Cristal (1938, 30 000 arrestations).",d:"Un bon développement contient des <b>dates</b>, des <b>chiffres</b> et du <b>vocabulaire</b> précis."},
 
 /* ================= MÉTHODE ================= */
-{id:"m8",t:"methode",g:null,q:"Sujet : « Montrez les caractéristiques du régime mis en place en Allemagne entre 1933 et 1945 ». Quel plan ?",a:"I. Un pouvoir totalitaire<br>II. Le contrôle de l'économie et de la société<br>III. Un régime de terreur, raciste, antisémite et nationaliste",d:"<div class=\"plan\"><div class=\"pl-i\"><b>Introduction</b>Crise des années 1930 (6 millions de chômeurs) ; Hitler est nommé chancelier le 30 janvier 1933.</div><div class=\"pl-p\"><b>I. Un pouvoir totalitaire</b>Pleins pouvoirs (mars 1933) ; Hitler devient le <i>Führer</i> ; parti unique (NSDAP) ; idéologie nazie.</div><div class=\"pl-p\"><b>II. Le contrôle de l'économie et de la société</b>Grands travaux et réarmement ; culte de la personnalité, Jeunesses hitlériennes, censure (autodafés), propagande.</div><div class=\"pl-p\"><b>III. Un régime de terreur, raciste, antisémite et nationaliste</b>Gestapo et SS, camp de Dachau (1933) ; lois de Nuremberg (1935), Nuit de Cristal (1938) ; annexions (Autriche, Tchécoslovaquie, Pologne).</div><div class=\"pl-i\"><b>Conclusion</b>L'Allemagne nazie est un régime totalitaire qui mène à la guerre.</div></div>"},
-{id:"m3",t:"methode",g:null,q:"Sujet : « Montrez les caractéristiques du régime mis en place en URSS avec Staline ». Quel plan ?",a:"I. Un pouvoir totalitaire<br>II. Le contrôle de l'économie et de la société<br>III. La violence et la terreur",d:"<div class=\"plan\"><div class=\"pl-i\"><b>Introduction</b>Staline succède à Lénine en 1924, élimine Trotski et obtient les pleins pouvoirs en 1928.</div><div class=\"pl-p\"><b>I. Un pouvoir totalitaire</b>Chef unique (1928-1953) ; parti unique (Parti communiste) ; idéologie communiste.</div><div class=\"pl-p\"><b>II. Le contrôle de l'économie et de la société</b>Collectivisation (kolkhozes), nationalisations, plans de 5 ans, famine de 1932-1933 ; culte de la personnalité (« petit père des peuples »), Komsomols, censure, propagande.</div><div class=\"pl-p\"><b>III. La violence et la terreur</b>NKVD ; Grande Terreur et procès de Moscou (1936-1938) ; goulag : 20 millions de déportés, 1,8 million de morts.</div><div class=\"pl-i\"><b>Conclusion</b>L'URSS de Staline est un régime totalitaire.</div></div>"},
-{id:"m4",t:"methode",g:null,q:"Sujet : « Expliquez dans quelles conditions le Front populaire est arrivé au pouvoir en France et quelle politique il a menée ». Quel plan ?",a:"I. Les conditions de l'arrivée au pouvoir du Front populaire<br>II. La politique menée par le Front populaire",d:"<div class=\"plan\"><div class=\"pl-i\"><b>Introduction</b>Dans les années 1930, la France reste une démocratie mais traverse une crise.</div><div class=\"pl-p\"><b>I. Les conditions de l'arrivée au pouvoir du Front populaire</b>Une démocratie fragilisée : crise économique et chômage, 11 gouvernements en 4 ans, manifestation des ligues le 6 février 1934 (peur d'un coup d'État). En réaction, SFIO, radicaux et communistes s'allient et gagnent les élections de mai 1936 ; Léon Blum devient chef du gouvernement.</div><div class=\"pl-p\"><b>II. La politique menée par le Front populaire</b>Accords de Matignon (juin 1936) : congés payés, semaine de 40 heures, hausse des salaires, droit syndical. Autres mesures : création de la SNCF (1937), nationalisations, 3 femmes au gouvernement, auberges de jeunesse.</div><div class=\"pl-i\"><b>Conclusion</b>Le Front populaire prend fin en juin 1937 (chômage, divisions de la gauche, antisémitisme contre Blum, guerre d'Espagne). Il a cependant défendu la démocratie et obtenu des réformes sociales durables.</div></div>"},
 ];
 
 const BADGES = [
@@ -439,14 +450,13 @@ const BADGES = [
   {id:"hundred",name:"Centurion des fiches",desc:"Réviser 100 cartes.",                        icon:"stack"},
   {id:"streak5",name:"En série",            desc:"5 bonnes réponses d'affilée.",               icon:"bolt"},
   {id:"streak15",name:"Inarrêtable",        desc:"15 bonnes réponses d'affilée.",              icon:"bolt2"},
-  {id:"comeback",name:"Persévérant",        desc:"Réussir 10 cartes que tu avais ratées.",     icon:"loop"},
+  {id:"comeback",name:"Persévérant",        desc:"Réussir 10 cartes que vous aviez ratées.",     icon:"loop"},
   {id:"m_def",  name:"Dictionnaire vivant", desc:"Maîtriser 80 % des définitions.",            icon:"book"},
   {id:"m_dates",name:"Chronologiste",       desc:"Maîtriser 80 % des dates.",                  icon:"clock"},
   {id:"m_urss", name:"Spécialiste de l'URSS",desc:"Maîtriser 80 % des cartes URSS.",           icon:"star"},
   {id:"m_nazi", name:"Spécialiste de l'Allemagne",desc:"Maîtriser 80 % des cartes Allemagne nazie.",icon:"shield"},
   {id:"m_fp",   name:"Congés payés",        desc:"Maîtriser 80 % des cartes Front populaire.", icon:"sun"},
   {id:"m_approf",name:"Esprit critique",    desc:"Maîtriser 80 % des cartes « Comparer et expliquer ».",icon:"scale"},
-  {id:"m_methode",name:"Paré pour la rédaction",desc:"Maîtriser 80 % des sujets possibles.",         icon:"pen"},
   {id:"qcm10",  name:"Sans faute",          desc:"Faire 10/10 au défi QCM.",                   icon:"target"},
   {id:"frise1", name:"Maître du temps",     desc:"Réussir une frise sans erreur.",             icon:"line"},
   {id:"frise3", name:"Horloger",            desc:"Réussir 3 frises sans erreur.",              icon:"line2"},
@@ -501,8 +511,69 @@ const ESSENTIELS = {
   def: ["d1","d2","d3","d4","d5","d6","d7","d8","d9","d10","d11"],
   dates: ["t2","t3","t4","t5","t7","t8","t11","t12","t14","t15","t16"]
 };
-// Composition d'une évaluation blanche (15 questions)
-const EXAM_PLAN = {def:4, dates:4, urss:2, nazi:2, fp:2, approf:1};
+// Composition d'une évaluation blanche (20 questions)
+const EXAM_PLAN = {def:7, dates:6, urss:2, nazi:2, fp:2, approf:1};
+
+
+/* ================= SUJETS POSSIBLES (rubrique « Construire un plan ») =================
+   p = partie (0 = I, 1 = II, 2 = III), p:-1 = idée hors sujet, w = pourquoi elle est hors sujet */
+const PLANS = [
+{s:"Montrez les caractéristiques du régime mis en place en Allemagne entre 1933 et 1945",
+ intro:"Au début des années 1930, l'Allemagne est frappée par la crise (6 millions de chômeurs). Hitler est nommé chancelier le 30 janvier 1933. Quelles sont les caractéristiques du régime qu'il met en place ?",
+ parts:["Un pouvoir totalitaire","Le contrôle de l'économie et de la société","Un régime de terreur, raciste, antisémite et nationaliste"],
+ ideas:[
+  {t:"Hitler obtient les pleins pouvoirs en mars 1933 et devient le Führer",p:0},
+  {t:"Un parti unique : le NSDAP",p:0},
+  {t:"Une idéologie : le nazisme (race aryenne, espace vital)",p:0},
+  {t:"Grands travaux et réarmement massif font baisser le chômage",p:1},
+  {t:"Culte de la personnalité : « Ein Volk, ein Reich, ein Führer »",p:1},
+  {t:"Embrigadement de la jeunesse dans les Jeunesses hitlériennes",p:1},
+  {t:"Censure (autodafés de livres) et propagande",p:1},
+  {t:"La Gestapo et les SS arrêtent les opposants ; camp de Dachau (1933)",p:2},
+  {t:"Lois de Nuremberg (1935) et Nuit de Cristal (9 novembre 1938)",p:2},
+  {t:"Annexion de l'Autriche et des Sudètes (1938), attaque de la Pologne (1939)",p:2},
+  {t:"Collectivisation des terres dans les kolkhozes",p:-1,w:"c'est une mesure de Staline en URSS, pas d'Hitler."}
+ ],
+ concl:"L'Allemagne nazie est un régime totalitaire, raciste et antisémite, dont le nationalisme mène à la guerre."},
+{s:"Montrez les caractéristiques du régime mis en place en URSS avec Staline",
+ intro:"Staline succède à Lénine en 1924, élimine ses rivaux comme Trotski et obtient les pleins pouvoirs en 1928. Quelles sont les caractéristiques du régime qu'il met en place ?",
+ parts:["Un pouvoir totalitaire","Le contrôle de l'économie et de la société","La violence et la terreur"],
+ ideas:[
+  {t:"Staline, chef unique avec les pleins pouvoirs de 1928 à 1953",p:0},
+  {t:"Un parti unique : le Parti communiste",p:0},
+  {t:"Une idéologie : le communisme",p:0},
+  {t:"Collectivisation des terres (kolkhozes), nationalisations, plans de 5 ans",p:1},
+  {t:"Famine de 1932-1933 : environ 7 millions de morts",p:1},
+  {t:"Culte de la personnalité : « le petit père des peuples »",p:1},
+  {t:"Jeunes embrigadés dans les Komsomols, censure et propagande",p:1},
+  {t:"Le NKVD, police politique, surveille la population",p:2},
+  {t:"Grande Terreur (1936-1938) : procès de Moscou, exécutions",p:2},
+  {t:"Goulag : 20 millions de déportés, 1,8 million de morts",p:2},
+  {t:"Les lois de Nuremberg privent les Juifs de la citoyenneté",p:-1,w:"c'est une loi de l'Allemagne nazie (1935), pas de l'URSS."}
+ ],
+ concl:"L'URSS de Staline est un régime totalitaire : un chef, un parti, une idéologie, et une terreur de masse."},
+{s:"Expliquez dans quelles conditions le Front populaire est arrivé au pouvoir en France et quelle politique il a menée",
+ intro:"Dans les années 1930, la France reste une démocratie mais traverse une crise. Comment le Front populaire arrive-t-il au pouvoir et quelle politique mène-t-il ?",
+ parts:["Les conditions de l'arrivée au pouvoir du Front populaire","La politique menée par le Front populaire"],
+ ideas:[
+  {t:"Crise économique et chômage",p:0},
+  {t:"Instabilité politique : 11 gouvernements en 4 ans",p:0},
+  {t:"6 février 1934 : les ligues manifestent à Paris, on craint un coup d'État",p:0},
+  {t:"SFIO, radicaux et communistes s'allient et gagnent les élections de mai 1936 ; Léon Blum chef du gouvernement",p:0},
+  {t:"Accords de Matignon (juin 1936) : congés payés, semaine de 40 heures",p:1},
+  {t:"Hausse des salaires et droit syndical",p:1},
+  {t:"Création de la SNCF (1937) et nationalisations",p:1},
+  {t:"3 femmes au gouvernement, auberges de jeunesse",p:1},
+  {t:"Les plans de 5 ans fixent les objectifs de production",p:-1,w:"c'est la planification de Staline en URSS, pas une mesure du Front populaire."}
+ ],
+ concl:"Le Front populaire prend fin en juin 1937 (chômage, divisions, antisémitisme contre Blum, guerre d'Espagne). Il a cependant défendu la démocratie et obtenu des réformes sociales durables."}
+];
+const ROMAN = ["I","II","III"];
+function planHtml(p){
+  return `<div class="plan"><div class="pl-i"><b>Introduction</b>${p.intro}</div>` +
+    p.parts.map((t, i) => `<div class="pl-p"><b>${ROMAN[i]}. ${t}</b><ul>${p.ideas.filter(x => x.p === i).map(x => `<li>${x.t}</li>`).join("")}</ul></div>`).join("") +
+    `<div class="pl-i"><b>Conclusion</b>${p.concl}</div></div>`;
+}
 
 (function(){
 "use strict";
@@ -688,7 +759,7 @@ function grade(id, r){ // r : 0 raté, 1 presque, 2 su
 }
 
 /* ---------- Sélection des cartes ---------- */
-function pool(){ return CARDS.filter(c => S.sel.includes(c.t)); }
+function pool(){ S.sel = S.sel.filter(t => THEMES[t]); return CARDS.filter(c => S.sel.includes(c.t)); }
 function pick(list, n){
   const now = Date.now();
   return list.map(c => {
@@ -719,9 +790,9 @@ function home(){
     <div class="navbtns"><button class="ghost" id="toBadges">${ico("medal",16)} Badges et bilan</button></div>
   </header>
 
-  ${fails ? `<div class="review-banner today"><p><b>${fails} carte${fails > 1 ? "s" : ""} à revoir aujourd'hui.</b> Ce sont celles que tu avais ratées : revois-les pour les fixer.</p><button class="go" id="goFails">${ico("loop",18)} Les revoir</button></div>` : ""}
+  ${fails ? `<div class="review-banner today"><p><b>${fails} carte${fails > 1 ? "s" : ""} à revoir aujourd'hui.</b> Ce sont celles que vous aviez ratées : revoyez-les pour les fixer.</p><button class="go" id="goFails">${ico("loop",18)} Les revoir</button></div>` : ""}
 
-  <section class="dash fade-in" aria-label="Ta progression">
+  <section class="dash fade-in" aria-label="Votre progression">
     <div class="player">
       <div class="lvl" title="Niveau ${lv.n} sur ${LEVELS.length}">${lv.n}<small>NIV.</small></div>
       <div class="pinfo">
@@ -742,15 +813,15 @@ function home(){
   <section class="how" aria-label="Comment ça marche">
     <h3>Comment ça marche ?</h3>
     <ol>
-      <li><span><b>Choisis</b> tes thèmes et un mode de jeu.</span></li>
-      <li><span><b>Lis la question</b>, cherche la réponse dans ta tête, puis retourne la carte.</span></li>
-      <li><span><b>Sois honnête</b> : « Je savais », « Presque » ou « Raté ».</span></li>
-      <li><span><b>Les cartes ratées reviennent</b> le lendemain, jusqu'à ce que tu les saches.</span></li>
+      <li><span><b>Choisissez</b> vos thèmes et un mode de jeu.</span></li>
+      <li><span><b>Lisez la question</b>, cherchez la réponse dans votre tête, puis retournez la carte.</span></li>
+      <li><span><b>Soyez honnête</b> : « Je savais », « Presque » ou « Raté ».</span></li>
+      <li><span><b>Les cartes ratées reviennent</b> le lendemain, jusqu'à ce que vous les sachiez.</span></li>
     </ol>
-    <p>Chaque bonne réponse rapporte des points (XP). Enchaîne les bonnes réponses pour gagner plus et débloquer des badges.</p>
+    <p>Chaque bonne réponse rapporte des points (XP). Enchaînez les bonnes réponses pour gagner plus et débloquer des badges.</p>
   </section>
 
-  <div class="sec-title"><h3>Choisis tes thèmes</h3><button class="linkbtn" id="allThemes">${S.sel.length === 7 ? "Tout désélectionner" : "Tout sélectionner"}</button></div>
+  <div class="sec-title"><h3>Choisissez vos thèmes</h3><button class="linkbtn" id="allThemes">${S.sel.length === Object.keys(THEMES).length ? "Tout désélectionner" : "Tout sélectionner"}</button></div>
   <div class="themes">
     ${Object.entries(THEMES).map(([k, t]) => { const l = inTheme(k), m = mastery(l); return `
       <button class="theme" style="--c:${t.color}" aria-pressed="${S.sel.includes(k)}" data-t="${k}">
@@ -760,48 +831,54 @@ function home(){
       </button>`; }).join("")}
   </div>
 
-  <div class="sec-title"><h3>Choisis ton mode</h3><span class="muted" style="font-size:14px">${p.length} cartes sélectionnées</span></div>
+  <div class="sec-title"><h3>Choisissez votre mode</h3><span class="muted" style="font-size:14px">${p.length} cartes sélectionnées</span></div>
   <div class="modes">
     <div class="mode">
       <h4>${ico("flip",22)} Flip cards</h4>
-      <p>Lis la question, cherche la réponse dans ta tête, retourne la carte et note-toi honnêtement. Les cartes ratées reviennent plus souvent.</p>
+      <p>Lisez la question, cherchez la réponse dans votre tête, retournez la carte et notez-vous honnêtement. Les cartes ratées reviennent le lendemain.</p>
       <div class="seg" role="group" aria-label="Nombre de cartes">${sizes.map(s => `<button data-size="${s}" aria-pressed="${String(S.size) === String(s)}">${s}</button>`).join("")}</div>
       <button class="go" id="goFlip" ${p.length ? "" : "disabled"}>Commencer ${ico("arrow",18)}</button>
     </div>
     <div class="mode">
       <h4>${ico("quiz",22)} Défi QCM</h4>
-      <p>10 questions à choix multiples, corrigées tout de suite. Réponds vite pour gagner un bonus. Visé : 10/10.</p>
+      <p>10 questions à choix multiples, corrigées tout de suite. Répondez vite pour gagner un bonus. Visé : 10/10.</p>
       <button class="go alt" id="goQcm" ${qcmPool().length >= 4 ? "" : "disabled"}>Lancer le défi ${ico("arrow",18)}</button>
-      ${qcmPool().length >= 4 ? "" : `<p style="font-size:12.5px">Sélectionne Définitions, Dates, URSS, Allemagne ou Front populaire.</p>`}
+      ${qcmPool().length >= 4 ? "" : `<p style="font-size:12.5px">Sélectionnez Définitions, Dates, URSS, Allemagne ou Front populaire.</p>`}
     </div>
     <div class="mode">
       <h4>${ico("line",22)} Frise</h4>
-      <p>5 événements mélangés : touche-les dans l'ordre chronologique, du plus ancien au plus récent.</p>
+      <p>5 événements mélangés : touchez-les dans l'ordre chronologique, du plus ancien au plus récent.</p>
       <button class="go alt" id="goFrise">Remettre dans l'ordre ${ico("arrow",18)}</button>
+    </div>
+    <div class="mode">
+      <h4>${ico("pen",22)} Construire un plan</h4>
+      <p>Les ${PLANS.length} sujets possibles de l'évaluation : rangez les idées dans la bonne partie et repérez l'idée hors sujet.</p>
+      <button class="go alt" id="goPlan">Construire ${ico("arrow",18)}</button>
     </div>
     <div class="mode exam">
       <h4>${ico("clock",22)} Évaluation blanche</h4>
       <span class="veille">À faire la veille de l'évaluation</span>
-      <p>${EXAM_N} questions essentielles pour le contrôle : définitions, dates et connaissances de la fiche de révision. Avec chrono, sans correction pendant l'épreuve. À la fin : ta note sur 20 et ton bilan par notion.</p>
+      <p>${EXAM_N} questions essentielles pour le contrôle : définitions, dates et connaissances de la fiche de révision. Avec chrono, sans correction pendant l'épreuve. À la fin : votre note sur 20 et votre bilan par notion.</p>
       <button class="go" id="goExam">Commencer l'évaluation ${ico("arrow",18)}</button>
     </div>
   </div>
 
-  <div class="sec-title"><h3>Tes badges</h3><button class="linkbtn" id="toBadges2">Voir tous les badges</button></div>
+  <div class="sec-title"><h3>Vos badges</h3><button class="linkbtn" id="toBadges2">Voir tous les badges</button></div>
   <div class="badge-strip">
     ${BADGES.slice().sort((a, b) => (S.badges[b.id] ? 1 : 0) - (S.badges[a.id] ? 1 : 0)).slice(0, 8).map(b => `<div class="medal${S.badges[b.id] ? "" : " locked"}" title="${esc(b.desc)}"><div class="disc">${ico(b.icon,30)}</div><span>${esc(b.name)}</span></div>`).join("")}
   </div>
-  <p class="foot">Ta progression est enregistrée dans ce navigateur, sur cet appareil.</p>`;
+  <p class="foot">Votre progression est enregistrée dans ce navigateur, sur cet appareil.</p>`;
 
   app.querySelectorAll(".theme").forEach(b => b.onclick = () => {
     const t = b.dataset.t; S.sel = S.sel.includes(t) ? S.sel.filter(x => x !== t) : S.sel.concat(t); save(); home();
   });
-  $("#allThemes").onclick = () => { S.sel = S.sel.length === 7 ? [] : Object.keys(THEMES); save(); home(); };
+  $("#allThemes").onclick = () => { S.sel = S.sel.length === Object.keys(THEMES).length ? [] : Object.keys(THEMES); save(); home(); };
   app.querySelectorAll("[data-size]").forEach(b => b.onclick = () => { S.size = b.dataset.size === "Tout" ? "Tout" : +b.dataset.size; save(); home(); });
   $("#goFlip").onclick = () => { const n = S.size === "Tout" ? p.length : S.size; startFlip(pick(p, n).map(c => c.id)); };
   $("#goQcm").onclick = startQcm;
   $("#goFrise").onclick = startFrise;
   $("#goExam").onclick = startExam;
+  $("#goPlan").onclick = planPick;
   $("#toBadges").onclick = $("#toBadges2").onclick = badgesView;
   const gf = $("#goFails"); if (gf) gf.onclick = () => startFlip(shuffle(failedIds()));
   window.scrollTo(0, 0);
@@ -836,7 +913,7 @@ function renderFlip(){
     <div class="flip" id="flip" tabindex="0" role="button" aria-label="Retourner la carte">
       <div class="face front" style="--c:${th.color}">
         <div class="fhead"><span class="ftag">${esc(th.short)}</span>${boxDots(c.id)}</div>
-        <div class="ruled"><div class="q">${c.q}</div><div class="hint">Touche la carte pour voir le corrigé</div></div>
+        <div class="ruled"><div class="q">${c.q}</div><div class="hint">Touchez la carte pour voir le corrigé</div></div>
       </div>
       <div class="face back" style="--c:${th.color}">
         <div class="fhead"><span class="ftag">Corrigé · ${esc(th.short)}</span>${boxDots(c.id)}</div>
@@ -892,7 +969,7 @@ function endFlip(){
   report("Flip cards", ids.filter(i => F.res[i] === 2).length, ids.length, F.res, F.t0);
   const k = ids.filter(i => F.res[i] === 0), m = ids.filter(i => F.res[i] === 1), o = ids.filter(i => F.res[i] === 2);
   const toReview = k.concat(m);
-  const msg = o.length === ids.length ? "Parfait !" : o.length / ids.length >= .7 ? "Très bien !" : o.length / ids.length >= .4 ? "Bon travail" : "Continue !";
+  const msg = o.length === ids.length ? "Parfait !" : o.length / ids.length >= .7 ? "Très bien !" : o.length / ids.length >= .4 ? "Bon travail" : "Continuez !";
   app.innerHTML = `
   <div class="endcard fade-in">
     <div><span class="ftag" style="--c:var(--accent);color:var(--accent)">Session terminée</span><h2>${msg}</h2></div>
@@ -934,7 +1011,7 @@ function optionsFor(c){
   return shuffle([c].concat(uniq.slice(0, 3)));
 }
 function qcmQuestion(c){
-  if (c.g === "def") return "Quelle est la bonne définition de " + c.q.replace(/^Définis\s*:\s*/, "") + " ?";
+  if (c.g === "def") return "Quelle est la bonne définition de " + c.q.replace(/^Définisse?z?\s*:\s*/, "") + " ?";
   return c.q;
 }
 function renderQcm(){
@@ -971,7 +1048,7 @@ function renderQcm(){
     save();
     $("#fb").innerHTML = `<div class="feedback ${ok ? "" : "ko"} fade-in"><b class="v" style="color:${ok ? "var(--ok)" : "var(--ko)"}">${ok ? (fast ? "Bonne réponse, et rapide !" : "Bonne réponse") : "Pas tout à fait"}</b>
       <div><b>${c.a}</b></div>${c.d ? `<div style="margin-top:4px">${c.d}</div>` : ""}</div>
-      <button class="go" id="next" style="width:100%;margin-top:12px">${Q.i + 1 < Q.list.length ? "Question suivante" : "Voir mon score"} ${ico("arrow",18)}</button>`;
+      <button class="go" id="next" style="width:100%;margin-top:12px">${Q.i + 1 < Q.list.length ? "Question suivante" : "Voir votre score"} ${ico("arrow",18)}</button>`;
     $("#next").onclick = () => { Q.i++; renderQcm(); };
     $("#next").focus({preventScroll:true});
     checkBadges();
@@ -993,7 +1070,7 @@ function endQcm(){
     </div>
     ${Q.wrong.length ? `<div class="miss">${Q.wrong.map(i => { const c = byId[i], th = THEMES[c.t]; return `<details style="--c:${th.color}"><summary><span class="ftag">${esc(th.short)}</span>${strip(qcmQuestion(c))}</summary><p><b>${c.a}</b></p></details>`; }).join("")}</div>` : ""}
     <div class="row">
-      ${Q.wrong.length ? `<button class="go" id="again">${ico("flip",18)} Retravailler mes erreurs en flip cards</button>` : ""}
+      ${Q.wrong.length ? `<button class="go" id="again">${ico("flip",18)} Retravailler vos erreurs en flip cards</button>` : ""}
       <button class="go alt" id="more">Nouveau défi</button>
       <button class="go alt" id="back">Accueil</button>
     </div>
@@ -1057,14 +1134,14 @@ function renderExam(){
   <div class="qcm-opts">${opts.map((o, i) => `<button class="opt${chosen === i ? " chosen" : ""}" data-i="${i}" aria-pressed="${chosen === i}"><span class="l">${"ABCD"[i]}</span><span>${esc(o)}</span></button>`).join("")}</div>
   <div class="row" style="margin-top:14px">
     ${E.i > 0 ? `<button class="go alt" id="prev">${ico("back",18)} Précédente</button>` : ""}
-    <button class="go" id="next" ${chosen !== undefined ? "" : "disabled"}>${E.i + 1 < E.list.length ? "Question suivante" : "Terminer et voir ma note"} ${ico("arrow",18)}</button>
+    <button class="go" id="next" ${chosen !== undefined ? "" : "disabled"}>${E.i + 1 < E.list.length ? "Question suivante" : "Terminer et voir votre note"} ${ico("arrow",18)}</button>
   </div>
   <div id="quitBox"></div>`;
   app.querySelectorAll(".opt").forEach(b => b.onclick = () => { E.answers[E.i] = +b.dataset.i; renderExam(); });
   $("#next").onclick = () => { if (E.i + 1 < E.list.length) { E.i++; renderExam(); } else endExam(); };
   const pv = $("#prev"); if (pv) pv.onclick = () => { E.i--; renderExam(); };
   $("#quit").onclick = () => {
-    $("#quitBox").innerHTML = `<div class="confirm-box" style="margin-top:14px"><span>Abandonner l'évaluation ? Tes réponses ne seront pas comptées.</span><button class="danger" id="qYes">Abandonner</button><button class="ghost" id="qNo">Continuer</button></div>`;
+    $("#quitBox").innerHTML = `<div class="confirm-box" style="margin-top:14px"><span>Abandonner l'évaluation ? Vos réponses ne seront pas comptées.</span><button class="danger" id="qYes">Abandonner</button><button class="ghost" id="qNo">Continuer</button></div>`;
     $("#qYes").onclick = () => { clearInterval(examTick); home(); };
     $("#qNo").onclick = () => { $("#quitBox").innerHTML = ""; };
   };
@@ -1087,18 +1164,18 @@ function endExam(){
   report("Évaluation blanche", ok, E.list.length, res);
   S.examBest = Math.max(S.examBest || 0, note); save(); checkBadges();
   const wrong = E.list.filter(c => !c.good);
-  const msg = note >= 16 ? "Excellent, tu es prêt !" : note >= 12 ? "Bien, encore un petit effort" : note >= 8 ? "Des bases, mais il faut réviser" : "À retravailler avant l'évaluation";
+  const msg = note >= 16 ? "Excellent, vous êtes prêt !" : note >= 12 ? "Bien, encore un petit effort" : note >= 8 ? "Des bases, mais il faut réviser" : "À retravailler avant l'évaluation";
   app.innerHTML = `
   <div class="endcard fade-in">
     <div><span class="ftag" style="color:var(--accent)">Évaluation blanche · ${mmss(dur)}</span>
       <h2 class="note20">${String(note).replace(".", ",")}<small>/20</small></h2><p class="muted" style="margin:6px 0 0;font-size:15px">${msg} · ${ok} bonne${ok > 1 ? "s" : ""} réponse${ok > 1 ? "s" : ""} sur ${E.list.length}</p></div>
     <div><h3 style="font-family:var(--f-display);text-transform:uppercase;font-size:20px;margin-bottom:8px">Bilan par notion</h3>
       <div class="tbars">${Object.entries(notions).map(([t, n]) => `<div class="tbar" style="--c:${THEMES[t].color}"><span>${esc(THEMES[t].label)}</span><div class="mbar"><i style="width:${pct(n.ok / n.tot)}%"></i></div><b>${n.ok}/${n.tot}</b></div>`).join("")}</div></div>
-    ${wrong.length ? `<div><h3 style="font-family:var(--f-display);text-transform:uppercase;font-size:20px;margin-bottom:8px">Corrigé de tes erreurs</h3>
-      <div class="miss">${wrong.map(c => { const th = THEMES[c.t]; return `<details style="--c:${th.color}" open><summary><span class="ftag">${esc(th.short)}</span>${strip(c.q)}</summary><p class="muted">Ta réponse : ${esc(c.mine || "—")}</p><p><b>Bonne réponse : ${esc(c.ok)}</b></p>${c.expl ? `<div style="margin-top:4px">${c.expl}</div>` : ""}</details>`; }).join("")}</div>
+    ${wrong.length ? `<div><h3 style="font-family:var(--f-display);text-transform:uppercase;font-size:20px;margin-bottom:8px">Corrigé de vos erreurs</h3>
+      <div class="miss">${wrong.map(c => { const th = THEMES[c.t]; return `<details style="--c:${th.color}" open><summary><span class="ftag">${esc(th.short)}</span>${strip(c.q)}</summary><p class="muted">Votre réponse : ${esc(c.mine || "—")}</p><p><b>Bonne réponse : ${esc(c.ok)}</b></p>${c.expl ? `<div style="margin-top:4px">${c.expl}</div>` : ""}</details>`; }).join("")}</div>
       <p class="muted" style="font-size:14px;margin:10px 0 0">Ces cartes reviendront demain dans « Cartes à revoir aujourd'hui ».</p></div>` : ""}
     <div class="row">
-      ${wrong.length ? `<button class="go" id="again">${ico("flip",18)} Retravailler mes erreurs maintenant</button>` : ""}
+      ${wrong.length ? `<button class="go" id="again">${ico("flip",18)} Retravailler vos erreurs maintenant</button>` : ""}
       <button class="go alt" id="more">Nouvelle évaluation blanche</button>
       <button class="go alt" id="back">Accueil</button>
     </div>
@@ -1128,7 +1205,7 @@ function renderFrise(){
     <span class="sess-count">${FR.order.length}/${FR.items.length}</span><span class="combo"></span>
   </div>
   <div class="face" style="--c:var(--c-dates);min-height:0"><div class="fhead"><span class="ftag">Frise chronologique</span><span class="fbox">1919 → 1939</span></div>
-    <div class="ruled" style="padding-block:14px"><div class="q" style="padding-block:4px;font-size:clamp(18px,2.8vw,22px)">${FR.checked ? "Voici le bon ordre." : "Touche les événements du plus ancien au plus récent. Touche à nouveau pour annuler."}</div></div></div>
+    <div class="ruled" style="padding-block:14px"><div class="q" style="padding-block:4px;font-size:clamp(18px,2.8vw,22px)">${FR.checked ? "Voici le bon ordre." : "Touchez les événements du plus ancien au plus récent. Touchez à nouveau pour annuler."}</div></div></div>
   <div class="frise-pool">
     ${FR.items.map(c => {
       const pos = FR.order.indexOf(c.id); const tt = themeOfDate(c);
@@ -1158,9 +1235,61 @@ function renderFrise(){
     if (good === FR.items.length) { gain += 20; S.frisePerfect++; confetti(); }
     addXP(gain); save(); checkBadges();
     renderFrise();
-    $("#fb").innerHTML = `<div class="feedback ${good === FR.items.length ? "" : "ko"}"><b class="v" style="color:${good === FR.items.length ? "var(--ok)" : "var(--ko)"}">${good}/${FR.items.length} bien placés</b>${good === FR.items.length ? "Frise parfaite : +20 XP de bonus." : "Les événements mal placés sont encadrés en rouge. Relis la frise ci-dessus."}</div>`;
+    $("#fb").innerHTML = `<div class="feedback ${good === FR.items.length ? "" : "ko"}"><b class="v" style="color:${good === FR.items.length ? "var(--ok)" : "var(--ko)"}">${good}/${FR.items.length} bien placés</b>${good === FR.items.length ? "Frise parfaite : +20 XP de bonus." : "Les événements mal placés sont encadrés en rouge. Relisez la frise ci-dessus."}</div>`;
   };
   else { $("#again").onclick = startFrise; $("#back").onclick = home; }
+}
+
+/* =========================================================
+   CONSTRUIRE UN PLAN
+   ========================================================= */
+function head(done, total, count, right){
+  return `<div class="sess-head">
+    <button class="ghost" id="quit" aria-label="Retour à l'accueil">${ico("back",16)}</button>
+    <div class="prog" aria-hidden="true"><i style="width:${pct(done / total)}%"></i></div>
+    <span class="sess-count">${count}</span>
+    <span class="combo" id="combo">${right || ""}</span>
+  </div>`;
+}
+function bindQuit(){ const q = $("#quit"); if (q) q.onclick = () => { save(); home(); }; }
+function intro(color, tag, box, text, still){
+  return `<div class="face${still ? "" : " fade-in"}" style="--c:${color};min-height:0"><div class="fhead"><span class="ftag">${tag}</span><span class="fbox">${box}</span></div>
+    <div class="ruled" style="padding-block:14px"><div class="q" style="padding-block:6px;font-size:clamp(19px,3vw,24px)">${text}</div></div></div>`;
+}
+function keepScroll(fn){ const y = window.scrollY; fn(); window.scrollTo(0, y); }
+let PL = null;
+function planPick(){
+  view = "planpick";
+  app.innerHTML = `<div class="sess-head"><button class="ghost" id="quit" aria-label="Retour à l'accueil">${ico("back",16)}</button></div>
+  ${intro("var(--c-methode)", "Construire un plan", "développement construit", "Choisissez un sujet. Rangez chaque idée dans la bonne partie et repérez l'idée hors sujet (✕).")}
+  <div class="subj">${PLANS.map((p, i) => `<button class="ev" data-p="${i}" style="--c:var(--c-methode)"><span class="n">${i + 1}</span><span><span class="tg">Sujet possible</span>${esc(p.s)}</span></button>`).join("")}</div>`;
+  bindQuit();
+  app.querySelectorAll("[data-p]").forEach(b => b.onclick = () => startPlan(+b.dataset.p));
+  window.scrollTo(0, 0);
+}
+function startPlan(i){ PL = {p: i, as: {}, checked: false, order: shuffle(PLANS[i].ideas.map((_, k) => k)), xp0: S.xp}; view = "plan"; renderPlan(); window.scrollTo(0, 0); }
+function renderPlan(){
+  const P = PLANS[PL.p], as = PL.as, n = Object.keys(as).length, tot = P.ideas.length;
+  const ok = k => as[k] === P.ideas[k].p, score = P.ideas.filter((_, k) => ok(k)).length, perfect = score === tot;
+  app.innerHTML = `${head(n, tot, `${n}/${tot}`, "")}
+  <div class="face${PL.drawn ? "" : " fade-in"}" style="--c:var(--c-methode);min-height:0"><div class="fhead"><span class="ftag">Sujet possible</span><span class="fbox">${tot} idées à ranger</span></div>
+    <div class="ruled" style="padding-block:14px"><div class="q" style="padding-block:4px;font-size:clamp(18px,2.8vw,22px)">« ${esc(P.s)} »</div>
+    <div class="skel">${P.parts.map((t, i) => `<div><b>${ROMAN[i]}.</b>${esc(t)}</div>`).join("")}<div class="muted"><b>✕</b>Hors sujet</div></div></div></div>
+  ${PL.order.map(k => { const id = P.ideas[k], st = PL.checked ? (ok(k) ? " right" : " wrong") : "";
+    return `<div class="idea${st}"><p>${esc(id.t)}${PL.checked && !ok(k) ? `<span class="why">→ ${id.p < 0 ? "Hors sujet : " + esc(id.w) : "Partie " + ROMAN[id.p] + " : " + esc(P.parts[id.p])}</span>` : ""}</p>
+      <div class="seg" role="group" aria-label="Partie">${[...P.parts.map((_, i) => i), -1].map(v => `<button data-k="${k}" data-v="${v}" aria-pressed="${as[k] === v}" ${PL.checked ? "disabled" : ""}>${v < 0 ? "✕" : ROMAN[v]}</button>`).join("")}</div></div>`; }).join("")}
+  ${PL.checked ? `<div class="feedback ${perfect ? "" : "ko"} fade-in"><b class="v" style="color:${perfect ? "var(--ok)" : "var(--ko)"}">${score}/${tot} idées bien placées</b><div style="margin-bottom:8px">Voici le plan modèle, à savoir refaire le jour de l'évaluation :</div>${planHtml(P)}</div>
+    <div class="row" style="margin-top:14px"><button class="go" id="other">Autre sujet ${ico("arrow",18)}</button><button class="go alt" id="back">Accueil</button></div>`
+  : `<div class="row" style="margin-top:14px"><button class="go" id="check" ${n < tot ? "disabled" : ""}>Vérifier mon plan ${ico("arrow",18)}</button></div>`}`;
+  PL.drawn = true;
+  bindQuit();
+  if (PL.checked) { $("#other").onclick = planPick; $("#back").onclick = home; return; }
+  app.querySelectorAll("[data-k]").forEach(b => b.onclick = () => { PL.as[+b.dataset.k] = +b.dataset.v; keepScroll(renderPlan); });
+  $("#check").onclick = () => {
+    PL.checked = true; track("session-plan"); report("Plan", score, tot, {plan: score});
+    let gain = score * 3; if (perfect) { gain += 15; confetti(); }
+    addXP(gain); markDay(); save(); checkBadges(); keepScroll(renderPlan);
+  };
 }
 
 /* =========================================================
@@ -1176,7 +1305,7 @@ function renderBadges(){
   <section class="bilan fade-in">
     ${g >= .7 ? `<span class="stamp">Prêt !</span>` : ""}
     <span class="ftag" style="color:var(--accent)">Bilan de révision · H2</span>
-    <h2>Mon bilan</h2>
+    <h2>Votre bilan</h2>
     <div class="muted" style="font-size:14.5px">Niveau ${lv.n}/${LEVELS.length} · ${esc(lv.name)} · ${S.xp} XP · ${S.reviewed} cartes révisées · ${Object.keys(S.badges).length}/${BADGES.length} badges</div>
     <div class="tbars">
       ${Object.entries(THEMES).map(([k, t]) => { const m = mastery(inTheme(k)); return `<div class="tbar" style="--c:${t.color}"><span>${esc(t.label)}</span><div class="mbar"><i style="width:${pct(m)}%"></i></div><b>${pct(m)}%</b></div>`; }).join("")}
@@ -1190,7 +1319,7 @@ function renderBadges(){
   <div class="sec-title"><h3>Recommencer à zéro</h3></div>
   <div class="confirm-box" id="resetZone">
     ${confirmReset ? `<span>Tout effacer (XP, badges, progression) ?</span><button class="danger" id="yes">Oui, tout effacer</button><button class="ghost" id="no">Annuler</button>`
-      : `<button class="danger" id="reset">Effacer ma progression</button>`}
+      : `<button class="danger" id="reset">Effacer votre progression</button>`}
   </div>`;
   $("#quit").onclick = home;
   if (confirmReset) { $("#yes").onclick = () => { S = fresh(); save(); home(); }; $("#no").onclick = () => { confirmReset = false; renderBadges(); }; }
