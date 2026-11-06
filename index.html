@@ -324,6 +324,11 @@ button,.flip,.opt,.ev,.theme{touch-action:manipulation;-webkit-tap-highlight-col
 .plan ul{margin:2px 0 0;padding-left:18px}
 @media (max-width:560px){.idea{flex-direction:column;align-items:stretch}.idea .seg{align-self:flex-end}}
 .mode.exam{grid-column:1/-1}
+
+.themes.parts{grid-template-columns:repeat(3,1fr)}
+.themes.types{grid-template-columns:repeat(4,1fr)}
+@media (max-width:700px){.themes.parts{grid-template-columns:1fr}.themes.types{grid-template-columns:1fr 1fr}}
+.theme[disabled]{opacity:.45;cursor:not-allowed}
 </style>
 
 </head>
@@ -575,6 +580,31 @@ function planHtml(p){
     `<div class="pl-i"><b>Conclusion</b>${p.concl}</div></div>`;
 }
 
+/* ===== CHOIX EN DEUX ÉTAPES : partie du chapitre, puis type de cartes ===== */
+const PARTIES = {
+  urss: {label:"L'URSS de Staline",  color:"var(--c-urss)"},
+  nazi: {label:"L'Allemagne nazie",  color:"var(--c-nazi)"},
+  fp:   {label:"Le Front populaire", color:"var(--c-fp)"}
+};
+const TYPES = {
+  def:   {label:"Définitions",          color:"var(--c-def)"},
+  dates: {label:"Dates et repères",     color:"var(--c-dates)"},
+  conn:  {label:"Connaissances",        color:"var(--c-approf)"},
+  comp:  {label:"Comparer et expliquer",color:"var(--c-methode)"}
+};
+// Partie du chapitre de chaque définition, date et carte « comparer »
+const PARTIE_DE = {
+  urss: ["d1","d3","d4","d5","d13","d14","d17","d18","d20","r1","r4","t2","t3","t4","t5","a4"],
+  nazi: ["d1","r4","d7","d8","d9","d10","d11","d16","r2","r3","r5","t7","t8","t9","t11","t12","t13","t19","t21","t23","a1","a2","a3","a5","a12"],
+  fp:   ["d2","d6","d19","t14","t15","t16","t17","t20","t22","a6","a9"]
+};
+CARDS.forEach(c => {
+  // une carte peut appartenir à plusieurs parties (ex. « régime totalitaire » : URSS et Allemagne)
+  c.parts = ["urss","nazi","fp"].includes(c.t) ? [c.t] : Object.keys(PARTIE_DE).filter(p => PARTIE_DE[p].includes(c.id));
+  if (!c.parts.length) c.parts = ["urss"];
+  c.typ = c.t === "def" ? "def" : c.t === "dates" ? "dates" : c.t === "approf" ? "comp" : "conn";
+});
+
 (function(){
 "use strict";
 const KEY = "h2-totalitarismes-3e-v1";
@@ -584,7 +614,7 @@ const app = $("#app");
 const byId = Object.fromEntries(CARDS.map(c => [c.id, c]));
 
 /* ---------- Sauvegarde ---------- */
-function fresh(){ return {name:"", xp:0, cards:{}, badges:{}, days:[], reviewed:0, bestStreak:0, comeback:0, frisePerfect:0, sel:Object.keys(THEMES), size:20}; }
+function fresh(){ return {name:"", xp:0, cards:{}, badges:{}, days:[], reviewed:0, bestStreak:0, comeback:0, frisePerfect:0, sel:Object.keys(THEMES), parts:["urss"], types:Object.keys(TYPES), size:20}; }
 let S = fresh();
 try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(fresh(), JSON.parse(raw)); } catch(e) {}
 function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e) {} }
@@ -759,7 +789,10 @@ function grade(id, r){ // r : 0 raté, 1 presque, 2 su
 }
 
 /* ---------- Sélection des cartes ---------- */
-function pool(){ S.sel = S.sel.filter(t => THEMES[t]); return CARDS.filter(c => S.sel.includes(c.t)); }
+function pool(){
+  S.parts = (S.parts || []).filter(p => PARTIES[p]); S.types = (S.types || []).filter(t => TYPES[t]);
+  return CARDS.filter(c => c.parts.some(p => S.parts.includes(p)) && S.types.includes(c.typ));
+}
 function pick(list, n){
   const now = Date.now();
   return list.map(c => {
@@ -813,7 +846,7 @@ function home(){
   <section class="how" aria-label="Comment ça marche">
     <h3>Comment ça marche ?</h3>
     <ol>
-      <li><span><b>Choisissez</b> vos thèmes et un mode de jeu.</span></li>
+      <li><span><b>Choisissez</b> la partie étudiée, le type de cartes, puis un mode de jeu.</span></li>
       <li><span><b>Lisez la question</b>, cherchez la réponse dans votre tête, puis retournez la carte.</span></li>
       <li><span><b>Soyez honnête</b> : « Je savais », « Presque » ou « Raté ».</span></li>
       <li><span><b>Les cartes ratées reviennent</b> le lendemain, jusqu'à ce que vous les sachiez.</span></li>
@@ -821,17 +854,27 @@ function home(){
     <p>Chaque bonne réponse rapporte des points (XP). Enchaînez les bonnes réponses pour gagner plus et débloquer des badges.</p>
   </section>
 
-  <div class="sec-title"><h3>Choisissez vos thèmes</h3><button class="linkbtn" id="allThemes">${S.sel.length === Object.keys(THEMES).length ? "Tout désélectionner" : "Tout sélectionner"}</button></div>
-  <div class="themes">
-    ${Object.entries(THEMES).map(([k, t]) => { const l = inTheme(k), m = mastery(l); return `
-      <button class="theme" style="--c:${t.color}" aria-pressed="${S.sel.includes(k)}" data-t="${k}">
+  <div class="sec-title"><h3>1. Choisissez la partie du chapitre</h3><span class="muted" style="font-size:14px">celle(s) déjà étudiée(s) en classe</span></div>
+  <div class="themes parts">
+    ${Object.entries(PARTIES).map(([k, t]) => { const l = CARDS.filter(c => c.parts.includes(k)), m = mastery(l); return `
+      <button class="theme" style="--c:${t.color}" aria-pressed="${S.parts.includes(k)}" data-part="${k}">
         <div class="th-top"><span class="th-name"><span class="dot"></span>${esc(t.label)}</span><span class="chk"></span></div>
         <div class="mbar"><i style="width:${pct(m)}%"></i></div>
         <div class="th-meta"><span>${l.length} cartes</span><span>${pct(m)} % maîtrisé</span></div>
       </button>`; }).join("")}
   </div>
 
-  <div class="sec-title"><h3>Choisissez votre mode</h3><span class="muted" style="font-size:14px">${p.length} cartes sélectionnées</span></div>
+  <div class="sec-title"><h3>2. Choisissez le type de cartes</h3><button class="linkbtn" id="allTypes">${S.types.length === Object.keys(TYPES).length ? "Tout désélectionner" : "Tout sélectionner"}</button></div>
+  <div class="themes types">
+    ${Object.entries(TYPES).map(([k, t]) => { const l = CARDS.filter(c => c.typ === k && c.parts.some(p => S.parts.includes(p))), m = mastery(l); return `
+      <button class="theme" style="--c:${t.color}" aria-pressed="${S.types.includes(k)}" data-type="${k}" ${l.length ? "" : "disabled"}>
+        <div class="th-top"><span class="th-name"><span class="dot"></span>${esc(t.label)}</span><span class="chk"></span></div>
+        <div class="mbar"><i style="width:${pct(m)}%"></i></div>
+        <div class="th-meta"><span>${l.length} carte${l.length > 1 ? "s" : ""}</span><span>${l.length ? pct(m) + " % maîtrisé" : "—"}</span></div>
+      </button>`; }).join("")}
+  </div>
+
+  <div class="sec-title"><h3>3. Choisissez votre mode</h3><span class="muted" style="font-size:14px">${p.length} cartes sélectionnées</span></div>
   <div class="modes">
     <div class="mode">
       <h4>${ico("flip",22)} Flip cards</h4>
@@ -843,12 +886,12 @@ function home(){
       <h4>${ico("quiz",22)} Défi QCM</h4>
       <p>10 questions à choix multiples, corrigées tout de suite. Répondez vite pour gagner un bonus. Visé : 10/10.</p>
       <button class="go alt" id="goQcm" ${qcmPool().length >= 4 ? "" : "disabled"}>Lancer le défi ${ico("arrow",18)}</button>
-      ${qcmPool().length >= 4 ? "" : `<p style="font-size:12.5px">Sélectionnez Définitions, Dates, URSS, Allemagne ou Front populaire.</p>`}
+      ${qcmPool().length >= 4 ? "" : `<p style="font-size:12.5px">Choisissez au moins une partie et un type de cartes.</p>`}
     </div>
     <div class="mode">
       <h4>${ico("line",22)} Frise</h4>
-      <p>5 événements mélangés : touchez-les dans l'ordre chronologique, du plus ancien au plus récent.</p>
-      <button class="go alt" id="goFrise">Remettre dans l'ordre ${ico("arrow",18)}</button>
+      <p>Jusqu'à 5 événements mélangés : touchez-les dans l'ordre chronologique, du plus ancien au plus récent.</p>
+      <button class="go alt" id="goFrise" ${new Set(CARDS.filter(c => c.k && c.parts.some(p => S.parts.includes(p))).map(c => Math.floor(c.k))).size >= 3 ? "" : "disabled"}>Remettre dans l'ordre ${ico("arrow",18)}</button>
     </div>
     <div class="mode">
       <h4>${ico("pen",22)} Construire un plan</h4>
@@ -869,10 +912,13 @@ function home(){
   </div>
   <p class="foot">Votre progression est enregistrée dans ce navigateur, sur cet appareil.</p>`;
 
-  app.querySelectorAll(".theme").forEach(b => b.onclick = () => {
-    const t = b.dataset.t; S.sel = S.sel.includes(t) ? S.sel.filter(x => x !== t) : S.sel.concat(t); save(); home();
+  app.querySelectorAll("[data-part]").forEach(b => b.onclick = () => {
+    const t = b.dataset.part; S.parts = S.parts.includes(t) ? S.parts.filter(x => x !== t) : S.parts.concat(t); save(); home();
   });
-  $("#allThemes").onclick = () => { S.sel = S.sel.length === Object.keys(THEMES).length ? [] : Object.keys(THEMES); save(); home(); };
+  app.querySelectorAll("[data-type]").forEach(b => b.onclick = () => {
+    const t = b.dataset.type; S.types = S.types.includes(t) ? S.types.filter(x => x !== t) : S.types.concat(t); save(); home();
+  });
+  $("#allTypes").onclick = () => { S.types = S.types.length === Object.keys(TYPES).length ? [] : Object.keys(TYPES); save(); home(); };
   app.querySelectorAll("[data-size]").forEach(b => b.onclick = () => { S.size = b.dataset.size === "Tout" ? "Tout" : +b.dataset.size; save(); home(); });
   $("#goFlip").onclick = () => { const n = S.size === "Tout" ? p.length : S.size; startFlip(pick(p, n).map(c => c.id)); };
   $("#goQcm").onclick = startQcm;
@@ -1189,7 +1235,7 @@ function endExam(){
 }
 
 function startFrise(){
-  const dated = shuffle(CARDS.filter(c => c.k));
+  const dated = shuffle(CARDS.filter(c => c.k && c.parts.some(p => S.parts.includes(p))));
   const chosen = [];
   for (const c of dated) { if (chosen.length >= 5) break; if (!chosen.some(x => Math.floor(x.k) === Math.floor(c.k))) chosen.push(c); }
   FR = {items: shuffle(chosen), order: [], checked: false, xp0: S.xp, t0: Date.now()};
